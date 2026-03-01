@@ -1,14 +1,6 @@
-export interface Env {
-  IMAGES_BUCKET: R2Bucket;
-  GEMINI_API_KEY: string;
-}
-
-export const config = {
-  runtime: 'edge',
-};
-
 import { NextResponse } from 'next/server';
-import OpenAI from 'openai';
+
+export const runtime = 'edge';
 
 export async function POST(req: Request) {
   try {
@@ -18,55 +10,73 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
 
-    // 获取 Cloudflare 环境中的变量
-    // 在 Next.js App Router 的 API Route 中，Cloudflare context 可以通过 process.env 注入（取决于配置）
-    // 或者直接使用全局注入
     const apiKey = process.env.GEMINI_API_KEY;
-    const bucket = (process.env as any).IMAGES_BUCKET;
-
-    const openai = new OpenAI({
-      apiKey: apiKey,
-      baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/",
-    });
+    
+    if (!apiKey) {
+      return NextResponse.json({ error: 'System Error: API Key not configured in environment.' }, { status: 500 });
+    }
 
     const categoryPrompts: Record<string, string> = {
-      fashion: "Fashion Design. Professional studio photography.",
-      architecture: "Architecture design. High-end architectural rendering.",
-      interior: "Interior design. High-end interior photography."
+      fashion: "Professional Fashion Design Studio Photography.",
+      architecture: "High-end Photorealistic Architectural Visualization Rendering.",
+      interior: "Luxury Modern Interior Design Magazine Photography."
     };
 
     const systemPrompt = categoryPrompts[category] || "Professional design AI.";
 
-    const response = await openai.images.generate({
-      model: "imagen-3.1-generate-001",
-      prompt: `${systemPrompt}\n\nUser Request: ${prompt}`,
-      n: 1,
-      size: "1024x1024",
-    } as any);
+    // --- Google Native Imagen API ---
+    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        instances: [
+          { prompt: `${systemPrompt} ${prompt}. Technical: 8k, ultra-detailed.` }
+        ],
+        parameters: {
+          sampleCount: 1
+        }
+      })
+    });
 
-    const imageUrl = (response as any).data?.[0]?.url;
-    
-    if (!imageUrl) {
-      throw new Error('Empty response from AI');
+    const data = await apiResponse.json();
+
+    if (!apiResponse.ok) {
+      return NextResponse.json({ error: data.error?.message || 'Gemini API Error' }, { status: apiResponse.status });
     }
 
-    // --- R2 存储逻辑 ---
-    if (bucket) {
-      const imageRes = await fetch(imageUrl);
-      const imageBlob = await imageRes.arrayBuffer();
-      const fileName = `${category}-${Date.now()}.png`;
-      
-      await bucket.put(fileName, imageBlob, {
-        httpMetadata: { contentType: 'image/png' }
-      });
-      
-      // 注意：这里可能需要配置 R2 的公开访问，或者是返回一个本地代理 URL
-      // 目前为了快速演示，我们继续返回原始 URL，但数据已存入 R2
-      console.log(`Saved to R2: ${fileName}`);
+    // Imagen 返回的是 base64 或者是图片二进制。
+    // 在 v1beta 中，通常返回的是 predictions[0].bytesBase64Encoded
+    const base64Data = data.predictions?.[0]?.bytesBase64Encoded;
+    
+    if (!base64Data) {
+      return NextResponse.json({ error: 'No image data returned from AI.', debug: data }, { status: 500 });
+    }
+
+    const imageUrl = `data:image/png;base64,${base64Data}`;
+
+    // --- R2 存储逻辑 (由于返回的是 base64，我们可以直接存) ---
+    try {
+      // @ts-ignore
+      const bucket = process.env.IMAGES_BUCKET;
+      if (bucket && typeof (bucket as any).put === 'function') {
+        const binaryString = atob(base64Data);
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        await (bucket as any).put(`${category}-${Date.now()}.png`, bytes.buffer, {
+          httpMetadata: { contentType: 'image/png' }
+        });
+      }
+    } catch (e) {
+      console.error('R2 Background Save Failed:', e);
     }
 
     return NextResponse.json({ imageUrl });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    console.error('Server Crash:', error);
+    return NextResponse.json({ error: `Server Exception: ${error.message}` }, { status: 500 });
   }
 }
