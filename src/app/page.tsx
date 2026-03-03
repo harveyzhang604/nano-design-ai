@@ -125,12 +125,12 @@ function DesignPageContent() {
         <div className="flex gap-2">
           <Link
             href="/gallery"
-            className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700"
+            className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700"
             title="查看灵感画廊"
           >
             <ImageIcon className="w-5 h-5" />
           </Link>
-          <button className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700">
+          <button className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700">
             <History className="w-5 h-5" />
           </button>
         </div>
@@ -141,7 +141,7 @@ function DesignPageContent() {
         <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700">
           {/* 领域选择 */}
           <section>
-            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">应用领域</h3>
+            <h2 className="text-xs font-semibold text-neutral-400 uppercase tracking-[0.2em] mb-4">应用领域</h2>
             <div className="grid grid-cols-2 gap-3">
               {domains.map((d) => (
                 <button
@@ -163,9 +163,9 @@ function DesignPageContent() {
 
           {/* 分类选择 */}
           <section>
-            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">
+            <h2 className="text-xs font-semibold text-neutral-400 uppercase tracking-[0.2em] mb-4">
               {domains.find(d => d.id === domain)?.name || '设计领域'}
-            </h3>
+            </h2>
             <div className="grid grid-cols-2 gap-3">
               {currentCategories.map((cat: any) => (
                 <button
@@ -191,7 +191,7 @@ function DesignPageContent() {
           {/* 提示词模板 */}
           <section>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">提示词模板</h3>
+              <h2 className="text-xs font-semibold text-neutral-400 uppercase tracking-[0.2em]">提示词模板</h2>
               <button
                 onClick={() => setShowTemplates(!showTemplates)}
                 className="text-xs text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1"
@@ -214,7 +214,7 @@ function DesignPageContent() {
                     }`}
                   >
                     <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
-                    <div className="text-xs text-neutral-500 line-clamp-2">{template.prompt}</div>
+                    <div className="text-xs text-neutral-400 line-clamp-2">{template.prompt}</div>
                     <div className="flex gap-1 mt-2">
                       {template.tags.map((tag, idx) => (
                         <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-400 rounded">
@@ -229,7 +229,7 @@ function DesignPageContent() {
           </section>
 
           <section>
-            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h3>
+            <h2 className="text-xs font-semibold text-neutral-400 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h2>
             <div className="relative group">
               <textarea
                 value={prompt}
@@ -237,7 +237,7 @@ function DesignPageContent() {
                 placeholder="描述您的创作灵感，或从上方选择模板开始..."
                 className="w-full h-56 bg-neutral-900 border border-neutral-800 rounded-xl p-5 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-neutral-700 group-hover:border-neutral-700 shadow-inner"
               />
-              <div className="absolute bottom-4 right-4 text-[10px] text-neutral-600 font-mono">
+              <div className="absolute bottom-4 right-4 text-[10px] text-neutral-400 font-mono">
                 {prompt.length} chars
               </div>
             </div>
@@ -252,7 +252,7 @@ function DesignPageContent() {
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !prompt}
-              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-600 text-neutral-950 font-black text-sm uppercase tracking-widest py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-amber-500/10"
+              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-400 text-neutral-950 font-black text-sm uppercase tracking-widest py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-amber-500/10"
             >
               {isGenerating ? (
                 <>
@@ -296,7 +296,7 @@ function DesignPageContent() {
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-neutral-200">开始您的创作</h2>
-                <p className="text-neutral-500 mt-4 text-sm leading-relaxed">
+                <p className="text-neutral-400 mt-4 text-sm leading-relaxed">
                   选择应用领域和分类，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清图像。
                 </p>
               </div>

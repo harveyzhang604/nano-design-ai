@@ -69,7 +69,7 @@ export default function GalleryPage() {
       <header className="max-w-7xl mx-auto mb-12">
         <Link 
           href="/"
-          className="inline-flex items-center gap-2 text-neutral-400 hover:text-amber-400 transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-neutral-300 hover:text-amber-400 transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" />
           返回首页
@@ -110,7 +110,7 @@ export default function GalleryPage() {
               className={`px-6 py-2.5 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${
                 selectedCategory === cat.id
                   ? 'bg-amber-500 text-neutral-950'
-                  : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-800 hover:text-neutral-200'
+                  : 'bg-neutral-900 text-neutral-300 hover:bg-neutral-800 hover:text-neutral-200'
               }`}
             >
               {cat.name}
@@ -121,7 +121,7 @@ export default function GalleryPage() {
 
       {/* Results Count */}
       <div className="max-w-7xl mx-auto mb-6">
-        <p className="text-neutral-500 text-sm">
+        <p className="text-neutral-400 text-sm">
           找到 <span className="text-amber-400 font-medium">{filteredPrompts.length}</span> 个提示词
         </p>
       </div>
@@ -156,7 +156,7 @@ export default function GalleryPage() {
                     </span>
                   ))}
                   {item.tags.length > 3 && (
-                    <span className="px-2 py-1 bg-neutral-800 text-neutral-500 text-xs rounded-md">
+                    <span className="px-2 py-1 bg-neutral-800 text-neutral-400 text-xs rounded-md">
                       +{item.tags.length - 3}
                     </span>
                   )}
@@ -164,7 +164,7 @@ export default function GalleryPage() {
 
                 {/* Prompt */}
                 <div className="relative">
-                  <p className="text-xs text-neutral-500 leading-relaxed line-clamp-4 mb-4">
+                  <p className="text-xs text-neutral-400 leading-relaxed line-clamp-4 mb-4">
                     {item.prompt}
                   </p>
 
@@ -203,14 +203,14 @@ export default function GalleryPage() {
         {/* Empty State */}
         {filteredPrompts.length === 0 && (
           <div className="text-center py-16">
-            <p className="text-neutral-500 text-lg mb-2">未找到匹配的提示词</p>
-            <p className="text-neutral-600 text-sm">尝试调整搜索关键词或选择其他分类</p>
+            <p className="text-neutral-400 text-lg mb-2">未找到匹配的提示词</p>
+            <p className="text-neutral-400 text-sm">尝试调整搜索关键词或选择其他分类</p>
           </div>
         )}
       </main>
 
       {/* Footer */}
-      <footer className="max-w-7xl mx-auto mt-16 pt-8 border-t border-neutral-800 text-center text-neutral-500 text-sm">
+      <footer className="max-w-7xl mx-auto mt-16 pt-8 border-t border-neutral-800 text-center text-neutral-400 text-sm">
         <p>所有案例基于 Nano Banana Pro (Gemini 3 Pro Image) 生成</p>
         <p className="mt-2 text-xs">提示词来源：AIxploria, Imagine.art, Atlabs AI, nanaimg.io</p>
       </footer>
