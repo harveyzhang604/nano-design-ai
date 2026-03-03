@@ -1,13 +1,20 @@
 "use client";
 import { useState, useEffect, Suspense } from 'react';
-import { Camera, Layers, PenTool, Send, Loader2, Download, History, Palette, AlertCircle, Image as ImageIcon } from 'lucide-react';
+import { 
+  Camera, Layers, PenTool, Send, Loader2, Download, History, 
+  Palette, AlertCircle, Image as ImageIcon, Home, Package, 
+  Smartphone, Paintbrush, Award, Box, Building2, Sparkles
+} from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { designCategories, promptTemplates } from '@/config/templates';
 
 function DesignPageContent() {
   const searchParams = useSearchParams();
   const [prompt, setPrompt] = useState('');
   const [category, setCategory] = useState('fashion');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -20,11 +27,31 @@ function DesignPageContent() {
     if (urlCategory) setCategory(urlCategory);
   }, [searchParams]);
 
-  const categories = [
-    { id: 'fashion', name: '服装设计', icon: Layers },
-    { id: 'architecture', name: '建筑设计', icon: PenTool },
-    { id: 'interior', name: '室内设计', icon: Palette },
-  ];
+  const iconMap: Record<string, any> = {
+    Layers,
+    Building2,
+    Home,
+    Package,
+    Palette,
+    Smartphone,
+    Paintbrush,
+    Award,
+    Camera,
+    Box
+  };
+
+  const categories = designCategories.map(cat => ({
+    ...cat,
+    icon: iconMap[cat.icon] || Layers
+  }));
+
+  const currentTemplates = promptTemplates[category as keyof typeof promptTemplates] || [];
+
+  const handleTemplateSelect = (template: any) => {
+    setPrompt(template.prompt);
+    setSelectedTemplate(template.id);
+    setShowTemplates(false);
+  };
 
   const handleGenerate = async () => {
     if (!prompt) return;
@@ -95,9 +122,6 @@ function DesignPageContent() {
           <button className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700">
             <History className="w-5 h-5" />
           </button>
-          <button className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700">
-            <Camera className="w-5 h-5" />
-          </button>
         </div>
       </header>
 
@@ -106,22 +130,66 @@ function DesignPageContent() {
         <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700">
           <section>
             <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">设计领域</h3>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {categories.map((cat) => (
                 <button
                   key={cat.id}
-                  onClick={() => setCategory(cat.id)}
+                  onClick={() => {
+                    setCategory(cat.id);
+                    setSelectedTemplate(null);
+                  }}
                   className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300 ${
                     category === cat.id 
                       ? 'bg-amber-500/10 border-amber-500 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.08)]' 
                       : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900'
                   }`}
+                  title={cat.description}
                 >
-                  <cat.icon className={`w-6 h-6 mb-2 ${category === cat.id ? 'text-amber-400' : 'text-neutral-400'}`} />
-                  <span className="text-[10px] font-bold">{cat.name}</span>
+                  <cat.icon className={`w-5 h-5 mb-2 ${category === cat.id ? 'text-amber-400' : 'text-neutral-400'}`} />
+                  <span className="text-[10px] font-bold text-center">{cat.name}</span>
                 </button>
               ))}
             </div>
+          </section>
+
+          {/* 提示词模板 */}
+          <section>
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em]">提示词模板</h3>
+              <button
+                onClick={() => setShowTemplates(!showTemplates)}
+                className="text-xs text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3" />
+                {showTemplates ? '收起' : '展开'}
+              </button>
+            </div>
+            
+            {showTemplates && (
+              <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+                {currentTemplates.map((template) => (
+                  <button
+                    key={template.id}
+                    onClick={() => handleTemplateSelect(template)}
+                    className={`w-full text-left p-3 rounded-lg border transition-all ${
+                      selectedTemplate === template.id
+                        ? 'bg-amber-500/10 border-amber-500/50'
+                        : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700'
+                    }`}
+                  >
+                    <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
+                    <div className="text-xs text-neutral-500 line-clamp-2">{template.prompt}</div>
+                    <div className="flex gap-1 mt-2">
+                      {template.tags.map((tag, idx) => (
+                        <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-400 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
           </section>
 
           <section>
@@ -130,7 +198,7 @@ function DesignPageContent() {
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="描述您的设计灵感，例如：现代主义风格的极简住宅，大面积落地窗，周围环绕着森林..."
+                placeholder="描述您的设计灵感，或从上方选择模板开始创作..."
                 className="w-full h-56 bg-neutral-900 border border-neutral-800 rounded-xl p-5 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-neutral-700 group-hover:border-neutral-700 shadow-inner"
               />
               <div className="absolute bottom-4 right-4 text-[10px] text-neutral-600 font-mono">
@@ -193,7 +261,7 @@ function DesignPageContent() {
                 </div>
                 <h2 className="text-2xl font-bold text-neutral-200">开始您的创作</h2>
                 <p className="text-neutral-500 mt-4 text-sm leading-relaxed">
-                  在左侧面板选择您的设计领域并输入创意描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清渲染图。
+                  选择设计领域，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清渲染图。
                 </p>
               </div>
             )}
@@ -212,19 +280,25 @@ function DesignPageContent() {
               </div>
             )}
           </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-6 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
-             <div className="p-6 rounded-2xl border border-neutral-800 bg-neutral-900/50">
-                <h4 className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-1">Architecture</h4>
-                <p className="text-xs text-neutral-400 italic font-serif">"Architecture starts where engineering ends."</p>
-             </div>
-             <div className="p-6 rounded-2xl border border-neutral-800 bg-neutral-900/50">
-                <h4 className="text-[10px] font-bold text-neutral-500 uppercase tracking-widest mb-1">Fashion</h4>
-                <p className="text-xs text-neutral-400 italic font-serif">"Design is intelligence made visible."</p>
-             </div>
-          </div>
         </section>
       </main>
+
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(38, 38, 38, 0.5);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(245, 158, 11, 0.3);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(245, 158, 11, 0.5);
+        }
+      `}</style>
     </div>
   );
 }
