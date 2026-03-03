@@ -17,7 +17,7 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-display: swap; /* 避免 FOIT (Flash of Invisible Text) */
+  /* font-display: swap (removed) (Flash of Invisible Text) */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
