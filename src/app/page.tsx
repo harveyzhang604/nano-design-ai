@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '@/config/templates';
+import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '../config/templates';
 
 function DesignPageContent() {
   const searchParams = useSearchParams();

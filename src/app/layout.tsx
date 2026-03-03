@@ -23,10 +23,18 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    url: "https://nano-design-ai.pages.dev",
+    url: "https://talkphoto.app",
     title: "Nano Design AI - AI 设计生成器",
     description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。涵盖 6 大领域 30+ 场景。",
     siteName: "Nano Design AI",
+    images: [
+      {
+        url: "https://img.talkphoto.app/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nano Design AI - AI 设计生成器",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -49,7 +57,7 @@ export default function RootLayout({
     <html lang="zh-CN">
       <head>
         <meta name="theme-color" content="#0a0a0a" />
-        <link rel="canonical" href="https://nano-design-ai.pages.dev" />
+        <link rel="canonical" href="https://talkphoto.app" />
       </head>
       <body>{children}</body>
     </html>
