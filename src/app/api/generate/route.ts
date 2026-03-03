@@ -11,16 +11,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
     }
     
-    // DEBUG: 检查环境变量
-    const envVars = Object.keys(process.env);
-    console.log("Available Env Vars:", envVars);
-
-    const apiKey = process.env.GEMINI_API_KEY || "AIzaSyClHMIZtkzGVsu3LxIfsFYwpEBCBXL-z8w";
+    const apiKey = process.env.GEMINI_API_KEY;
     
     if (!apiKey) {
       return NextResponse.json({ 
-        error: 'System Error: API Key not configured.',
-        debug: { envFound: envVars.includes("GEMINI_API_KEY") }
+        error: 'System Error: GEMINI_API_KEY not configured. Please set it in Cloudflare Pages environment variables.'
       }, { status: 500 });
     }
 
