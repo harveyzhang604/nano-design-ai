@@ -1,26 +1,71 @@
 "use client";
-import { useState } from 'react';
-import Image from 'next/image';
-import { Camera, Layers, PenTool, Send, Loader2, Download, Palette, AlertCircle } from 'lucide-react';
-import dynamic from 'next/dynamic';
+import { useState, useEffect, Suspense } from 'react';
+import { 
+  Camera, Layers, Send, Loader2, Download, History, 
+  Palette, AlertCircle, Image as ImageIcon, Home, Package, 
+  Smartphone, Paintbrush, Award, Box, Building2, Sparkles,
+  FileText, BookOpen, Coffee, TrendingUp, Film,
+  Share2, Presentation, BarChart, Atom, Clock, Map,
+  UtensilsCrossed, Plane, Dumbbell, Megaphone, ShoppingCart,
+  Building, Calendar, Gamepad2, Music
+} from 'lucide-react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '../config/templates';
+import HistoryModal from '../components/HistoryModal';
+import { saveToHistory } from '../lib/history';
 
-// Lazy load Hero component (non-critical for initial interaction)
-const Hero = dynamic(() => import('../components/Hero'), {
-  loading: () => <div className="min-h-[600px] bg-neutral-950" />,
-});
-
-export default function DesignPage() {
+function DesignPageContent() {
+  const searchParams = useSearchParams();
+  const [domain, setDomain] = useState('design');
   const [prompt, setPrompt] = useState('');
   const [category, setCategory] = useState('fashion');
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+  const [showTemplates, setShowTemplates] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
 
-  const categories = [
-    { id: 'fashion', name: '服装设计', icon: Layers },
-    { id: 'architecture', name: '建筑设计', icon: PenTool },
-    { id: 'interior', name: '室内设计', icon: Palette },
-  ];
+  // 从 URL 参数加载提示词
+  useEffect(() => {
+    const urlPrompt = searchParams.get('prompt');
+    const urlCategory = searchParams.get('category');
+    if (urlPrompt) setPrompt(urlPrompt);
+    if (urlCategory) setCategory(urlCategory);
+  }, [searchParams]);
+
+  const iconMap: Record<string, any> = {
+    Layers, Building2, Home, Package, Palette, Smartphone, Paintbrush, Award, Camera, Box,
+    FileText, BookOpen, Coffee, TrendingUp, Film, Share2, Presentation, BarChart, Atom,
+    Clock, Map, UtensilsCrossed, Plane, Dumbbell, Megaphone, ShoppingCart, Building,
+    Calendar, Gamepad2, Music, Sparkles
+  };
+
+  const domains = mainDomains.map(d => ({
+    ...d,
+    icon: iconMap[d.icon] || Palette
+  }));
+
+  const currentCategories = (domainCategoriesMap[domain] || designCategories).map((cat: any) => ({
+    ...cat,
+    icon: iconMap[cat.icon] || Layers
+  }));
+
+  const currentTemplates = promptTemplates[category as keyof typeof promptTemplates] || [];
+
+  const handleDomainChange = (newDomain: string) => {
+    setDomain(newDomain);
+    const firstCategory = domainCategoriesMap[newDomain]?.[0]?.id || 'fashion';
+    setCategory(firstCategory);
+    setSelectedTemplate(null);
+  };
+
+  const handleTemplateSelect = (template: any) => {
+    setPrompt(template.prompt);
+    setSelectedTemplate(template.id);
+    setShowTemplates(false);
+  };
 
   const handleGenerate = async () => {
     if (!prompt) return;
@@ -41,6 +86,14 @@ export default function DesignPage() {
       }
 
       setResultImage(data.imageUrl);
+      
+      // 保存到历史记录
+      saveToHistory({
+        prompt,
+        category,
+        domain,
+        imageUrl: data.imageUrl,
+      });
     } catch (err: any) {
       console.error('Generation failed:', err);
       setError(err.message);
@@ -66,55 +119,157 @@ export default function DesignPage() {
     }
   };
 
+  const handleSelectFromHistory = (historyPrompt: string, historyCategory: string, historyDomain: string) => {
+    setPrompt(historyPrompt);
+    setCategory(historyCategory);
+    setDomain(historyDomain);
+  };
+
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100 selection:bg-amber-500/30">
-      <Hero />
-      
-      <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 p-6 -mt-20 relative z-20">
+    <div className="min-h-screen bg-neutral-950 text-neutral-100 p-6 selection:bg-amber-500/30">
+      <header className="max-w-7xl mx-auto mb-12 flex justify-between items-center border-b border-neutral-800 pb-6">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center font-bold text-neutral-950 text-xl shadow-[0_0_20px_rgba(245,158,11,0.3)]">
+            🪙
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-transparent">
+              Nano Design AI
+            </h1>
+            <p className="text-neutral-300 mt-0.5 text-xs font-medium tracking-tight uppercase">POWERED BY NANO BANANA 2</p>
+          </div>
+        </div>
+        <div className="flex gap-2">
+          <Link
+            href="/gallery"
+            className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700"
+            title="查看灵感画廊"
+            aria-label="查看灵感画廊"
+          >
+            <ImageIcon className="w-5 h-5" aria-hidden="true" />
+          </Link>
+          <button 
+            className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700"
+            aria-label="查看历史记录"
+            title="查看历史记录"
+            onClick={() => setShowHistory(true)}
+          >
+            <History className="w-5 h-5" aria-hidden="true" />
+          </button>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12" role="main">
         {/* 控制面板 */}
-        <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700">
-          <section className="bg-neutral-900/80 backdrop-blur-md p-6 rounded-2xl border border-neutral-800 shadow-xl">
-            {/* Changed from h3 to h2 for proper heading hierarchy */}
-            <h2 className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">设计领域</h2>
-            <div className="grid grid-cols-3 gap-3">
-              {categories.map((cat) => (
+        <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700" role="complementary" aria-label="设计控制面板">
+          {/* 领域选择 */}
+          <section aria-labelledby="domain-heading">
+            <h2 id="domain-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">应用领域</h2>
+            <div className="grid grid-cols-2 gap-3">
+              {domains.map((d) => (
                 <button
-                  key={cat.id}
-                  onClick={() => setCategory(cat.id)}
+                  key={d.id}
+                  onClick={() => handleDomainChange(d.id)}
                   className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300 ${
-                    category === cat.id 
+                    domain === d.id 
                       ? 'bg-amber-500/10 border-amber-500 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.08)]' 
                       : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900'
                   }`}
-                  aria-label={`选择${cat.name}`}
-                  aria-pressed={category === cat.id}
+                  title={d.description}
                 >
-                  <cat.icon className={`w-6 h-6 mb-2 ${category === cat.id ? 'text-amber-400' : 'text-neutral-300'}`} />
-                  <span className="text-[10px] font-bold">{cat.name}</span>
+                  <d.icon className={`w-5 h-5 mb-2 ${domain === d.id ? 'text-amber-400' : 'text-neutral-300'}`} />
+                  <span className="text-[10px] font-bold text-center">{d.name}</span>
                 </button>
               ))}
             </div>
           </section>
 
-          <section className="bg-neutral-900/80 backdrop-blur-md p-6 rounded-2xl border border-neutral-800 shadow-xl mt-6">
-            {/* Changed from h3 to h2 for proper heading hierarchy */}
-            <h2 className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h2>
+          {/* 分类选择 */}
+          <section aria-labelledby="category-heading">
+            <h2 id="category-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">
+              {domains.find(d => d.id === domain)?.name || '设计领域'}
+            </h2>
+            <div className="grid grid-cols-2 gap-3">
+              {currentCategories.map((cat: any) => (
+                <button
+                  key={cat.id}
+                  onClick={() => {
+                    setCategory(cat.id);
+                    setSelectedTemplate(null);
+                  }}
+                  className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300 ${
+                    category === cat.id 
+                      ? 'bg-amber-500/10 border-amber-500 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.08)]' 
+                      : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900'
+                  }`}
+                  title={cat.description}
+                >
+                  <cat.icon className={`w-5 h-5 mb-2 ${category === cat.id ? 'text-amber-400' : 'text-neutral-300'}`} />
+                  <span className="text-[10px] font-bold text-center">{cat.name}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* 提示词模板 */}
+          <section aria-labelledby="template-heading">
+            <div className="flex items-center justify-between mb-4">
+              <h2 id="template-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em]">提示词模板</h2>
+              <button
+                onClick={() => setShowTemplates(!showTemplates)}
+                className="text-xs text-amber-400 hover:text-amber-400 transition-colors flex items-center gap-1"
+              >
+                <Sparkles className="w-3 h-3" />
+                {showTemplates ? '收起' : '展开'}
+              </button>
+            </div>
+            
+            {showTemplates && (
+              <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
+                {currentTemplates.map((template) => (
+                  <button
+                    key={template.id}
+                    onClick={() => handleTemplateSelect(template)}
+                    className={`w-full text-left p-3 rounded-lg border transition-all ${
+                      selectedTemplate === template.id
+                        ? 'bg-amber-500/10 border-amber-500/50'
+                        : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700'
+                    }`}
+                  >
+                    <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
+                    <div className="text-xs text-neutral-300 line-clamp-2">{template.prompt}</div>
+                    <div className="flex gap-1 mt-2">
+                      {template.tags.map((tag, idx) => (
+                        <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
+          </section>
+
+          <section aria-labelledby="prompt-heading">
+            <h2 id="prompt-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h2>
             <div className="relative group">
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="描述您的设计灵感，例如：现代主义风格的极简住宅，大面积落地窗，周围环绕着森林..."
-                className="w-full h-56 bg-neutral-900 border border-neutral-800 rounded-xl p-5 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-neutral-500 group-hover:border-neutral-700 shadow-inner"
+                placeholder="描述您的创作灵感，或从上方选择模板开始..."
+                className="w-full h-56 bg-neutral-900 border border-neutral-800 rounded-xl p-5 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-neutral-700 group-hover:border-neutral-700 shadow-inner"
                 aria-label="输入设计需求描述"
+                aria-describedby="char-count"
               />
-              <div className="absolute bottom-4 right-4 text-[10px] text-neutral-400 font-mono" aria-live="polite">
+              <div id="char-count" className="absolute bottom-4 right-4 text-[10px] text-neutral-300 font-mono" aria-live="polite">
                 {prompt.length} chars
               </div>
             </div>
 
             {error && (
-              <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex gap-3 items-start text-red-300 text-xs animate-in zoom-in-95 duration-300" role="alert">
-                <AlertCircle className="w-4 h-4 shrink-0" />
+              <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl flex gap-3 items-start text-red-400 text-xs animate-in zoom-in-95 duration-300" role="alert" aria-live="assertive">
+                <AlertCircle className="w-4 h-4 shrink-0" aria-hidden="true" />
                 <p className="leading-relaxed">{error}</p>
               </div>
             )}
@@ -122,8 +277,8 @@ export default function DesignPage() {
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !prompt}
-              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-500 text-neutral-950 font-black text-sm uppercase tracking-widest py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-amber-500/10"
-              aria-label={isGenerating ? '正在生成设计方案' : '生成设计方案'}
+              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-400 text-neutral-950 font-black text-sm uppercase tracking-widest py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-amber-500/10"
+              aria-label={isGenerating ? "正在生成中" : "生成设计方案"}
             >
               {isGenerating ? (
                 <>
@@ -133,7 +288,7 @@ export default function DesignPage() {
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  生成设计方案
+                  生成创作
                 </>
               )}
             </button>
@@ -141,24 +296,22 @@ export default function DesignPage() {
         </aside>
 
         {/* 预览窗口 */}
-        <section className="lg:col-span-8 animate-in fade-in slide-in-from-right duration-700 relative z-20">
+        <section className="lg:col-span-8 animate-in fade-in slide-in-from-right duration-700">
           <div className="bg-neutral-900/30 border border-neutral-800/80 rounded-3xl aspect-[4/3] overflow-hidden flex items-center justify-center relative group shadow-2xl backdrop-blur-sm">
             {resultImage ? (
               <>
-                <Image 
+                <img 
                   src={resultImage} 
-                  alt="Generated Design" 
-                  fill
-                  className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                  sizes="(max-width: 1024px) 100vw, 66vw"
-                  priority
+                  alt="AI生成的设计作品" 
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  loading="eager"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute bottom-8 right-8 flex gap-3 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
                   <button 
                     onClick={handleDownload}
                     className="bg-amber-500 text-neutral-950 p-4 rounded-2xl hover:bg-amber-400 shadow-xl active:scale-90 transition-all"
-                    aria-label="下载生成的设计图"
                   >
                     <Download className="w-6 h-6" />
                   </button>
@@ -167,12 +320,12 @@ export default function DesignPage() {
             ) : (
               <div className="text-center p-12 max-w-sm">
                 <div className="w-24 h-24 bg-neutral-900 border border-neutral-800 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-xl relative">
-                  <Camera className="w-10 h-10 text-neutral-500" />
+                  <Camera className="w-10 h-10 text-neutral-700" />
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-neutral-200">开始您的创作</h2>
                 <p className="text-neutral-300 mt-4 text-sm leading-relaxed">
-                  在左侧面板选择您的设计领域并输入创意描述。元宝将使用 <strong>Nano Banana 2</strong> 引擎为您生成高清渲染图。
+                  选择应用领域和分类，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清图像。
                 </p>
               </div>
             )}
@@ -191,19 +344,40 @@ export default function DesignPage() {
               </div>
             )}
           </div>
-
-          <div className="mt-8 grid grid-cols-2 gap-6 opacity-50 grayscale hover:opacity-100 hover:grayscale-0 transition-all duration-500">
-             <div className="p-6 rounded-2xl border border-neutral-800 bg-neutral-900/50">
-                <h3 className="text-[10px] font-bold text-neutral-300 uppercase tracking-widest mb-1">Architecture</h3>
-                <p className="text-xs text-neutral-300 italic font-serif">"Architecture starts where engineering ends."</p>
-             </div>
-             <div className="p-6 rounded-2xl border border-neutral-800 bg-neutral-900/50">
-                <h3 className="text-[10px] font-bold text-neutral-300 uppercase tracking-widest mb-1">Fashion</h3>
-                <p className="text-xs text-neutral-300 italic font-serif">"Design is intelligence made visible."</p>
-             </div>
-          </div>
         </section>
       </main>
+
+      {/* 历史记录模态框 */}
+      <HistoryModal
+        isOpen={showHistory}
+        onClose={() => setShowHistory(false)}
+        onSelectPrompt={handleSelectFromHistory}
+      />
+
+      <style jsx global>{`
+        .custom-scrollbar::-webkit-scrollbar {
+          width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+          background: rgba(38, 38, 38, 0.5);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+          background: rgba(245, 158, 11, 0.3);
+          border-radius: 3px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+          background: rgba(245, 158, 11, 0.5);
+        }
+      `}</style>
     </div>
+  );
+}
+
+export default function DesignPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-neutral-950 flex items-center justify-center"><div className="text-amber-400">Loading...</div></div>}>
+      <DesignPageContent />
+    </Suspense>
   );
 }

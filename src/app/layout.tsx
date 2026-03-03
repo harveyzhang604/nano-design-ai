@@ -1,46 +1,43 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
-  title: "Nano Design AI - AI-Powered Interior Design & Architecture",
-  description: "Generate high-fidelity 'Black & Gold' style interior and architectural designs instantly with Nano Design AI.",
-  keywords: ["AI design", "interior design", "architecture", "nano design", "black gold style", "AI generator"],
+  title: "Nano Design AI - AI 设计生成器 | 6大领域30+场景",
+  description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。涵盖设计、内容创作、教育科普、生活方式、商业营销、娱乐媒体 6 大领域，30+ 细分场景。免费在线 AI 设计工具。",
+  keywords: [
+    "AI设计", "AI生成器", "Nano Banana", "设计工具", "内容创作", 
+    "商业营销", "教育科普", "生活方式", "娱乐媒体", "免费AI工具",
+    "图片生成", "AI绘画", "设计灵感", "创意设计"
+  ],
+  authors: [{ name: "Nano Design AI" }],
+  creator: "Nano Design AI",
+  publisher: "Nano Design AI",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
   openGraph: {
-    title: "Nano Design AI - AI-Powered Interior Design & Architecture",
-    description: "Generate high-fidelity 'Black & Gold' style interior and architectural designs instantly with Nano Design AI.",
-    url: "https://nano-design-ai.vercel.app",
-    siteName: "Nano Design AI",
-    images: [
-      {
-        url: "https://nano-design-ai.vercel.app/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "Nano Design AI Interface",
-      },
-    ],
-    locale: "en_US",
     type: "website",
+    locale: "zh_CN",
+    url: "https://nano-design-ai.pages.dev",
+    title: "Nano Design AI - AI 设计生成器",
+    description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。涵盖 6 大领域 30+ 场景。",
+    siteName: "Nano Design AI",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano Design AI - AI-Powered Interior Design & Architecture",
-    description: "Generate high-fidelity 'Black & Gold' style interior and architectural designs instantly with Nano Design AI.",
-    images: ["https://nano-design-ai.vercel.app/og-image.png"],
+    title: "Nano Design AI - AI 设计生成器",
+    description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。",
   },
-  metadataBase: new URL("https://nano-design-ai.vercel.app"),
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 5,
+  },
 };
 
 export default function RootLayout({
@@ -48,31 +45,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Nano Design AI",
-    "applicationCategory": "DesignApplication",
-    "operatingSystem": "Web",
-    "description": "Generate high-fidelity 'Black & Gold' style interior and architectural designs instantly with Nano Design AI.",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    }
-  };
-
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
-        {children}
-      </body>
+    <html lang="zh-CN">
+      <head>
+        <meta name="theme-color" content="#0a0a0a" />
+        <link rel="canonical" href="https://nano-design-ai.pages.dev" />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
