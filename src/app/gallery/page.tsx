@@ -102,7 +102,7 @@ export default function GalleryPage() {
         </div>
 
         {/* Category Filter */}
-        <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat.id}

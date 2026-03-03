@@ -18,3 +18,31 @@ body {
   background: var(--background);
   color: var(--foreground);
 }
+
+/* Custom Scrollbar - 黑金配色 */
+.custom-scrollbar::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #171717; /* neutral-900 */
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, #f59e0b, #eab308); /* amber-500 to yellow-500 */
+  border-radius: 10px;
+  transition: background 0.3s ease;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(90deg, #d97706, #ca8a04); /* amber-600 to yellow-600 */
+}
+
+/* Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #f59e0b #171717; /* thumb track */
+}
+
