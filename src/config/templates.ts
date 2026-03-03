@@ -1,3 +1,43 @@
+// 主要领域分类
+export const mainDomains = [
+  {
+    id: 'design',
+    name: '设计领域',
+    icon: 'Palette',
+    description: '视觉设计、创意艺术'
+  },
+  {
+    id: 'content',
+    name: '内容创作',
+    icon: 'FileText',
+    description: '文章配图、社交媒体'
+  },
+  {
+    id: 'education',
+    name: '教育科普',
+    icon: 'BookOpen',
+    description: '信息图表、教学素材'
+  },
+  {
+    id: 'lifestyle',
+    name: '生活方式',
+    icon: 'Coffee',
+    description: '美食、旅行、家居'
+  },
+  {
+    id: 'business',
+    name: '商业营销',
+    icon: 'TrendingUp',
+    description: '广告、品牌、电商'
+  },
+  {
+    id: 'entertainment',
+    name: '娱乐媒体',
+    icon: 'Film',
+    description: '影视、游戏、动漫'
+  }
+];
+
 // 设计分类和提示词模板配置
 export const designCategories = [
   {
@@ -333,4 +373,54 @@ export const promptTemplates = {
       tags: ['Environment', 'Scene', 'Architectural']
     }
   ]
+};
+
+// 内容创作分类
+export const contentCategories = [
+  { id: 'blog', name: '博客配图', icon: 'FileText', description: '文章插图、封面图' },
+  { id: 'social', name: '社交媒体', icon: 'Share2', description: 'Instagram、小红书' },
+  { id: 'presentation', name: '演示文稿', icon: 'Presentation', description: 'PPT、Keynote' },
+  { id: 'ebook', name: '电子书', icon: 'BookOpen', description: '封面、内页插图' }
+];
+
+// 教育科普分类
+export const educationCategories = [
+  { id: 'infographic', name: '信息图表', icon: 'BarChart', description: '数据可视化、流程图' },
+  { id: 'science', name: '科学插图', icon: 'Atom', description: '生物、化学、物理' },
+  { id: 'history', name: '历史场景', icon: 'Clock', description: '历史事件、人物' },
+  { id: 'geography', name: '地理地图', icon: 'Map', description: '地形、气候、城市' }
+];
+
+// 生活方式分类
+export const lifestyleCategories = [
+  { id: 'food', name: '美食摄影', icon: 'UtensilsCrossed', description: '菜品、餐厅、烹饪' },
+  { id: 'travel', name: '旅行风光', icon: 'Plane', description: '景点、城市、自然' },
+  { id: 'home', name: '家居生活', icon: 'Home', description: '装饰、收纳、DIY' },
+  { id: 'fitness', name: '健身运动', icon: 'Dumbbell', description: '瑜伽、健身、户外' }
+];
+
+// 商业营销分类
+export const businessCategories = [
+  { id: 'ad', name: '广告创意', icon: 'Megaphone', description: '海报、横幅、广告' },
+  { id: 'ecommerce', name: '电商产品', icon: 'ShoppingCart', description: '主图、详情页' },
+  { id: 'corporate', name: '企业形象', icon: 'Building', description: '宣传册、年报' },
+  { id: 'event', name: '活动宣传', icon: 'Calendar', description: '邀请函、海报' }
+];
+
+// 娱乐媒体分类
+export const entertainmentCategories = [
+  { id: 'movie', name: '影视概念', icon: 'Film', description: '场景、角色、道具' },
+  { id: 'game', name: '游戏美术', icon: 'Gamepad2', description: '角色、场景、UI' },
+  { id: 'anime', name: '动漫插画', icon: 'Sparkles', description: '角色、漫画、同人' },
+  { id: 'music', name: '音乐视觉', icon: 'Music', description: '专辑封面、MV' }
+];
+
+// 领域到分类的映射
+export const domainCategoriesMap: Record<string, any[]> = {
+  design: designCategories,
+  content: contentCategories,
+  education: educationCategories,
+  lifestyle: lifestyleCategories,
+  business: businessCategories,
+  entertainment: entertainmentCategories
 };

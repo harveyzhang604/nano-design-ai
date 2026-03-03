@@ -1,16 +1,21 @@
 "use client";
 import { useState, useEffect, Suspense } from 'react';
 import { 
-  Camera, Layers, PenTool, Send, Loader2, Download, History, 
+  Camera, Layers, Send, Loader2, Download, History, 
   Palette, AlertCircle, Image as ImageIcon, Home, Package, 
-  Smartphone, Paintbrush, Award, Box, Building2, Sparkles
+  Smartphone, Paintbrush, Award, Box, Building2, Sparkles,
+  FileText, BookOpen, Coffee, TrendingUp, Film,
+  Share2, Presentation, BarChart, Atom, Clock, Map,
+  UtensilsCrossed, Plane, Dumbbell, Megaphone, ShoppingCart,
+  Building, Calendar, Gamepad2, Music
 } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { designCategories, promptTemplates } from '@/config/templates';
+import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '@/config/templates';
 
 function DesignPageContent() {
   const searchParams = useSearchParams();
+  const [domain, setDomain] = useState('design');
   const [prompt, setPrompt] = useState('');
   const [category, setCategory] = useState('fashion');
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
@@ -28,24 +33,30 @@ function DesignPageContent() {
   }, [searchParams]);
 
   const iconMap: Record<string, any> = {
-    Layers,
-    Building2,
-    Home,
-    Package,
-    Palette,
-    Smartphone,
-    Paintbrush,
-    Award,
-    Camera,
-    Box
+    Layers, Building2, Home, Package, Palette, Smartphone, Paintbrush, Award, Camera, Box,
+    FileText, BookOpen, Coffee, TrendingUp, Film, Share2, Presentation, BarChart, Atom,
+    Clock, Map, UtensilsCrossed, Plane, Dumbbell, Megaphone, ShoppingCart, Building,
+    Calendar, Gamepad2, Music, Sparkles
   };
 
-  const categories = designCategories.map(cat => ({
+  const domains = mainDomains.map(d => ({
+    ...d,
+    icon: iconMap[d.icon] || Palette
+  }));
+
+  const currentCategories = (domainCategoriesMap[domain] || designCategories).map((cat: any) => ({
     ...cat,
     icon: iconMap[cat.icon] || Layers
   }));
 
   const currentTemplates = promptTemplates[category as keyof typeof promptTemplates] || [];
+
+  const handleDomainChange = (newDomain: string) => {
+    setDomain(newDomain);
+    const firstCategory = domainCategoriesMap[newDomain]?.[0]?.id || 'fashion';
+    setCategory(firstCategory);
+    setSelectedTemplate(null);
+  };
 
   const handleTemplateSelect = (template: any) => {
     setPrompt(template.prompt);
@@ -128,10 +139,35 @@ function DesignPageContent() {
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12">
         {/* 控制面板 */}
         <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700">
+          {/* 领域选择 */}
           <section>
-            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">设计领域</h3>
+            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">应用领域</h3>
             <div className="grid grid-cols-2 gap-3">
-              {categories.map((cat) => (
+              {domains.map((d) => (
+                <button
+                  key={d.id}
+                  onClick={() => handleDomainChange(d.id)}
+                  className={`flex flex-col items-center justify-center p-4 rounded-xl border transition-all duration-300 ${
+                    domain === d.id 
+                      ? 'bg-amber-500/10 border-amber-500 text-amber-200 shadow-[0_0_25px_rgba(245,158,11,0.08)]' 
+                      : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900'
+                  }`}
+                  title={d.description}
+                >
+                  <d.icon className={`w-5 h-5 mb-2 ${domain === d.id ? 'text-amber-400' : 'text-neutral-400'}`} />
+                  <span className="text-[10px] font-bold text-center">{d.name}</span>
+                </button>
+              ))}
+            </div>
+          </section>
+
+          {/* 分类选择 */}
+          <section>
+            <h3 className="text-xs font-semibold text-neutral-500 uppercase tracking-[0.2em] mb-4">
+              {domains.find(d => d.id === domain)?.name || '设计领域'}
+            </h3>
+            <div className="grid grid-cols-2 gap-3">
+              {currentCategories.map((cat: any) => (
                 <button
                   key={cat.id}
                   onClick={() => {
@@ -198,7 +234,7 @@ function DesignPageContent() {
               <textarea
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
-                placeholder="描述您的设计灵感，或从上方选择模板开始创作..."
+                placeholder="描述您的创作灵感，或从上方选择模板开始..."
                 className="w-full h-56 bg-neutral-900 border border-neutral-800 rounded-xl p-5 focus:ring-2 focus:ring-amber-500/30 focus:border-amber-500 outline-none transition-all resize-none text-sm leading-relaxed placeholder:text-neutral-700 group-hover:border-neutral-700 shadow-inner"
               />
               <div className="absolute bottom-4 right-4 text-[10px] text-neutral-600 font-mono">
@@ -226,7 +262,7 @@ function DesignPageContent() {
               ) : (
                 <>
                   <Send className="w-5 h-5" />
-                  生成设计方案
+                  生成创作
                 </>
               )}
             </button>
@@ -261,7 +297,7 @@ function DesignPageContent() {
                 </div>
                 <h2 className="text-2xl font-bold text-neutral-200">开始您的创作</h2>
                 <p className="text-neutral-500 mt-4 text-sm leading-relaxed">
-                  选择设计领域，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清渲染图。
+                  选择应用领域和分类，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清图像。
                 </p>
               </div>
             )}
