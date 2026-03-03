@@ -17,6 +17,14 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  font-display: swap; /* 避免 FOIT (Flash of Invisible Text) */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 字体加载优化 */
+@font-face {
+  font-display: swap;
 }
 
 /* Custom Scrollbar - 黑金配色 */
