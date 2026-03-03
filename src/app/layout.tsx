@@ -1,5 +1,12 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "Nano Design AI - AI 设计生成器 | 6大领域30+场景",
@@ -59,7 +66,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#0a0a0a" />
         <link rel="canonical" href="https://talkphoto.app" />
       </head>
-      <body>{children}</body>
+      <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>
   );
 }

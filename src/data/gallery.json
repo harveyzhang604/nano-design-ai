@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "prompt": "A tiny banana wearing sunglasses lounging on a beach chair",
+    "imageUrl": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&q=80"
+  },
+  {
+    "id": 2,
+    "prompt": "Miniature banana astronaut floating in space with stars",
+    "imageUrl": "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&q=80"
+  },
+  {
+    "id": 3,
+    "prompt": "Nano banana DJ with headphones at a turntable",
+    "imageUrl": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&q=80"
+  },
+  {
+    "id": 4,
+    "prompt": "Tiny banana superhero with a cape flying through clouds",
+    "imageUrl": "https://images.unsplash.com/photo-1587334207976-c52c2f323b99?w=800&q=80"
+  },
+  {
+    "id": 5,
+    "prompt": "Miniature banana chef cooking in a tiny kitchen",
+    "imageUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80"
+  },
+  {
+    "id": 6,
+    "prompt": "Nano banana reading a book under a mushroom umbrella",
+    "imageUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=800&q=80"
+  },
+  {
+    "id": 7,
+    "prompt": "Tiny banana surfer riding a wave at sunset",
+    "imageUrl": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&q=80"
+  },
+  {
+    "id": 8,
+    "prompt": "Miniature banana artist painting on a tiny easel",
+    "imageUrl": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80"
+  },
+  {
+    "id": 9,
+    "prompt": "Nano banana explorer with a backpack in a jungle",
+    "imageUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80"
+  },
+  {
+    "id": 10,
+    "prompt": "Tiny banana musician playing guitar under moonlight",
+    "imageUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80"
+  },
+  {
+    "id": 11,
+    "prompt": "Miniature banana scientist in a lab with test tubes",
+    "imageUrl": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80"
+  },
+  {
+    "id": 12,
+    "prompt": "Nano banana gardener watering tiny plants with a watering can",
+    "imageUrl": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
+  }
+]

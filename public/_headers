@@ -1,0 +1,15 @@
+# 缓存优化配置
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+/api/generate/*
+  Cache-Control: no-cache
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+/static/*
+  Cache-Control: public, max-age=31536000, immutable
+*.png
+  Cache-Control: public, max-age=31536000, immutable
+*.jpg
+  Cache-Control: public, max-age=31536000, immutable
+*.svg
+  Cache-Control: public, max-age=86400
