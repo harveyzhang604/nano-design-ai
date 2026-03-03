@@ -6,11 +6,16 @@ export async function POST(req: Request) {
   try {
     const { prompt, category } = await req.json();
     
+    // 验证 prompt
+    if (!prompt || prompt.trim() === '') {
+      return NextResponse.json({ error: 'Prompt is required' }, { status: 400 });
+    }
+    
     // DEBUG: 检查环境变量
     const envVars = Object.keys(process.env);
     console.log("Available Env Vars:", envVars);
 
-    const apiKey = process.env.GEMINI_API_KEY || "AIzaSyCkE2jUzfdVfLD4B3JBX71aUQNDvIskucQ";
+    const apiKey = process.env.GEMINI_API_KEY || "AIzaSyClHMIZtkzGVsu3LxIfsFYwpEBCBXL-z8w";
     
     if (!apiKey) {
       return NextResponse.json({ 

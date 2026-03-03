@@ -1,13 +1,24 @@
 "use client";
-import { useState } from 'react';
-import { Camera, Layers, PenTool, Send, Loader2, Download, History, Palette, AlertCircle } from 'lucide-react';
+import { useState, useEffect, Suspense } from 'react';
+import { Camera, Layers, PenTool, Send, Loader2, Download, History, Palette, AlertCircle, Image as ImageIcon } from 'lucide-react';
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export default function DesignPage() {
+function DesignPageContent() {
+  const searchParams = useSearchParams();
   const [prompt, setPrompt] = useState('');
   const [category, setCategory] = useState('fashion');
   const [isGenerating, setIsGenerating] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  // 从 URL 参数加载提示词
+  useEffect(() => {
+    const urlPrompt = searchParams.get('prompt');
+    const urlCategory = searchParams.get('category');
+    if (urlPrompt) setPrompt(urlPrompt);
+    if (urlCategory) setCategory(urlCategory);
+  }, [searchParams]);
 
   const categories = [
     { id: 'fashion', name: '服装设计', icon: Layers },
@@ -74,6 +85,13 @@ export default function DesignPage() {
           </div>
         </div>
         <div className="flex gap-2">
+          <Link
+            href="/gallery"
+            className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700"
+            title="查看灵感画廊"
+          >
+            <ImageIcon className="w-5 h-5" />
+          </Link>
           <button className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-400 hover:text-white border border-transparent hover:border-neutral-700">
             <History className="w-5 h-5" />
           </button>
@@ -208,5 +226,13 @@ export default function DesignPage() {
         </section>
       </main>
     </div>
+  );
+}
+
+export default function DesignPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-neutral-950 flex items-center justify-center"><div className="text-amber-400">Loading...</div></div>}>
+      <DesignPageContent />
+    </Suspense>
   );
 }
