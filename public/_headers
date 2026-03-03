@@ -1,6 +1,12 @@
 # 缓存优化配置
 /*
   Cache-Control: public, max-age=0, must-revalidate
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain
+/sitemap.xml
+  Cache-Control: public, max-age=86400
+  Content-Type: application/xml
 /api/generate/*
   Cache-Control: no-cache
 /_next/static/*
