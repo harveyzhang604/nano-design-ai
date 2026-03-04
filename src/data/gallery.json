@@ -253,5 +253,315 @@
     "id": 51,
     "prompt": "Presentation closing slide for [主题]. Thank you message, [风格] design, [颜色方案]. Professional ending, contact info, modern corporate style.",
     "imageUrl": "https://img.talkphoto.app/images/1772621534513-Presentation_closing_slide_for.png"
+  },
+  {
+    "id": 52,
+    "prompt": "Modern mobile app UI design for [应用类型]. Clean interface, [颜色方案], intuitive navigation. iOS/Android style, user-friendly, contemporary design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622030863-Modern_mobile_app_UI_design_fo.png"
+  },
+  {
+    "id": 53,
+    "prompt": "Website landing page design for [网站类型]. Hero section with [描述], clear CTA buttons, modern layout. Responsive design, clean typography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622048953-Website_landing_page_design_fo.png"
+  },
+  {
+    "id": 54,
+    "prompt": "Dashboard UI design showing [数据类型]. Data visualization, charts and graphs, dark mode interface. Professional design, clear information hierarchy.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622067697-Dashboard_UI_design_showing___.png"
+  },
+  {
+    "id": 55,
+    "prompt": "Game UI design for [游戏类型]. [风格描述] aesthetic, HUD elements, menu screens. Immersive design, fantasy/sci-fi style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622098420-Game_UI_design_for____________.png"
+  },
+  {
+    "id": 56,
+    "prompt": "Flat illustration of [主题]. Simple shapes, [颜色方案], minimal details. Modern vector style, clean and friendly aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622125007-Flat_illustration_of_______Sim.png"
+  },
+  {
+    "id": 57,
+    "prompt": "Hand-drawn illustration of [主题]. Sketch-like lines, watercolor textures, organic feel. Artistic style, warm and personal.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622150636-Hand_drawn_illustration_of____.png"
+  },
+  {
+    "id": 58,
+    "prompt": "Detailed illustration of [场景描述]. [风格] aesthetic, atmospheric lighting, rich colors. Concept art style, cinematic composition.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622187489-Detailed_illustration_of______.png"
+  },
+  {
+    "id": 59,
+    "prompt": "Brand identity system for [品牌名称]. Logo variations, color palette, typography guidelines. Professional branding, cohesive visual system.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622211173-Brand_identity_system_for_____.png"
+  },
+  {
+    "id": 60,
+    "prompt": "Product packaging design for [产品]. [风格描述], [颜色方案], brand logo placement. Mockup on [背景], professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622232786-Product_packaging_design_for__.png"
+  },
+  {
+    "id": 61,
+    "prompt": "Brand application mockups showing [品牌名称] on [应用场景]. Business cards, letterhead, merchandise. Consistent branding, professional presentation.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622251029-Brand_application_mockups_show.png"
+  },
+  {
+    "id": 62,
+    "prompt": "Social media branding for [品牌]. Instagram post templates, story designs, [风格描述]. Consistent visual identity, engaging design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622273458-Social_media_branding_for_____.png"
+  },
+  {
+    "id": 63,
+    "prompt": "Landscape photography of [场景描述]. [时间/天气] lighting, dramatic sky, vivid colors. Wide angle shot, long exposure, professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622303262-Landscape_photography_of______.png"
+  },
+  {
+    "id": 64,
+    "prompt": "Food photography of [食物]. Overhead shot, natural lighting, rustic background. Appetizing presentation, shallow depth of field, professional styling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622321324-Food_photography_of_______Over.png"
+  },
+  {
+    "id": 65,
+    "prompt": "Black and white photography of [主题]. High contrast, dramatic lighting, strong composition. Film noir aesthetic, timeless style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622342929-Black_and_white_photography_of.png"
+  },
+  {
+    "id": 66,
+    "prompt": "3D render of [产品]. Photorealistic materials, studio lighting, clean background. Octane render, 8K resolution, professional product visualization.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622360763-3D_render_of_______Photorealis.png"
+  },
+  {
+    "id": 67,
+    "prompt": "Abstract 3D composition with [形状/元素]. [颜色方案], smooth gradients, floating objects. Cinema 4D style, modern aesthetic, high quality render.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622381112-Abstract_3D_composition_with__.png"
+  },
+  {
+    "id": 68,
+    "prompt": "3D character model of [角色描述]. Detailed textures, realistic materials, [风格] style. Full body render, turnaround view, professional modeling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622404340-3D_character_model_of_________.png"
+  },
+  {
+    "id": 69,
+    "prompt": "Blog post cover image for [主题]. Minimalist design with [视觉元素], bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772622434977-Blog_post_cover_image_for_____.png"
+  },
+  {
+    "id": 70,
+    "prompt": "Editorial illustration for blog article about [主题]. [风格] style, [颜色方案], informative yet artistic. Vector art, clean lines, modern aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622459515-Editorial_illustration_for_blo.png"
+  },
+  {
+    "id": 71,
+    "prompt": "Quote graphic for blog. Bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772622489502-Quote_graphic_for_blog__Bold_t.png"
+  },
+  {
+    "id": 72,
+    "prompt": "Social media story for [主题]. Full screen design, [颜色方案], bold text overlay. Vertical format, engaging visuals, swipe-up call-to-action.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622525329-Social_media_story_for_______F.png"
+  },
+  {
+    "id": 73,
+    "prompt": "Social media profile banner for [账号/品牌]. [风格] design, [颜色方案], memorable visual. Horizontal format, professional look.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622549139-Social_media_profile_banner_fo.png"
+  },
+  {
+    "id": 74,
+    "prompt": "Professional PowerPoint cover slide for [主题]. [风格] design, [颜色方案], clean layout. Corporate presentation style, modern business aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622571907-Professional_PowerPoint_cover_.png"
+  },
+  {
+    "id": 75,
+    "prompt": "Data visualization slide for [主题]. Clean charts and graphs, [颜色方案], professional styling. Business presentation, easy to understand, modern design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622604397-Data_visualization_slide_for__.png"
+  },
+  {
+    "id": 76,
+    "prompt": "Fresh ingredients photography of [食材]. Natural lighting, rustic background, [颜色方案]. Culinary photography, market quality, authentic feel.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622952946-Fresh_ingredients_photography_.png"
+  },
+  {
+    "id": 77,
+    "prompt": "Travel photography of [目的地]. [时间] lighting, [天气描述], iconic landmark. Landscape quality, professional composition, wanderlust inspiring.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622971655-Travel_photography_of_________.png"
+  },
+  {
+    "id": 78,
+    "prompt": "Travel itinerary map for [目的地/路线]. Landmarks, routes, [颜色方案], modern design. Trip planning infographic, engaging visual, tourist-friendly style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623004043-Travel_itinerary_map_for______.png"
+  },
+  {
+    "id": 79,
+    "prompt": "Hotel promotional image for [酒店名称]. Luxury interior, [颜色方案], professional photography. Hospitality marketing, inviting atmosphere, modern aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623023857-Hotel_promotional_image_for___.png"
+  },
+  {
+    "id": 80,
+    "prompt": "Interior design photo of [空间描述]. [风格] aesthetic, [颜色方案], natural lighting. Home decor magazine quality, inspiring living spaces, professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623048917-Interior_design_photo_of______.png"
+  },
+  {
+    "id": 81,
+    "prompt": "DIY project tutorial for [手工项目]. Step-by-step visuals, materials list, [颜色方案]. Craft tutorial style, educational content, hands-on aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623088957-DIY_project_tutorial_for______.png"
+  },
+  {
+    "id": 82,
+    "prompt": "Fitness exercise illustration showing [动作名称]. Clear anatomy, [颜色方案], instructional design. Workout guide style, educational content, professional rendering.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623113227-Fitness_exercise_illustration_.png"
+  },
+  {
+    "id": 83,
+    "prompt": "Yoga pose illustration of [体式名称]. Peaceful setting, [颜色方案], serene aesthetic. Wellness content, calming design, instructional quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623135510-Yoga_pose_illustration_of_____.png"
+  },
+  {
+    "id": 84,
+    "prompt": "Fitness plan infographic for [目标]. Weekly schedule, exercises, [颜色方案]. Workout program design, motivational content, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623162324-Fitness_plan_infographic_for__.png"
+  },
+  {
+    "id": 85,
+    "prompt": "Digital ad banner for [产品/活动]. [尺寸描述], [颜色方案], compelling CTA. Online advertising, modern design, click-worthy visual.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623199633-Digital_ad_banner_for_________.png"
+  },
+  {
+    "id": 86,
+    "prompt": "Outdoor billboard advertisement for [产品/品牌]. Large format design, [风格] aesthetic, [颜色方案]. Billboard marketing, high impact, roadside quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623236121-Outdoor_billboard_advertisemen.png"
+  },
+  {
+    "id": 87,
+    "prompt": "E-commerce product listing image for [产品]. White background, professional lighting, [颜色方案]. Amazon/Shopify ready, clean design, conversion-focused.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623271476-E_commerce_product_listing_ima.png"
+  },
+  {
+    "id": 88,
+    "prompt": "Lifestyle product shot of [产品] in [使用场景]. Natural setting, [颜色方案], aspirational appeal. E-commerce quality, authentic marketing, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623296922-Lifestyle_product_shot_of_____.png"
+  },
+  {
+    "id": 89,
+    "prompt": "Digital ad banner for [产品/活动]. [尺寸描述], [颜色方案], compelling CTA. Online advertising, modern design, click-worthy visual.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623595754-Digital_ad_banner_for_________.png"
+  },
+  {
+    "id": 90,
+    "prompt": "Brand advertising campaign for [品牌]. [风格] aesthetic, [颜色方案], emotional appeal. Corporate marketing, professional quality, memorable design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623618713-Brand_advertising_campaign_for.png"
+  },
+  {
+    "id": 91,
+    "prompt": "Outdoor billboard advertisement for [产品/品牌]. Large format design, [风格] aesthetic, [颜色方案]. Billboard marketing, high impact, roadside quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623642368-Outdoor_billboard_advertisemen.png"
+  },
+  {
+    "id": 92,
+    "prompt": "E-commerce product listing image for [产品]. White background, professional lighting, [颜色方案]. Amazon/Shopify ready, clean design, conversion-focused.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623674771-E_commerce_product_listing_ima.png"
+  },
+  {
+    "id": 93,
+    "prompt": "Lifestyle product shot of [产品] in [使用场景]. Natural setting, [颜色方案], aspirational appeal. E-commerce quality, authentic marketing, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623700352-Lifestyle_product_shot_of_____.png"
+  },
+  {
+    "id": 94,
+    "prompt": "Corporate brochure design for [公司/服务]. [风格] aesthetic, [颜色方案], professional layout. Business marketing, clean design, corporate identity.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623732902-Corporate_brochure_design_for_.png"
+  },
+  {
+    "id": 95,
+    "prompt": "Annual report cover for [公司名称]. [风格] design, [颜色方案], professional presentation. Corporate communication, investor relations, clean aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772623761774-Annual_report_cover_for_______.png"
+  },
+  {
+    "id": 96,
+    "prompt": "Sales promotion graphics for [活动/节日]. [风格] design, [颜色方案], urgent messaging. E-commerce ready, social media optimized, conversion focus.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624028925-Sales_promotion_graphics_for__.png"
+  },
+  {
+    "id": 97,
+    "prompt": "Corporate brochure design for [公司/服务]. [风格] aesthetic, [颜色方案], professional layout. Business marketing, clean design, corporate identity.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624065998-Corporate_brochure_design_for_.png"
+  },
+  {
+    "id": 98,
+    "prompt": "Annual report cover for [公司名称]. [风格] design, [颜色方案], professional presentation. Corporate communication, investor relations, clean aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624091091-Annual_report_cover_for_______.png"
+  },
+  {
+    "id": 99,
+    "prompt": "Company introduction slide for [公司名称]. [风格] design, [颜色方案], corporate storytelling. Pitch deck, investor presentation, modern aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624121986-Company_introduction_slide_for.png"
+  },
+  {
+    "id": 100,
+    "prompt": "Event poster for [活动名称]. [风格] aesthetic, [颜色方案], date and details. Concert, conference, or meetup promotion, eye-catching design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624151807-Event_poster_for______________.png"
+  },
+  {
+    "id": 101,
+    "prompt": "Event invitation design for [活动类型]. [风格] aesthetic, [颜色方案], elegant typography. Digital or print ready, formal event, sophisticated design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624171664-Event_invitation_design_for___.png"
+  },
+  {
+    "id": 102,
+    "prompt": "Event ticket design for [活动名称]. [风格] aesthetic, [颜色方案], QR code area. Concert or conference ticket, collectible design, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624194785-Event_ticket_design_for_______.png"
+  },
+  {
+    "id": 103,
+    "prompt": "Event sign and wayfinding design for [活动]. [风格] aesthetic, [颜色方案], clear typography. Directional signage, professional event coordination, practical design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624220912-Event_sign_and_wayfinding_desi.png"
+  },
+  {
+    "id": 104,
+    "prompt": "Event sign and wayfinding design for [活动]. [风格] aesthetic, [颜色方案], clear typography. Directional signage, professional event coordination, practical design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624324768-Event_sign_and_wayfinding_desi.png"
+  },
+  {
+    "id": 105,
+    "prompt": "Title sequence concept for [电影/剧集]. [风格] aesthetic, [颜色方案], motion graphics ready. Opening credits, cinematic feel, professional design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624368826-Title_sequence_concept_for____.png"
+  },
+  {
+    "id": 106,
+    "prompt": "Game UI design for [游戏类型]. [风格] aesthetic, [颜色方案], HUD elements. User interface, in-game menus, functional design, gaming quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624408298-Game_UI_design_for____________.png"
+  },
+  {
+    "id": 107,
+    "prompt": "Game icon design for [应用/模式]. [风格] aesthetic, [颜色方案], recognizable at small size. App icon, game launcher, mobile or desktop quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624432236-Game_icon_design_for__________.png"
+  },
+  {
+    "id": 108,
+    "prompt": "Anime character illustration of [角色描述]. [风格] anime style, [颜色方案], expressive pose. Manga quality, fan art, detailed character design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624449699-Anime_character_illustration_o.png"
+  },
+  {
+    "id": 109,
+    "prompt": "Fan art illustration of [角色/作品]. [风格] anime style, [颜色方案], high quality rendering. Doujinshi quality, popular character, detailed artwork.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624472315-Fan_art_illustration_of_______.png"
+  },
+  {
+    "id": 110,
+    "prompt": "Manga panel layout for [情节描述]. [风格] anime style, [颜色方案], action sequence. Comic page, storyboard, manga panel composition.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624495576-Manga_panel_layout_for________.png"
+  },
+  {
+    "id": 111,
+    "prompt": "Concert poster for [艺人/活动]. [风格] design, [颜色方案], energetic typography. Live music promotion, tour announcement, event quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624523948-Concert_poster_for____________.png"
+  },
+  {
+    "id": 112,
+    "prompt": "Music video frame for [歌曲/艺人]. [风格] aesthetic, [颜色方案], cinematic composition. Live performance or concept video, visual album quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624551310-Music_video_frame_for_________.png"
+  },
+  {
+    "id": 113,
+    "prompt": "Music streaming icon for [艺人/歌单]. [风格] design, [颜色方案], recognizable at small size. App icon, playlist cover, digital music platform quality.",
+    "imageUrl": "https://img.talkphoto.app/images/1772624567640-Music_streaming_icon_for______.png"
   }
 ]
