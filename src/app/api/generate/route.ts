@@ -69,13 +69,22 @@ export async function POST(req: Request) {
 
     const systemPrompt = categoryPrompts[category] || "Professional design AI.";
 
-    // 调用 Gemini API
-    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-4.0-generate-001:predict?key=${apiKey}`, {
+    // 调用 Gemini API (使用 Gemini 3.1 Flash Image)
+    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { 
+        "Content-Type": "application/json",
+        "x-goog-api-key": apiKey
+      },
       body: JSON.stringify({
-        instances: [{ prompt: `${systemPrompt} ${prompt}. Technical: 8k, ultra-detailed.` }],
-        parameters: { sampleCount: 1 }
+        contents: [{
+          parts: [{ text: `${systemPrompt} ${prompt}. Technical: 8k, ultra-detailed.` }]
+        }],
+        generationConfig: {
+          temperature: 0.4,
+          topK: 40,
+          topP: 0.95
+        }
       })
     });
 
@@ -84,7 +93,11 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: data.error?.message || 'Gemini API Error' }, { status: apiResponse.status });
     }
 
-    const base64Data = data.predictions?.[0]?.bytesBase64Encoded;
+    // 从 Gemini 3.1 Flash Image 响应中提取图片
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const imagePart = parts.find((p: any) => p.inlineData);
+    const base64Data = imagePart?.inlineData?.data;
+    
     if (!base64Data) {
       return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
     }
