@@ -251,7 +251,7 @@ function DesignPageContent() {
               </button>
             </div>
             
-            {showTemplates && (
+            {showTemplates && currentTemplates && currentTemplates.length > 0 && (
               <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
                 {currentTemplates.map((template) => (
                   <button
