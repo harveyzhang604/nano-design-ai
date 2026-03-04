@@ -452,7 +452,7 @@ function DesignPageContent() {
       <HistoryModal
         isOpen={showHistory}
         onClose={() => setShowHistory(false)}
-        onSelect={handleSelectFromHistory}
+        onSelectPrompt={handleSelectFromHistory}
       />
 
       <style jsx global>{`
