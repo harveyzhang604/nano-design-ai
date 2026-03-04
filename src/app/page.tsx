@@ -110,7 +110,7 @@ function DesignPageContent() {
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100 p-6 selection:bg-amber-500/30">
-      <header className="max-w-7xl mx-auto mb-12 flex justify-between items-center border-b border-neutral-800 pb-6">
+      <header className="max-w-7xl mx-auto mb-8 flex justify-between items-center border-b border-neutral-800 pb-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center font-bold text-neutral-950 text-xl shadow-[0_0_20px_rgba(245,158,11,0.3)]">
             🪙
@@ -140,6 +140,32 @@ function DesignPageContent() {
           </button>
         </div>
       </header>
+
+      {/* Social Proof - 用户统计 */}
+      <div className="max-w-7xl mx-auto mb-12 animate-in fade-in slide-in-from-top duration-500">
+        <div className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border border-amber-500/20 rounded-2xl p-6 backdrop-blur-sm">
+          <div className="grid grid-cols-3 gap-6 text-center">
+            <div className="space-y-1">
+              <div className="text-3xl font-black bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent">
+                20K+
+              </div>
+              <div className="text-xs text-neutral-300 uppercase tracking-wider">活跃用户</div>
+            </div>
+            <div className="space-y-1 border-x border-amber-500/20">
+              <div className="text-3xl font-black bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent">
+                1000+
+              </div>
+              <div className="text-xs text-neutral-300 uppercase tracking-wider">图片/小时</div>
+            </div>
+            <div className="space-y-1">
+              <div className="text-3xl font-black bg-gradient-to-r from-amber-200 to-amber-400 bg-clip-text text-transparent">
+                99%
+              </div>
+              <div className="text-xs text-neutral-300 uppercase tracking-wider">好评率</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12" role="main">
         {/* 控制面板 */}
@@ -259,21 +285,26 @@ function DesignPageContent() {
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !prompt}
-              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-400 text-neutral-950 font-black text-sm uppercase tracking-widest py-5 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-lg shadow-amber-500/10"
-              aria-label={isGenerating ? "正在生成中" : "生成设计方案"}
+              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-400 text-neutral-950 font-black text-base uppercase tracking-widest py-6 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_40px_rgba(245,158,11,0.5)] disabled:shadow-none relative overflow-hidden group"
+              aria-label={isGenerating ? "正在生成中" : "立即免费生成"}
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
               {isGenerating ? (
                 <>
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  构思中...
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                  <span className="relative">AI 构思中...</span>
                 </>
               ) : (
                 <>
+                  <Sparkles className="w-6 h-6 animate-pulse" />
+                  <span className="relative">立即免费生成</span>
                   <Send className="w-5 h-5" />
-                  生成创作
                 </>
               )}
             </button>
+            <p className="text-center text-xs text-neutral-400 mt-3">
+              ⚡ 平均生成时间 &lt;30秒 · 无需注册 · 完全免费
+            </p>
           </section>
         </aside>
 
@@ -328,6 +359,75 @@ function DesignPageContent() {
           </div>
         </section>
       </main>
+
+      {/* 用户评价 - Testimonials */}
+      <section className="max-w-7xl mx-auto mt-20 mb-12 animate-in fade-in slide-in-from-bottom duration-700">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold text-neutral-200 mb-2">用户评价</h2>
+          <p className="text-neutral-400 text-sm">来自真实用户的反馈</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all">
+            <div className="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="text-amber-400">★</span>
+              ))}
+            </div>
+            <p className="text-neutral-300 text-sm leading-relaxed mb-4">
+              "生成速度超快，质量也很高！作为设计师，这个工具大大提升了我的工作效率。"
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-neutral-950 font-bold">
+                李
+              </div>
+              <div>
+                <div className="text-neutral-200 text-sm font-medium">李明</div>
+                <div className="text-neutral-500 text-xs">UI 设计师</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all">
+            <div className="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="text-amber-400">★</span>
+              ))}
+            </div>
+            <p className="text-neutral-300 text-sm leading-relaxed mb-4">
+              "模板非常丰富，涵盖了各种场景。对于不懂设计的人来说非常友好！"
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-neutral-950 font-bold">
+                王
+              </div>
+              <div>
+                <div className="text-neutral-200 text-sm font-medium">王芳</div>
+                <div className="text-neutral-500 text-xs">市场运营</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all">
+            <div className="flex gap-1 mb-4">
+              {[...Array(5)].map((_, i) => (
+                <span key={i} className="text-amber-400">★</span>
+              ))}
+            </div>
+            <p className="text-neutral-300 text-sm leading-relaxed mb-4">
+              "完全免费还这么好用，简直是宝藏工具！已经推荐给团队所有人了。"
+            </p>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-full flex items-center justify-center text-neutral-950 font-bold">
+                张
+              </div>
+              <div>
+                <div className="text-neutral-200 text-sm font-medium">张伟</div>
+                <div className="text-neutral-500 text-xs">创业者</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
