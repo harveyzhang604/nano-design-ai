@@ -12,6 +12,8 @@ import {
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '../config/templates';
+import HistoryModal from '../components/HistoryModal';
+import { saveToHistory } from '../lib/history';
 
 function DesignPageContent() {
   const searchParams = useSearchParams();
@@ -23,6 +25,7 @@ function DesignPageContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   // 从 URL 参数加载提示词
   useEffect(() => {
@@ -83,6 +86,14 @@ function DesignPageContent() {
       }
 
       setResultImage(data.imageUrl);
+      
+      // 保存到历史记录
+      saveToHistory({
+        prompt,
+        category,
+        domain,
+        imageUrl: data.imageUrl,
+      });
     } catch (err: any) {
       console.error('Generation failed:', err);
       setError(err.message);
@@ -106,6 +117,13 @@ function DesignPageContent() {
     } catch (e) {
       console.error('Download failed:', e);
     }
+  };
+
+  const handleSelectFromHistory = (historyPrompt: string, historyCategory: string, historyDomain: string) => {
+    setPrompt(historyPrompt);
+    setCategory(historyCategory);
+    setDomain(historyDomain);
+    setShowHistory(false);
   };
 
   return (
@@ -135,6 +153,7 @@ function DesignPageContent() {
             className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700"
             aria-label="查看历史记录"
             title="查看历史记录"
+            onClick={() => setShowHistory(true)}
           >
             <History className="w-5 h-5" aria-hidden="true" />
           </button>
@@ -428,6 +447,13 @@ function DesignPageContent() {
           </div>
         </div>
       </section>
+
+      {/* 历史记录模态框 */}
+      <HistoryModal
+        isOpen={showHistory}
+        onClose={() => setShowHistory(false)}
+        onSelect={handleSelectFromHistory}
+      />
 
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
