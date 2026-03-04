@@ -13,15 +13,52 @@ interface GalleryItem {
 
 const data = galleryData as GalleryItem[];
 
+// 根据提示词关键词自动分类
+function categorizeItem(prompt: string): string {
+  const lower = prompt.toLowerCase();
+  if (lower.includes('fashion') || lower.includes('服装')) return 'fashion';
+  if (lower.includes('architecture') || lower.includes('建筑')) return 'architecture';
+  if (lower.includes('interior') || lower.includes('空间')) return 'interior';
+  if (lower.includes('product') || lower.includes('产品')) return 'product';
+  if (lower.includes('ui') || lower.includes('app') || lower.includes('website')) return 'ui';
+  if (lower.includes('logo') || lower.includes('brand') || lower.includes('poster')) return 'branding';
+  if (lower.includes('illustration') || lower.includes('character')) return 'illustration';
+  if (lower.includes('3d') || lower.includes('render')) return '3d';
+  if (lower.includes('photography') || lower.includes('photo')) return 'photography';
+  return 'other';
+}
+
+const categories = [
+  { id: 'all', name: '全部', color: 'amber' },
+  { id: 'fashion', name: '时尚', color: 'pink' },
+  { id: 'architecture', name: '建筑', color: 'blue' },
+  { id: 'interior', name: '室内', color: 'green' },
+  { id: 'product', name: '产品', color: 'purple' },
+  { id: 'ui', name: 'UI设计', color: 'cyan' },
+  { id: 'branding', name: '品牌', color: 'orange' },
+  { id: 'illustration', name: '插画', color: 'rose' },
+  { id: '3d', name: '3D', color: 'indigo' },
+  { id: 'photography', name: '摄影', color: 'teal' },
+  { id: 'other', name: '其他', color: 'gray' },
+];
+
 export default function GalleryPage() {
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
+  // 为每个项目添加分类
+  const itemsWithCategory = data.map(item => ({
+    ...item,
+    category: categorizeItem(item.prompt)
+  }));
+
   // 过滤图片
-  const filteredItems = data.filter(item => {
+  const filteredItems = itemsWithCategory.filter(item => {
+    const matchesCategory = selectedCategory === 'all' || item.category === selectedCategory;
     const matchesSearch = searchQuery === '' || 
       item.prompt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
+    return matchesCategory && matchesSearch;
   });
 
   const handleCopyPrompt = (id: number, prompt: string) => {
@@ -54,8 +91,9 @@ export default function GalleryPage() {
         </div>
       </header>
 
-      {/* Search */}
-      <div className="max-w-7xl mx-auto mb-8">
+      {/* Search & Filter */}
+      <div className="max-w-7xl mx-auto mb-8 space-y-4">
+        {/* Search Bar */}
         <div className="relative">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-500" />
           <input
@@ -65,6 +103,23 @@ export default function GalleryPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-12 pr-4 py-3 bg-neutral-900 border border-neutral-800 rounded-xl text-neutral-100 placeholder-neutral-500 focus:outline-none focus:border-amber-500 transition-colors"
           />
+        </div>
+
+        {/* Category Filter */}
+        <div className="flex gap-3 overflow-x-auto pb-2 custom-scrollbar">
+          {categories.map((cat) => (
+            <button
+              key={cat.id}
+              onClick={() => setSelectedCategory(cat.id)}
+              className={`px-6 py-2.5 rounded-xl font-medium text-sm whitespace-nowrap transition-all ${
+                selectedCategory === cat.id
+                  ? 'bg-amber-500 text-neutral-950'
+                  : 'bg-neutral-900 text-neutral-300 hover:bg-neutral-800 border border-neutral-800'
+              }`}
+            >
+              {cat.name}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -136,7 +191,7 @@ export default function GalleryPage() {
         {filteredItems.length === 0 && (
           <div className="text-center py-16">
             <p className="text-neutral-300 text-lg mb-2">未找到匹配的图片</p>
-            <p className="text-neutral-300 text-sm">尝试调整搜索关键词</p>
+            <p className="text-neutral-300 text-sm">尝试调整搜索关键词或选择其他分类</p>
           </div>
         )}
       </main>
