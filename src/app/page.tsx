@@ -119,7 +119,7 @@ function DesignPageContent() {
             <h1 className="text-3xl font-bold bg-gradient-to-r from-amber-200 to-yellow-500 bg-clip-text text-transparent">
               Nano Design AI
             </h1>
-            <p className="text-neutral-300 mt-0.5 text-xs font-medium tracking-tight uppercase">POWERED BY NANO BANANA 2</p>
+            <p className="text-neutral-200 mt-0.5 text-xs font-medium tracking-tight uppercase">POWERED BY NANO BANANA 2</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -146,7 +146,7 @@ function DesignPageContent() {
         <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700" role="complementary" aria-label="设计控制面板">
           {/* 领域选择 */}
           <section aria-labelledby="domain-heading">
-            <h2 id="domain-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">应用领域</h2>
+            <h2 id="domain-heading" className="text-xs font-semibold text-neutral-200 uppercase tracking-[0.2em] mb-4">应用领域</h2>
             <div className="grid grid-cols-2 gap-3">
               {domains.map((d) => (
                 <button
@@ -168,7 +168,7 @@ function DesignPageContent() {
 
           {/* 分类选择 */}
           <section aria-labelledby="category-heading">
-            <h2 id="category-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">
+            <h2 id="category-heading" className="text-xs font-semibold text-neutral-200 uppercase tracking-[0.2em] mb-4">
               {domains.find(d => d.id === domain)?.name || '设计领域'}
             </h2>
             <div className="grid grid-cols-2 gap-3">
@@ -196,7 +196,7 @@ function DesignPageContent() {
           {/* 提示词模板 */}
           <section aria-labelledby="template-heading">
             <div className="flex items-center justify-between mb-4">
-              <h2 id="template-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em]">提示词模板</h2>
+              <h2 id="template-heading" className="text-xs font-semibold text-neutral-200 uppercase tracking-[0.2em]">提示词模板</h2>
               <button
                 onClick={() => setShowTemplates(!showTemplates)}
                 className="text-xs text-amber-400 hover:text-amber-400 transition-colors flex items-center gap-1"
@@ -219,10 +219,10 @@ function DesignPageContent() {
                     }`}
                   >
                     <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
-                    <div className="text-xs text-neutral-300 line-clamp-2">{template.prompt}</div>
+                    <div className="text-xs text-neutral-200 line-clamp-2">{template.prompt}</div>
                     <div className="flex gap-1 mt-2">
                       {template.tags.map((tag, idx) => (
-                        <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded">
+                        <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-200 rounded">
                           {tag}
                         </span>
                       ))}
@@ -234,7 +234,7 @@ function DesignPageContent() {
           </section>
 
           <section aria-labelledby="prompt-heading">
-            <h2 id="prompt-heading" className="text-xs font-semibold text-neutral-300 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h2>
+            <h2 id="prompt-heading" className="text-xs font-semibold text-neutral-200 uppercase tracking-[0.2em] mb-4">设计需求 / Prompt</h2>
             <div className="relative group">
               <textarea
                 value={prompt}
@@ -244,7 +244,7 @@ function DesignPageContent() {
                 aria-label="输入设计需求描述"
                 aria-describedby="char-count"
               />
-              <div id="char-count" className="absolute bottom-4 right-4 text-[10px] text-neutral-300 font-mono" aria-live="polite">
+              <div id="char-count" className="absolute bottom-4 right-4 text-[10px] text-neutral-200 font-mono" aria-live="polite">
                 {prompt.length} chars
               </div>
             </div>
@@ -306,7 +306,7 @@ function DesignPageContent() {
                   <div className="absolute -top-1 -right-1 w-4 h-4 bg-amber-500 rounded-full animate-pulse" />
                 </div>
                 <h2 className="text-2xl font-bold text-neutral-200">开始您的创作</h2>
-                <p className="text-neutral-300 mt-4 text-sm leading-relaxed">
+                <p className="text-neutral-200 mt-4 text-sm leading-relaxed">
                   选择应用领域和分类，使用提示词模板或自定义描述。元宝将使用 **Nano Banana 2** 引擎为您生成高清图像。
                 </p>
               </div>
