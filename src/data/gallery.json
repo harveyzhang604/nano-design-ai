@@ -1,62 +1,257 @@
 [
   {
     "id": 1,
-    "prompt": "A tiny banana wearing sunglasses lounging on a beach chair",
-    "imageUrl": "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800&q=80"
+    "prompt": "High fashion editorial photograph of a model wearing [描述服装]. Studio lighting with colored gels creating [颜色] tones. Vogue magazine style, shot on medium format camera, shallow depth of field.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620847559-High_fashion_editorial_photogr.png"
   },
   {
     "id": 2,
-    "prompt": "Miniature banana astronaut floating in space with stars",
-    "imageUrl": "https://images.unsplash.com/photo-1543286386-713bdd548da4?w=800&q=80"
+    "prompt": "Street style photography of [描述人物] wearing [描述服装] in [城市/场景]. Natural lighting, candid moment, urban background. Shot with 35mm lens, f/2.8.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620862062-Street_style_photography_of___.png"
   },
   {
     "id": 3,
-    "prompt": "Nano banana DJ with headphones at a turntable",
-    "imageUrl": "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=800&q=80"
+    "prompt": "Futuristic fashion design featuring [描述服装材质和风格]. Holographic elements, metallic textures, cyberpunk aesthetic. Studio lighting, high contrast, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620874796-Futuristic_fashion_design_feat.png"
   },
   {
     "id": 4,
-    "prompt": "Tiny banana superhero with a cape flying through clouds",
-    "imageUrl": "https://images.unsplash.com/photo-1587334207976-c52c2f323b99?w=800&q=80"
+    "prompt": "Modern [建筑类型] with clean lines, large glass windows, minimalist design. [环境描述]. Architectural photography, golden hour lighting, wide angle shot.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620894996-Modern________with_clean_lines.png"
   },
   {
     "id": 5,
-    "prompt": "Miniature banana chef cooking in a tiny kitchen",
-    "imageUrl": "https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80"
+    "prompt": "Eco-friendly [建筑类型] with vertical gardens, solar panels, green roof. Surrounded by nature. Architectural photography, natural lighting, drone perspective.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620906617-Eco_friendly________with_verti.png"
   },
   {
     "id": 6,
-    "prompt": "Nano banana reading a book under a mushroom umbrella",
-    "imageUrl": "https://images.unsplash.com/photo-1481349518771-20055b2a7b24?w=800&q=80"
+    "prompt": "Futuristic [建筑类型] with organic curves, parametric design, innovative materials. [城市/环境]. Dramatic lighting, cinematic composition, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620919533-Futuristic________with_organic.png"
   },
   {
     "id": 7,
-    "prompt": "Tiny banana surfer riding a wave at sunset",
-    "imageUrl": "https://images.unsplash.com/photo-1502680390469-be75c86b636f?w=800&q=80"
+    "prompt": "Historic [建筑风格] architecture from [年代/时期]. Detailed facade, ornate decorations, classical proportions. [环境描述]. Architectural photography, natural light.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620936627-Historic________architecture_f.png"
   },
   {
     "id": 8,
-    "prompt": "Miniature banana artist painting on a tiny easel",
-    "imageUrl": "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=800&q=80"
+    "prompt": "Modern minimalist [空间类型] with clean lines, neutral color palette, natural materials. Large windows with natural light. Scandinavian style, architectural photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620949047-Modern_minimalist________with_.png"
   },
   {
     "id": 9,
-    "prompt": "Nano banana explorer with a backpack in a jungle",
-    "imageUrl": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80"
+    "prompt": "Industrial loft [空间类型] with exposed brick walls, metal beams, concrete floors. Edison bulb lighting, vintage furniture. Urban aesthetic, moody atmosphere.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620963238-Industrial_loft________with_ex.png"
   },
   {
     "id": 10,
-    "prompt": "Tiny banana musician playing guitar under moonlight",
-    "imageUrl": "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80"
+    "prompt": "Luxury [空间类型] with marble surfaces, gold accents, crystal chandelier. Elegant furniture, rich textures. High-end interior design, dramatic lighting.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620976323-Luxury________with_marble_surf.png"
   },
   {
     "id": 11,
-    "prompt": "Miniature banana scientist in a lab with test tubes",
-    "imageUrl": "https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=800&q=80"
+    "prompt": "Cozy [空间类型] with warm lighting, soft textiles, natural wood. Plants and personal touches. Hygge aesthetic, inviting atmosphere, natural light.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620989775-Cozy________with_warm_lighting.png"
   },
   {
     "id": 12,
-    "prompt": "Nano banana gardener watering tiny plants with a watering can",
-    "imageUrl": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=800&q=80"
+    "prompt": "Professional product photography of [产品名称]. Clean white background, studio lighting, multiple angles. Commercial photography style, high resolution, sharp details.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621000803-Professional_product_photograp.png"
+  },
+  {
+    "id": 13,
+    "prompt": "[产品名称] in lifestyle setting. [使用场景描述]. Natural lighting, authentic moment, lifestyle photography. Shot with 50mm lens.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621017083-_______in_lifestyle_setting___.png"
+  },
+  {
+    "id": 14,
+    "prompt": "Sleek [电子产品] with modern design. Floating on gradient background, dramatic lighting, reflections. Tech product photography, futuristic aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621030398-Sleek________with_modern_desig.png"
+  },
+  {
+    "id": 15,
+    "prompt": "Handcrafted [产品类型] with artisanal details. Natural materials, textured surface. Warm lighting, rustic background, close-up shot showing craftsmanship.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621042929-Handcrafted________with_artisa.png"
+  },
+  {
+    "id": 16,
+    "prompt": "Minimalist poster design for [主题]. Bold typography, [颜色方案], geometric shapes. Modern graphic design, clean composition, high contrast.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621052545-Minimalist_poster_design_for__.png"
+  },
+  {
+    "id": 17,
+    "prompt": "Modern logo design for [品牌名称]. [风格描述], simple and memorable. Vector style, clean lines, professional branding.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621063090-Modern_logo_design_for________.png"
+  },
+  {
+    "id": 18,
+    "prompt": "Infographic showing [主题/数据]. Clean vector art, [颜色方案], clear hierarchy. Educational design, easy to understand, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621077671-Infographic_showing__________C.png"
+  },
+  {
+    "id": 19,
+    "prompt": "Magazine cover design for [主题]. Bold headline ",
+    "imageUrl": "https://img.talkphoto.app/images/1772621091808-Magazine_cover_design_for_____.png"
+  },
+  {
+    "id": 20,
+    "prompt": "Modern mobile app UI design for [应用类型]. Clean interface, [颜色方案], intuitive navigation. iOS/Android style, user-friendly, contemporary design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621128441-Modern_mobile_app_UI_design_fo.png"
+  },
+  {
+    "id": 21,
+    "prompt": "Website landing page design for [网站类型]. Hero section with [描述], clear CTA buttons, modern layout. Responsive design, clean typography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621141704-Website_landing_page_design_fo.png"
+  },
+  {
+    "id": 22,
+    "prompt": "Dashboard UI design showing [数据类型]. Data visualization, charts and graphs, dark mode interface. Professional design, clear information hierarchy.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621154238-Dashboard_UI_design_showing___.png"
+  },
+  {
+    "id": 23,
+    "prompt": "Game UI design for [游戏类型]. [风格描述] aesthetic, HUD elements, menu screens. Immersive design, fantasy/sci-fi style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621166457-Game_UI_design_for____________.png"
+  },
+  {
+    "id": 24,
+    "prompt": "Flat illustration of [主题]. Simple shapes, [颜色方案], minimal details. Modern vector style, clean and friendly aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621176945-Flat_illustration_of_______Sim.png"
+  },
+  {
+    "id": 25,
+    "prompt": "Hand-drawn illustration of [主题]. Sketch-like lines, watercolor textures, organic feel. Artistic style, warm and personal.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621189128-Hand_drawn_illustration_of____.png"
+  },
+  {
+    "id": 26,
+    "prompt": "Character design of [角色描述]. [风格] style, expressive features, dynamic pose. Full body illustration, character sheet format.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621204514-Character_design_of___________.png"
+  },
+  {
+    "id": 27,
+    "prompt": "Detailed illustration of [场景描述]. [风格] aesthetic, atmospheric lighting, rich colors. Concept art style, cinematic composition.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621216461-Detailed_illustration_of______.png"
+  },
+  {
+    "id": 28,
+    "prompt": "Brand identity system for [品牌名称]. Logo variations, color palette, typography guidelines. Professional branding, cohesive visual system.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621231218-Brand_identity_system_for_____.png"
+  },
+  {
+    "id": 29,
+    "prompt": "Product packaging design for [产品]. [风格描述], [颜色方案], brand logo placement. Mockup on [背景], professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621243357-Product_packaging_design_for__.png"
+  },
+  {
+    "id": 30,
+    "prompt": "Brand application mockups showing [品牌名称] on [应用场景]. Business cards, letterhead, merchandise. Consistent branding, professional presentation.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621256557-Brand_application_mockups_show.png"
+  },
+  {
+    "id": 31,
+    "prompt": "Social media branding for [品牌]. Instagram post templates, story designs, [风格描述]. Consistent visual identity, engaging design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621269519-Social_media_branding_for_____.png"
+  },
+  {
+    "id": 32,
+    "prompt": "Portrait photography of [人物描述]. [光线描述] lighting, [背景描述]. Shot with 85mm lens, f/1.8, shallow depth of field.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621283830-Portrait_photography_of_______.png"
+  },
+  {
+    "id": 33,
+    "prompt": "Landscape photography of [场景描述]. [时间/天气] lighting, dramatic sky, vivid colors. Wide angle shot, long exposure, professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621298266-Landscape_photography_of______.png"
+  },
+  {
+    "id": 34,
+    "prompt": "Food photography of [食物]. Overhead shot, natural lighting, rustic background. Appetizing presentation, shallow depth of field, professional styling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621310367-Food_photography_of_______Over.png"
+  },
+  {
+    "id": 35,
+    "prompt": "Black and white photography of [主题]. High contrast, dramatic lighting, strong composition. Film noir aesthetic, timeless style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621323545-Black_and_white_photography_of.png"
+  },
+  {
+    "id": 36,
+    "prompt": "3D render of [产品]. Photorealistic materials, studio lighting, clean background. Octane render, 8K resolution, professional product visualization.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621334889-3D_render_of_______Photorealis.png"
+  },
+  {
+    "id": 37,
+    "prompt": "Abstract 3D composition with [形状/元素]. [颜色方案], smooth gradients, floating objects. Cinema 4D style, modern aesthetic, high quality render.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621346901-Abstract_3D_composition_with__.png"
+  },
+  {
+    "id": 38,
+    "prompt": "3D character model of [角色描述]. Detailed textures, realistic materials, [风格] style. Full body render, turnaround view, professional modeling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621360840-3D_character_model_of_________.png"
+  },
+  {
+    "id": 39,
+    "prompt": "3D environment of [场景描述]. Detailed architecture, atmospheric lighting, [风格] aesthetic. Unreal Engine quality, cinematic render.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621372329-3D_environment_of_________Deta.png"
+  },
+  {
+    "id": 40,
+    "prompt": "Blog post cover image for [主题]. Minimalist design with [视觉元素], bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772621385644-Blog_post_cover_image_for_____.png"
+  },
+  {
+    "id": 41,
+    "prompt": "Editorial illustration for blog article about [主题]. [风格] style, [颜色方案], informative yet artistic. Vector art, clean lines, modern aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621398524-Editorial_illustration_for_blo.png"
+  },
+  {
+    "id": 42,
+    "prompt": "Step-by-step tutorial illustration for [主题]. Numbered steps, clear icons, [颜色方案]. Educational design, easy to follow, infographic style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621410748-Step_by_step_tutorial_illustra.png"
+  },
+  {
+    "id": 43,
+    "prompt": "Quote graphic for blog. Bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772621422553-Quote_graphic_for_blog__Bold_t.png"
+  },
+  {
+    "id": 44,
+    "prompt": "Instagram post for [主题]. [风格] aesthetic, [颜色方案], eye-catching design. Square format, engaging visual, modern social media style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621434854-Instagram_post_for____________.png"
+  },
+  {
+    "id": 45,
+    "prompt": "Xiaohongshu lifestyle post about [主题]. [风格] aesthetic, warm tones, trendy design. Vertical format, engaging content, popular Chinese social media style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621450508-Xiaohongshu_lifestyle_post_abo.png"
+  },
+  {
+    "id": 46,
+    "prompt": "Social media story for [主题]. Full screen design, [颜色方案], bold text overlay. Vertical format, engaging visuals, swipe-up call-to-action.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621466546-Social_media_story_for_______F.png"
+  },
+  {
+    "id": 47,
+    "prompt": "Social media profile banner for [账号/品牌]. [风格] design, [颜色方案], memorable visual. Horizontal format, professional look.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621482174-Social_media_profile_banner_fo.png"
+  },
+  {
+    "id": 48,
+    "prompt": "Professional PowerPoint cover slide for [主题]. [风格] design, [颜色方案], clean layout. Corporate presentation style, modern business aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621495196-Professional_PowerPoint_cover_.png"
+  },
+  {
+    "id": 49,
+    "prompt": "Data visualization slide for [主题]. Clean charts and graphs, [颜色方案], professional styling. Business presentation, easy to understand, modern design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621509458-Data_visualization_slide_for__.png"
+  },
+  {
+    "id": 50,
+    "prompt": "Process flow diagram for [主题]. Clean icons, arrows, [颜色方案]. Step-by-step visualization, corporate presentation style, professional design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621522966-Process_flow_diagram_for______.png"
+  },
+  {
+    "id": 51,
+    "prompt": "Presentation closing slide for [主题]. Thank you message, [风格] design, [颜色方案]. Professional ending, contact info, modern corporate style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621534513-Presentation_closing_slide_for.png"
   }
 ]
