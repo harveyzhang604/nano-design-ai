@@ -8,11 +8,13 @@ import {
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
   FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
 } from 'lucide-react';
-import ToolParams from './ToolParams';
-import { toolConfigs } from './toolConfigs';
+import ToolCard from './components/ToolCard';
+import ToolParams from './components/ToolParams';
+import { toolConfigs } from './configs';
+import { Tool } from './types';
 
 // 功能列表
-const tools = [
+const tools: Tool[] = [
   // P0 - 紧急开发
   { id: 'remove-bg', name: '背景移除', icon: Scissors, color: 'from-blue-500 to-cyan-500', desc: '一键去除背景', category: 'P0' },
   { id: 'upscale', name: '照片放大', icon: ZoomIn, color: 'from-purple-500 to-pink-500', desc: '2x/4x/8x无损放大', category: 'P0' },
@@ -45,35 +47,6 @@ const tools = [
   { id: 'fashion', name: '服装模特', icon: Shirt, color: 'from-fuchsia-400 to-pink-600', desc: '虚拟模特展示', category: 'P2' },
   { id: 'compose', name: '图像合成', icon: Layers, color: 'from-slate-400 to-zinc-500', desc: '多图融合蒙版', category: 'P2' },
 ];
-
-function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
-    >
-      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-        <tool.icon className="w-7 h-7 text-white" />
-      </div>
-      <h3 className="text-lg font-bold text-neutral-100 mb-1 group-hover:text-amber-400 transition-colors">
-        {tool.name}
-      </h3>
-      <p className="text-sm text-neutral-400">{tool.desc}</p>
-      <div className="mt-4 flex items-center justify-between">
-        <span className={`text-xs px-2 py-1 rounded-full ${
-          tool.category === 'P0' ? 'bg-red-500/20 text-red-400' :
-          tool.category === 'P1' ? 'bg-amber-500/20 text-amber-400' :
-          'bg-green-500/20 text-green-400'
-        }`}>
-          {tool.category}
-        </span>
-        <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors flex items-center gap-1">
-          立即体验 →
-        </span>
-      </div>
-    </button>
-  );
-}
 
 export default function ToolsPage() {
   const [activeTool, setActiveTool] = useState<string | null>(null);

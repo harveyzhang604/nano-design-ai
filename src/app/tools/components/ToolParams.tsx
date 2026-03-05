@@ -1,6 +1,7 @@
 "use client";
 import { useState } from 'react';
-import { toolConfigs, ToolConfig, ToolPreset } from './toolConfigs';
+import { toolConfigs } from '../configs';
+import { ToolConfig, ToolPreset } from '../types';
 
 interface ToolParamsProps {
   toolId: string;
