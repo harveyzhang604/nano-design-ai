@@ -79,8 +79,8 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行老照片修复
-    // 修复划痕、破损、模糊，增强面部细节
-    const prompt = `Restore this old, damaged photograph. Remove scratches, tears, and damage. Enhance facial details and make the image clearer. Improve clarity and sharpness. Restore faded colors to look natural and vibrant. Preserve the original composition and important details. Make it look like a professionally restored vintage photo.`;
+    // 关键：只修复损坏，不改变任何原有细节！
+    const prompt = `Professionally restore this damaged old photograph. ONLY repair the following issues: remove scratches, tears, water stains, noise, and physical damage. ONLY enhance clarity in blurry areas. Keep ALL original details EXACTLY the same including: facial expression (DO NOT change - keep exactly as is), eye position, mouth shape, pose, head position, lighting direction, and all other details. Restore colors to match the original tones - do not add or change any colors. Make it look like the original photo was simply cleaned and damage-repaired, not recreated. The result should look like the same photo with damage fixed.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -96,9 +96,9 @@ export async function POST(req: Request) {
           ]
         }],
         generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95
+          temperature: 0.2,
+          topK: 20,
+          topP: 0.85
         }
       })
     });
