@@ -69,6 +69,9 @@ export default function RootLayout({
         <link rel="canonical" href="https://talkphoto.app" />
         <link rel="preconnect" href="https://api.openai.com" />
         <link rel="dns-prefetch" href="https://api.openai.com" />
+        {/* Preload critical resources */}
+        <link rel="preload" as="style" href="/_next/static/css/app/layout.css" />
+        <link rel="preload" as="script" href="/_next/static/chunks/main-app.js" />
       </head>
       <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>

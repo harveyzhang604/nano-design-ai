@@ -11,7 +11,7 @@ import {
 } from '../components/icons';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
-import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '../config/templates';
+import { mainDomains, domainCategoriesMap, designCategories } from '../config/templates';
 import HistoryModal from '../components/HistoryModal';
 import { saveToHistory } from '../lib/history';
 
@@ -26,6 +26,8 @@ function DesignPageContent() {
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showHistory, setShowHistory] = useState(false);
+  const [currentTemplates, setCurrentTemplates] = useState<any[]>([]);
+  const [loadingTemplates, setLoadingTemplates] = useState(false);
 
   // 从 URL 参数加载提示词
   useEffect(() => {
@@ -34,6 +36,22 @@ function DesignPageContent() {
     if (urlPrompt) setPrompt(urlPrompt);
     if (urlCategory) setCategory(urlCategory);
   }, [searchParams]);
+
+  // 按需加载模板数据
+  useEffect(() => {
+    if (showTemplates && currentTemplates.length === 0) {
+      setLoadingTemplates(true);
+      fetch(`/api/templates?category=${category}`)
+        .then(res => res.json())
+        .then(data => {
+          setCurrentTemplates(data.templates || []);
+          setLoadingTemplates(false);
+        })
+        .catch(() => {
+          setLoadingTemplates(false);
+        });
+    }
+  }, [showTemplates, category]);
 
   const iconMap: Record<string, any> = {
     Layers, Building2, Home, Package, Palette, Smartphone, Paintbrush, Award, Camera, Box,
@@ -52,13 +70,12 @@ function DesignPageContent() {
     icon: iconMap[cat.icon] || Layers
   }));
 
-  const currentTemplates = promptTemplates[category as keyof typeof promptTemplates] || [];
-
   const handleDomainChange = (newDomain: string) => {
     setDomain(newDomain);
     const firstCategory = domainCategoriesMap[newDomain]?.[0]?.id || 'fashion';
     setCategory(firstCategory);
     setSelectedTemplate(null);
+    setCurrentTemplates([]);
   };
 
   const handleTemplateSelect = (template: any) => {
@@ -260,29 +277,40 @@ function DesignPageContent() {
               </button>
             </div>
             
-            {showTemplates && currentTemplates && currentTemplates.length > 0 && (
+            {showTemplates && (
               <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
-                {currentTemplates.map((template) => (
-                  <button
-                    key={template.id}
-                    onClick={() => handleTemplateSelect(template)}
-                    className={`w-full text-left p-3 rounded-lg border transition-all ${
-                      selectedTemplate === template.id
-                        ? 'bg-amber-500/10 border-amber-500/50'
-                        : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700'
-                    }`}
-                  >
-                    <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
-                    <div className="text-xs text-neutral-300 line-clamp-2">{template.prompt}</div>
-                    <div className="flex gap-1 mt-2">
-                      {template.tags.map((tag, idx) => (
-                        <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </button>
-                ))}
+                {loadingTemplates ? (
+                  <div className="text-center py-8 text-neutral-400">
+                    <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
+                    <p className="text-xs">加载模板中...</p>
+                  </div>
+                ) : currentTemplates && currentTemplates.length > 0 ? (
+                  currentTemplates.map((template) => (
+                    <button
+                      key={template.id}
+                      onClick={() => handleTemplateSelect(template)}
+                      className={`w-full text-left p-3 rounded-lg border transition-all ${
+                        selectedTemplate === template.id
+                          ? 'bg-amber-500/10 border-amber-500/50'
+                          : 'bg-neutral-900/50 border-neutral-800/50 hover:border-neutral-700'
+                      }`}
+                    >
+                      <div className="font-medium text-sm text-neutral-200 mb-1">{template.name}</div>
+                      <div className="text-xs text-neutral-300 line-clamp-2">{template.prompt}</div>
+                      <div className="flex gap-1 mt-2">
+                        {template.tags.map((tag: string, idx: number) => (
+                          <span key={idx} className="text-[10px] px-2 py-0.5 bg-neutral-800 text-neutral-300 rounded">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </button>
+                  ))
+                ) : (
+                  <div className="text-center py-8 text-neutral-400 text-xs">
+                    暂无模板
+                  </div>
+                )}
               </div>
             )}
           </section>
