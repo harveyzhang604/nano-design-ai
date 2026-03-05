@@ -1,0 +1,42 @@
+[
+  {
+    "prompt": "High fashion editorial photograph of a model wearing [描述服装]. Studio lighting with colored gels creating [颜色] tones. Vogue magazine style, shot on medium format camera, shallow depth of field.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620571842-High_fashion_editorial_photogr.png"
+  },
+  {
+    "prompt": "Street style photography of [描述人物] wearing [描述服装] in [城市/场景]. Natural lighting, candid moment, urban background. Shot with 35mm lens, f/2.8.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620584621-Street_style_photography_of___.png"
+  },
+  {
+    "prompt": "Futuristic fashion design featuring [描述服装材质和风格]. Holographic elements, metallic textures, cyberpunk aesthetic. Studio lighting, high contrast, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620595938-Futuristic_fashion_design_feat.png"
+  },
+  {
+    "prompt": "Vintage [年代] fashion photography. Model wearing [描述服装]. Retro color grading, film grain texture, nostalgic atmosphere. Shot on vintage film camera.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620609217-Vintage______fashion_photograp.png"
+  },
+  {
+    "prompt": "Modern [建筑类型] with clean lines, large glass windows, minimalist design. [环境描述]. Architectural photography, golden hour lighting, wide angle shot.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620620674-Modern________with_clean_lines.png"
+  },
+  {
+    "prompt": "Eco-friendly [建筑类型] with vertical gardens, solar panels, green roof. Surrounded by nature. Architectural photography, natural lighting, drone perspective.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620631756-Eco_friendly________with_verti.png"
+  },
+  {
+    "prompt": "Futuristic [建筑类型] with organic curves, parametric design, innovative materials. [城市/环境]. Dramatic lighting, cinematic composition, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620643194-Futuristic________with_organic.png"
+  },
+  {
+    "prompt": "Historic [建筑风格] architecture from [年代/时期]. Detailed facade, ornate decorations, classical proportions. [环境描述]. Architectural photography, natural light.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620653359-Historic________architecture_f.png"
+  },
+  {
+    "prompt": "Modern minimalist [空间类型] with clean lines, neutral color palette, natural materials. Large windows with natural light. Scandinavian style, architectural photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620664718-Modern_minimalist________with_.png"
+  },
+  {
+    "prompt": "Industrial loft [空间类型] with exposed brick walls, metal beams, concrete floors. Edison bulb lighting, vintage furniture. Urban aesthetic, moody atmosphere.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620678277-Industrial_loft________with_ex.png"
+  }
+]

@@ -1,0 +1,97 @@
+[
+  {
+    "id": 1,
+    "prompt": "High fashion editorial photograph of a model wearing [描述服装]. Studio lighting with colored gels creating [颜色] tones. Vogue magazine style, shot on medium format camera, shallow depth of field.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620847559-High_fashion_editorial_photogr.png"
+  },
+  {
+    "id": 2,
+    "prompt": "Street style photography of [描述人物] wearing [描述服装] in [城市/场景]. Natural lighting, candid moment, urban background. Shot with 35mm lens, f/2.8.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620862062-Street_style_photography_of___.png"
+  },
+  {
+    "id": 3,
+    "prompt": "Futuristic fashion design featuring [描述服装材质和风格]. Holographic elements, metallic textures, cyberpunk aesthetic. Studio lighting, high contrast, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620874796-Futuristic_fashion_design_feat.png"
+  },
+  {
+    "id": 4,
+    "prompt": "Modern [建筑类型] with clean lines, large glass windows, minimalist design. [环境描述]. Architectural photography, golden hour lighting, wide angle shot.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620894996-Modern________with_clean_lines.png"
+  },
+  {
+    "id": 5,
+    "prompt": "Eco-friendly [建筑类型] with vertical gardens, solar panels, green roof. Surrounded by nature. Architectural photography, natural lighting, drone perspective.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620906617-Eco_friendly________with_verti.png"
+  },
+  {
+    "id": 6,
+    "prompt": "Futuristic [建筑类型] with organic curves, parametric design, innovative materials. [城市/环境]. Dramatic lighting, cinematic composition, 8K resolution.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620919533-Futuristic________with_organic.png"
+  },
+  {
+    "id": 7,
+    "prompt": "Historic [建筑风格] architecture from [年代/时期]. Detailed facade, ornate decorations, classical proportions. [环境描述]. Architectural photography, natural light.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620936627-Historic________architecture_f.png"
+  },
+  {
+    "id": 8,
+    "prompt": "Modern minimalist [空间类型] with clean lines, neutral color palette, natural materials. Large windows with natural light. Scandinavian style, architectural photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620949047-Modern_minimalist________with_.png"
+  },
+  {
+    "id": 9,
+    "prompt": "Industrial loft [空间类型] with exposed brick walls, metal beams, concrete floors. Edison bulb lighting, vintage furniture. Urban aesthetic, moody atmosphere.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620963238-Industrial_loft________with_ex.png"
+  },
+  {
+    "id": 10,
+    "prompt": "Luxury [空间类型] with marble surfaces, gold accents, crystal chandelier. Elegant furniture, rich textures. High-end interior design, dramatic lighting.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620976323-Luxury________with_marble_surf.png"
+  },
+  {
+    "id": 11,
+    "prompt": "Cozy [空间类型] with warm lighting, soft textiles, natural wood. Plants and personal touches. Hygge aesthetic, inviting atmosphere, natural light.",
+    "imageUrl": "https://img.talkphoto.app/images/1772620989775-Cozy________with_warm_lighting.png"
+  },
+  {
+    "id": 12,
+    "prompt": "Professional product photography of [产品名称]. Clean white background, studio lighting, multiple angles. Commercial photography style, high resolution, sharp details.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621000803-Professional_product_photograp.png"
+  },
+  {
+    "id": 13,
+    "prompt": "[产品名称] in lifestyle setting. [使用场景描述]. Natural lighting, authentic moment, lifestyle photography. Shot with 50mm lens.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621017083-_______in_lifestyle_setting___.png"
+  },
+  {
+    "id": 14,
+    "prompt": "Sleek [电子产品] with modern design. Floating on gradient background, dramatic lighting, reflections. Tech product photography, futuristic aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621030398-Sleek________with_modern_desig.png"
+  },
+  {
+    "id": 15,
+    "prompt": "Handcrafted [产品类型] with artisanal details. Natural materials, textured surface. Warm lighting, rustic background, close-up shot showing craftsmanship.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621042929-Handcrafted________with_artisa.png"
+  },
+  {
+    "id": 16,
+    "prompt": "Minimalist poster design for [主题]. Bold typography, [颜色方案], geometric shapes. Modern graphic design, clean composition, high contrast.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621052545-Minimalist_poster_design_for__.png"
+  },
+  {
+    "id": 17,
+    "prompt": "Modern logo design for [品牌名称]. [风格描述], simple and memorable. Vector style, clean lines, professional branding.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621063090-Modern_logo_design_for________.png"
+  },
+  {
+    "id": 18,
+    "prompt": "Infographic showing [主题/数据]. Clean vector art, [颜色方案], clear hierarchy. Educational design, easy to understand, modern style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772621077671-Infographic_showing__________C.png"
+  },
+  {
+    "id": 19,
+    "prompt": "Magazine cover design for [主题]. Bold headline ",
+    "imageUrl": "https://img.talkphoto.app/images/1772621091808-Magazine_cover_design_for_____.png"
+  }
+]

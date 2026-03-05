@@ -142,6 +142,15 @@ function DesignPageContent() {
         </div>
         <div className="flex gap-2">
           <Link
+            href="/tools"
+            className="px-4 py-2.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 rounded-xl transition-colors text-neutral-950 font-bold text-sm flex items-center gap-2"
+            title="AI 工具箱"
+            aria-label="AI 工具箱"
+          >
+            <Sparkles className="w-4 h-4" aria-hidden="true" />
+            <span>工具箱</span>
+          </Link>
+          <Link
             href="/gallery"
             className="p-2.5 hover:bg-neutral-800 rounded-xl transition-colors text-neutral-300 hover:text-white border border-transparent hover:border-neutral-700"
             title="查看灵感画廊"

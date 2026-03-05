@@ -1,0 +1,128 @@
+[
+  {
+    "prompt": "Modern mobile app UI design for [应用类型]. Clean interface, [颜色方案], intuitive navigation. iOS/Android style, user-friendly, contemporary design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622030863-Modern_mobile_app_UI_design_fo.png"
+  },
+  {
+    "prompt": "Website landing page design for [网站类型]. Hero section with [描述], clear CTA buttons, modern layout. Responsive design, clean typography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622048953-Website_landing_page_design_fo.png"
+  },
+  {
+    "prompt": "Dashboard UI design showing [数据类型]. Data visualization, charts and graphs, dark mode interface. Professional design, clear information hierarchy.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622067697-Dashboard_UI_design_showing___.png"
+  },
+  {
+    "prompt": "Game UI design for [游戏类型]. [风格描述] aesthetic, HUD elements, menu screens. Immersive design, fantasy/sci-fi style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622098420-Game_UI_design_for____________.png"
+  },
+  {
+    "prompt": "Flat illustration of [主题]. Simple shapes, [颜色方案], minimal details. Modern vector style, clean and friendly aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622125007-Flat_illustration_of_______Sim.png"
+  },
+  {
+    "prompt": "Hand-drawn illustration of [主题]. Sketch-like lines, watercolor textures, organic feel. Artistic style, warm and personal.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622150636-Hand_drawn_illustration_of____.png"
+  },
+  {
+    "prompt": "Character design of [角色描述]. [风格] style, expressive features, dynamic pose. Full body illustration, character sheet format.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Detailed illustration of [场景描述]. [风格] aesthetic, atmospheric lighting, rich colors. Concept art style, cinematic composition.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622187489-Detailed_illustration_of______.png"
+  },
+  {
+    "prompt": "Brand identity system for [品牌名称]. Logo variations, color palette, typography guidelines. Professional branding, cohesive visual system.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622211173-Brand_identity_system_for_____.png"
+  },
+  {
+    "prompt": "Product packaging design for [产品]. [风格描述], [颜色方案], brand logo placement. Mockup on [背景], professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622232786-Product_packaging_design_for__.png"
+  },
+  {
+    "prompt": "Brand application mockups showing [品牌名称] on [应用场景]. Business cards, letterhead, merchandise. Consistent branding, professional presentation.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622251029-Brand_application_mockups_show.png"
+  },
+  {
+    "prompt": "Social media branding for [品牌]. Instagram post templates, story designs, [风格描述]. Consistent visual identity, engaging design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622273458-Social_media_branding_for_____.png"
+  },
+  {
+    "prompt": "Portrait photography of [人物描述]. [光线描述] lighting, [背景描述]. Shot with 85mm lens, f/1.8, shallow depth of field.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Landscape photography of [场景描述]. [时间/天气] lighting, dramatic sky, vivid colors. Wide angle shot, long exposure, professional photography.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622303262-Landscape_photography_of______.png"
+  },
+  {
+    "prompt": "Food photography of [食物]. Overhead shot, natural lighting, rustic background. Appetizing presentation, shallow depth of field, professional styling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622321324-Food_photography_of_______Over.png"
+  },
+  {
+    "prompt": "Black and white photography of [主题]. High contrast, dramatic lighting, strong composition. Film noir aesthetic, timeless style.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622342929-Black_and_white_photography_of.png"
+  },
+  {
+    "prompt": "3D render of [产品]. Photorealistic materials, studio lighting, clean background. Octane render, 8K resolution, professional product visualization.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622360763-3D_render_of_______Photorealis.png"
+  },
+  {
+    "prompt": "Abstract 3D composition with [形状/元素]. [颜色方案], smooth gradients, floating objects. Cinema 4D style, modern aesthetic, high quality render.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622381112-Abstract_3D_composition_with__.png"
+  },
+  {
+    "prompt": "3D character model of [角色描述]. Detailed textures, realistic materials, [风格] style. Full body render, turnaround view, professional modeling.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622404340-3D_character_model_of_________.png"
+  },
+  {
+    "prompt": "3D environment of [场景描述]. Detailed architecture, atmospheric lighting, [风格] aesthetic. Unreal Engine quality, cinematic render.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Blog post cover image for [主题]. Minimalist design with [视觉元素], bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772622434977-Blog_post_cover_image_for_____.png"
+  },
+  {
+    "prompt": "Editorial illustration for blog article about [主题]. [风格] style, [颜色方案], informative yet artistic. Vector art, clean lines, modern aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622459515-Editorial_illustration_for_blo.png"
+  },
+  {
+    "prompt": "Step-by-step tutorial illustration for [主题]. Numbered steps, clear icons, [颜色方案]. Educational design, easy to follow, infographic style.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Quote graphic for blog. Bold typography ",
+    "imageUrl": "https://img.talkphoto.app/images/1772622489502-Quote_graphic_for_blog__Bold_t.png"
+  },
+  {
+    "prompt": "Instagram post for [主题]. [风格] aesthetic, [颜色方案], eye-catching design. Square format, engaging visual, modern social media style.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Xiaohongshu lifestyle post about [主题]. [风格] aesthetic, warm tones, trendy design. Vertical format, engaging content, popular Chinese social media style.",
+    "imageUrl": null,
+    "error": "No image data returned from AI."
+  },
+  {
+    "prompt": "Social media story for [主题]. Full screen design, [颜色方案], bold text overlay. Vertical format, engaging visuals, swipe-up call-to-action.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622525329-Social_media_story_for_______F.png"
+  },
+  {
+    "prompt": "Social media profile banner for [账号/品牌]. [风格] design, [颜色方案], memorable visual. Horizontal format, professional look.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622549139-Social_media_profile_banner_fo.png"
+  },
+  {
+    "prompt": "Professional PowerPoint cover slide for [主题]. [风格] design, [颜色方案], clean layout. Corporate presentation style, modern business aesthetic.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622571907-Professional_PowerPoint_cover_.png"
+  },
+  {
+    "prompt": "Data visualization slide for [主题]. Clean charts and graphs, [颜色方案], professional styling. Business presentation, easy to understand, modern design.",
+    "imageUrl": "https://img.talkphoto.app/images/1772622604397-Data_visualization_slide_for__.png"
+  }
+]
