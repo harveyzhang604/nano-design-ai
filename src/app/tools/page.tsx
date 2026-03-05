@@ -8,6 +8,8 @@ import {
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
   FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
 } from 'lucide-react';
+import ToolParams from './ToolParams';
+import { toolConfigs } from './toolConfigs';
 
 // 功能列表
 const tools = [
@@ -78,6 +80,7 @@ export default function ToolsPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [toolParams, setToolParams] = useState<Record<string, any>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentTool = tools.find(t => t.id === activeTool);
@@ -91,6 +94,10 @@ export default function ToolsPage() {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleParamsChange = (params: Record<string, any>) => {
+    setToolParams(params);
   };
 
   // 根据工具 ID 获取对应的 API 端点
@@ -165,11 +172,10 @@ export default function ToolsPage() {
     try {
       const endpoint = getApiEndpoint(activeTool);
       
-      // 构建请求体 - 合并默认参数
-      const defaultParams = getDefaultParams(activeTool);
+      // 构建请求体 - 使用用户选择的参数
       const requestBody: any = { 
         imageUrl: uploadedImage,
-        ...defaultParams 
+        ...toolParams  // 使用用户选择的参数
       };
       
       const response = await fetch(endpoint, {
@@ -196,6 +202,7 @@ export default function ToolsPage() {
   const handleToolClick = (toolId: string) => {
     setActiveTool(toolId);
     setResultImage(null);
+    setToolParams({});  // 重置参数
   };
 
   return (
@@ -354,6 +361,16 @@ export default function ToolsPage() {
                   className="hidden"
                 />
               </div>
+
+              {/* 参数控制 */}
+              {activeTool && toolConfigs[activeTool] && (
+                <div className="mb-6">
+                  <ToolParams 
+                    toolId={activeTool} 
+                    onParamsChange={handleParamsChange}
+                  />
+                </div>
+              )}
 
               {/* 处理按钮 */}
               <button

@@ -61,7 +61,7 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl } = await req.json();
+    const { imageUrl, restoreLevel = 'standard' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -78,6 +78,38 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
+    // 根据修复强度调整prompt
+    const prompts: Record<string, string> = {
+      'conservative': `Restore this old or damaged photo with CONSERVATIVE approach. CRITICAL - DO NOT change any original details:
+- ONLY repair visible damage: scratches, tears, stains, fading
+- ONLY reduce noise and grain where clearly damaged
+- ONLY fix obvious blur in damaged areas
+- DO NOT change: facial expressions, poses, positions, clothing, background elements
+- DO NOT add details that weren't there
+- DO NOT "improve" or "enhance" beyond damage repair
+- Keep the original character and authenticity of the photo
+- Minimal intervention - preserve history`,
+      
+      'standard': `Restore this old or damaged photo with BALANCED approach. CRITICAL - preserve original details:
+- Repair damage: scratches, tears, stains, fading, cracks
+- Reduce noise and grain moderately
+- Fix blur and improve clarity where damaged
+- DO NOT change: facial expressions, poses, positions
+- DO NOT add new details
+- Balance between repair and preservation
+- Keep authentic look while improving quality`,
+      
+      'deep': `Restore this old or damaged photo with THOROUGH approach. CRITICAL - still preserve core details:
+- Repair all damage: scratches, tears, stains, fading, cracks, discoloration
+- Significantly reduce noise and grain
+- Fix blur and maximize clarity
+- Enhance overall quality
+- DO NOT change: facial expressions, poses, core composition
+- Thorough restoration while keeping authenticity
+- Maximum quality improvement within preservation limits`
+    };
+    
+    const prompt = prompts[restoreLevel] || prompts['standard'];
     // 调用 Gemini API 进行老照片修复
     // 关键：只修复损坏，不改变任何原有细节！
     const prompt = `Professionally restore this damaged old photograph. ONLY repair the following issues: remove scratches, tears, water stains, noise, and physical damage. ONLY enhance clarity in blurry areas. Keep ALL original details EXACTLY the same including: facial expression (DO NOT change - keep exactly as is), eye position, mouth shape, pose, head position, lighting direction, and all other details. Restore colors to match the original tones - do not add or change any colors. Make it look like the original photo was simply cleaned and damage-repaired, not recreated. The result should look like the same photo with damage fixed.`;

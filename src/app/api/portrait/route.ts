@@ -61,7 +61,7 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, enhanceLevel = 'medium' } = await req.json();
+    const { imageUrl, beautyLevel = 'fresh' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -78,6 +78,36 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
+    // 根据美颜程度调整prompt
+    const prompts: Record<string, string> = {
+      'natural': `Enhance this portrait with SUBTLE, natural beauty improvements:
+- Gently reduce visible blemishes and minor imperfections
+- Very light skin smoothing while keeping natural texture visible
+- Subtle brightening of eyes
+- Keep original skin tone and features
+- Result should look like a good quality photo with minimal retouching
+- Natural first, enhancement barely noticeable`,
+      
+      'fresh': `Enhance this portrait with MODERATE, fresh beauty improvements:
+- Remove blemishes and skin imperfections
+- Moderate skin smoothing with natural texture preserved
+- Brighten eyes and enhance their clarity
+- Even out skin tone naturally
+- Light contouring for facial definition
+- Result should look fresh and polished but still natural
+- Balanced enhancement - noticeable but not overdone`,
+      
+      'professional': `Enhance this portrait with CLEAR, professional beauty improvements:
+- Remove all blemishes, spots, and skin imperfections
+- Professional skin smoothing with subtle texture
+- Significantly brighten and enhance eyes
+- Even out and slightly brighten skin tone
+- Define facial contours and features
+- Result should look like professional portrait photography
+- Magazine-quality enhancement while keeping realistic appearance`
+    };
+    
+    const prompt = prompts[beautyLevel] || prompts['fresh'];
     // 调用 Gemini API 进行人像增强
     const enhanceLevels: Record<string, string> = {
       light: 'Lightly enhance this portrait photo. Improve skin tone naturally, reduce minor blemishes, enhance eye brightness slightly. Keep the natural look.',

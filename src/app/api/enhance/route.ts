@@ -61,7 +61,7 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, targetResolution = '4K' } = await req.json();
+    const { imageUrl, beautyLevel = 'subtle' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -78,9 +78,9 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 调用 Gemini API 进行图像超分辨率增强
-    // 关键：保持原图完整，提升质量，人脸适度美化
-    const prompt = `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
+    // 根据美化程度调整prompt
+    const prompts: Record<string, string> = {
+      'subtle': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
 1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
 2. Maintain the EXACT same aspect ratio and composition
 3. For faces/portraits: 
@@ -90,7 +90,32 @@ export async function POST(req: Request) {
    - DO NOT over-brighten or over-whiten the skin
    - Result should look like a good quality photo with minimal retouching, not heavily edited
 4. Keep colors natural and realistic
-5. The enhancement should be barely noticeable - natural first, beauty second`;
+5. The enhancement should be barely noticeable - natural first, beauty second`,
+      
+      'light': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
+2. Maintain the EXACT same aspect ratio and composition
+3. For faces/portraits:
+   - Remove visible skin imperfections (acne, blemishes, dark spots)
+   - Moderate skin tone improvement and brightening
+   - Smooth skin while keeping natural texture visible
+   - Light beauty enhancement - natural but noticeably improved
+4. Keep colors natural and realistic
+5. Result should look like a professionally retouched photo with moderate enhancement`,
+      
+      'professional': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
+2. Maintain the EXACT same aspect ratio and composition
+3. For faces/portraits:
+   - Remove all skin imperfections (acne, blemishes, dark spots, pores)
+   - Brighten and even out skin tone significantly
+   - Professional skin smoothing with natural texture
+   - Clear beauty enhancement - magazine-quality retouching
+4. Keep colors vibrant but realistic
+5. Result should look like professional portrait photography with clear enhancement`
+    };
+    
+    const prompt = prompts[beautyLevel] || prompts['subtle'];
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -138,7 +163,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: r2Url, 
         isR2: true,
-        targetResolution
+        beautyLevel
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
@@ -146,7 +171,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: fullBase64, 
         isR2: false,
-        targetResolution
+        beautyLevel
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
