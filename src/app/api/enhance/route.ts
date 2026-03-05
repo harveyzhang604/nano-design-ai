@@ -79,13 +79,8 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行图像超分辨率增强
-    const resolutionPrompts: Record<string, string> = {
-      '2K': 'Upscale this image to 2K resolution (2048x1080). Enhance details, sharpen edges, improve clarity and quality. Add realistic details and textures.',
-      '4K': 'Upscale this image to 4K resolution (3840x2160). Dramatically enhance details, sharpen all edges, maximize clarity and quality. Add photorealistic details and fine textures throughout.',
-      '8K': 'Upscale this image to 8K resolution (7680x4320). Ultra-enhance every detail, perfect edge sharpness, maximum clarity and quality. Add ultra-realistic details and micro-textures everywhere.',
-    };
-    
-    const prompt = resolutionPrompts[targetResolution] || resolutionPrompts['4K'];
+    // 关键：保持原图完整，不裁剪，不改变宽高比
+    const prompt = `Enhance this image to ultra-high resolution with maximum quality. CRITICAL: Keep the ENTIRE image intact - do NOT crop, do NOT cut any part, maintain the EXACT same aspect ratio and composition. Only enhance: sharpen details, improve clarity, reduce noise, enhance textures and fine details. Make every part of the image crystal clear and detailed. Professional super-resolution enhancement while preserving the complete original image.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -101,9 +96,9 @@ export async function POST(req: Request) {
           ]
         }],
         generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95
+          temperature: 0.3,
+          topK: 32,
+          topP: 0.9
         }
       })
     });
