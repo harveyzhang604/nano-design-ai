@@ -3,10 +3,10 @@ import { S3Client, PutObjectCommand, HeadObjectCommand } from '@aws-sdk/client-s
 
 export const runtime = 'edge';
 
-// R2 配置
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID || '9af2fdf271637c43b99ca8349ee04c59';
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID || '9874ce253894ad5af6efb022edec4908';
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY || 'd4547155be0f4b1fad9cd7d2a37ba1246e2cbf08ba31721e0fd204073d196f39';
+// R2 配置 - 从环境变量读取
+const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
+const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
 const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-images';
 
 // 创建 R2 客户端
