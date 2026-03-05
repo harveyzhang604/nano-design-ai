@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Layers, Zap, Sparkles } from "lucide-react";
+import { Layers, Zap, Sparkles } from "@/components/icons";
 
 export default function Hero() {
   return (

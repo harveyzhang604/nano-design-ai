@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Image from 'next/image';
-import { Camera, Layers, PenTool, Send, Loader2, Download, History, Palette, AlertCircle } from 'lucide-react';
+import { Camera, Layers, PenTool, Send, Loader2, Download, History, Palette, AlertCircle } from '@/components/icons';
 import Hero from '../components/Hero';
 
 export default function DesignPage() {

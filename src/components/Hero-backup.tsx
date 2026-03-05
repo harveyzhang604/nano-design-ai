@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { Layers, Zap, ArrowRight, Sparkles } from "lucide-react";
+import { Layers, Zap, ArrowRight, Sparkles } from "@/components/icons";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

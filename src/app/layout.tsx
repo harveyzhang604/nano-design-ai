@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
@@ -8,6 +8,12 @@ const inter = Inter({
   variable: "--font-inter",
   preload: true,
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   title: "Nano Design AI - AI 设计生成器 | 6大领域30+场景",
@@ -49,11 +55,6 @@ export const metadata: Metadata = {
     title: "Nano Design AI - AI 设计生成器",
     description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 5,
-  },
 };
 
 export default function RootLayout({
@@ -66,6 +67,8 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#0a0a0a" />
         <link rel="canonical" href="https://talkphoto.app" />
+        <link rel="preconnect" href="https://api.openai.com" />
+        <link rel="dns-prefetch" href="https://api.openai.com" />
       </head>
       <body className={`${inter.variable} antialiased`}>{children}</body>
     </html>

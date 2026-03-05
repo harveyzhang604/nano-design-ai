@@ -7,14 +7,10 @@ import {
   Shirt, Home, MapPin, Calculator, PartyPopper,
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
   FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
-} from 'lucide-react';
-import ToolCard from './components/ToolCard';
-import ToolParams from './components/ToolParams';
-import { toolConfigs } from './configs';
-import { Tool } from './types';
+} from '@/components/icons';
 
 // 功能列表
-const tools: Tool[] = [
+const tools = [
   // P0 - 紧急开发
   { id: 'remove-bg', name: '背景移除', icon: Scissors, color: 'from-blue-500 to-cyan-500', desc: '一键去除背景', category: 'P0' },
   { id: 'upscale', name: '照片放大', icon: ZoomIn, color: 'from-purple-500 to-pink-500', desc: '2x/4x/8x无损放大', category: 'P0' },
@@ -48,12 +44,40 @@ const tools: Tool[] = [
   { id: 'compose', name: '图像合成', icon: Layers, color: 'from-slate-400 to-zinc-500', desc: '多图融合蒙版', category: 'P2' },
 ];
 
+function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
+    >
+      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+        <tool.icon className="w-7 h-7 text-white" />
+      </div>
+      <h3 className="text-lg font-bold text-neutral-100 mb-1 group-hover:text-amber-400 transition-colors">
+        {tool.name}
+      </h3>
+      <p className="text-sm text-neutral-400">{tool.desc}</p>
+      <div className="mt-4 flex items-center justify-between">
+        <span className={`text-xs px-2 py-1 rounded-full ${
+          tool.category === 'P0' ? 'bg-red-500/20 text-red-400' :
+          tool.category === 'P1' ? 'bg-amber-500/20 text-amber-400' :
+          'bg-green-500/20 text-green-400'
+        }`}>
+          {tool.category}
+        </span>
+        <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors flex items-center gap-1">
+          立即体验 →
+        </span>
+      </div>
+    </button>
+  );
+}
+
 export default function ToolsPage() {
   const [activeTool, setActiveTool] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-  const [toolParams, setToolParams] = useState<Record<string, any>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentTool = tools.find(t => t.id === activeTool);
@@ -69,14 +93,9 @@ export default function ToolsPage() {
     }
   };
 
-  const handleParamsChange = (params: Record<string, any>) => {
-    setToolParams(params);
-  };
-
   // 根据工具 ID 获取对应的 API 端点
   const getApiEndpoint = (toolId: string): string => {
     const endpoints: Record<string, string> = {
-      // P0 核心功能
       'remove-bg': '/api/remove-bg',
       'upscale': '/api/upscale',
       'colorize': '/api/colorize',
@@ -85,55 +104,8 @@ export default function ToolsPage() {
       'change-bg': '/api/change-bg',
       'portrait': '/api/portrait',
       'enhance': '/api/enhance',
-      // P1/P2 功能
-      'style-transfer': '/api/style-transfer',
-      'sketch-to-photo': '/api/sketch-to-image',
-      'avatar': '/api/avatar',
-      'product': '/api/product-photo',
-      'meme': '/api/meme',
-      'greeting-card': '/api/greeting-card',
-      'interior': '/api/interior-design',
-      'fashion': '/api/fashion-model',
-      'cartoon': '/api/pet-cartoon',
-      'baby': '/api/baby-prediction',
-      'age': '/api/age-transform',
-      'gender': '/api/gender-swap',
-      'hairstyle': '/api/hairstyle',
-      'makeup': '/api/makeup',
-      'tattoo': '/api/tattoo',
-      'face-swap': '/api/face-swap',
-      'photoshoot': '/api/photoshoot',
-      'filter': '/api/filter',
     };
     return endpoints[toolId] || '/api/generate';
-  };
-
-  // 获取工具的默认参数
-  const getDefaultParams = (toolId: string): Record<string, any> => {
-    const params: Record<string, Record<string, any>> = {
-      'upscale': { scale: 2 },
-      'colorize': { colorStyle: 'natural' },
-      'remove-bg': { mode: 'remove-bg' },
-      'change-bg': { background: 'white' },
-      'style-transfer': { style: 'artistic' },
-      'sketch-to-photo': { style: 'realistic' },
-      'avatar': { style: 'professional' },
-      'product': { scene: 'studio' },
-      'meme': { template: 'funny' },
-      'greeting-card': { occasion: 'birthday', message: 'Happy!' },
-      'interior-design': { designStyle: 'modern' },
-      'fashion-model': { modelType: 'professional', pose: 'standing' },
-      'cartoon': { cartoonStyle: 'cute' },
-      'baby-prediction': { babyAge: 'newborn' },
-      'age-transform': { targetAge: 'older' },
-      'gender-swap': { targetGender: 'opposite' },
-      'hairstyle': { hairstyle: 'short' },
-      'makeup': { makeupStyle: 'natural' },
-      'tattoo': { tattooDesign: 'dragon', bodyPart: 'arm' },
-      'photoshoot': { theme: 'professional' },
-      'filter': { filterType: 'warm' },
-    };
-    return params[toolId] || {};
   };
 
   const handleProcess = async () => {
@@ -145,11 +117,13 @@ export default function ToolsPage() {
     try {
       const endpoint = getApiEndpoint(activeTool);
       
-      // 构建请求体 - 使用用户选择的参数
-      const requestBody: any = { 
-        imageUrl: uploadedImage,
-        ...toolParams  // 使用用户选择的参数
-      };
+      // 构建请求体
+      const requestBody: any = { imageUrl: uploadedImage };
+      
+      // 添加特定工具的参数
+      if (activeTool === 'upscale') {
+        requestBody.scale = 2; // 默认 2x 放大
+      }
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -175,7 +149,6 @@ export default function ToolsPage() {
   const handleToolClick = (toolId: string) => {
     setActiveTool(toolId);
     setResultImage(null);
-    setToolParams({});  // 重置参数
   };
 
   return (
@@ -334,16 +307,6 @@ export default function ToolsPage() {
                   className="hidden"
                 />
               </div>
-
-              {/* 参数控制 */}
-              {activeTool && toolConfigs[activeTool] && (
-                <div className="mb-6">
-                  <ToolParams 
-                    toolId={activeTool} 
-                    onParamsChange={handleParamsChange}
-                  />
-                </div>
-              )}
 
               {/* 处理按钮 */}
               <button
