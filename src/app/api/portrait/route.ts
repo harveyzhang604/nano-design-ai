@@ -108,14 +108,6 @@ export async function POST(req: Request) {
     };
     
     const prompt = prompts[beautyLevel] || prompts['fresh'];
-    // 调用 Gemini API 进行人像增强
-    const enhanceLevels: Record<string, string> = {
-      light: 'Lightly enhance this portrait photo. Improve skin tone naturally, reduce minor blemishes, enhance eye brightness slightly. Keep the natural look.',
-      medium: 'Enhance this portrait photo professionally. Smooth skin naturally while keeping texture, brighten eyes, enhance facial features, improve lighting and color balance. Make it look polished but natural.',
-      strong: 'Professionally retouch this portrait photo. Perfect skin smoothing with natural texture, enhance eyes dramatically, optimize facial features, perfect lighting and color grading. Magazine-quality enhancement while keeping it realistic.',
-    };
-    
-    const prompt = enhanceLevels[enhanceLevel] || enhanceLevels.medium;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
