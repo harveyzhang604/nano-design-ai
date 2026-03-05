@@ -96,6 +96,7 @@ export default function ToolsPage() {
   // 根据工具 ID 获取对应的 API 端点
   const getApiEndpoint = (toolId: string): string => {
     const endpoints: Record<string, string> = {
+      // P0 核心功能
       'remove-bg': '/api/remove-bg',
       'upscale': '/api/upscale',
       'colorize': '/api/colorize',
@@ -104,8 +105,55 @@ export default function ToolsPage() {
       'change-bg': '/api/change-bg',
       'portrait': '/api/portrait',
       'enhance': '/api/enhance',
+      // P1/P2 功能
+      'style-transfer': '/api/style-transfer',
+      'sketch-to-photo': '/api/sketch-to-image',
+      'avatar': '/api/avatar',
+      'product': '/api/product-photo',
+      'meme': '/api/meme',
+      'greeting-card': '/api/greeting-card',
+      'interior': '/api/interior-design',
+      'fashion': '/api/fashion-model',
+      'cartoon': '/api/pet-cartoon',
+      'baby': '/api/baby-prediction',
+      'age': '/api/age-transform',
+      'gender': '/api/gender-swap',
+      'hairstyle': '/api/hairstyle',
+      'makeup': '/api/makeup',
+      'tattoo': '/api/tattoo',
+      'face-swap': '/api/face-swap',
+      'photoshoot': '/api/photoshoot',
+      'filter': '/api/filter',
     };
     return endpoints[toolId] || '/api/generate';
+  };
+
+  // 获取工具的默认参数
+  const getDefaultParams = (toolId: string): Record<string, any> => {
+    const params: Record<string, Record<string, any>> = {
+      'upscale': { scale: 2 },
+      'colorize': { colorStyle: 'natural' },
+      'remove-bg': { mode: 'remove-bg' },
+      'change-bg': { background: 'white' },
+      'style-transfer': { style: 'artistic' },
+      'sketch-to-photo': { style: 'realistic' },
+      'avatar': { style: 'professional' },
+      'product': { scene: 'studio' },
+      'meme': { template: 'funny' },
+      'greeting-card': { occasion: 'birthday', message: 'Happy!' },
+      'interior-design': { designStyle: 'modern' },
+      'fashion-model': { modelType: 'professional', pose: 'standing' },
+      'cartoon': { cartoonStyle: 'cute' },
+      'baby-prediction': { babyAge: 'newborn' },
+      'age-transform': { targetAge: 'older' },
+      'gender-swap': { targetGender: 'opposite' },
+      'hairstyle': { hairstyle: 'short' },
+      'makeup': { makeupStyle: 'natural' },
+      'tattoo': { tattooDesign: 'dragon', bodyPart: 'arm' },
+      'photoshoot': { theme: 'professional' },
+      'filter': { filterType: 'warm' },
+    };
+    return params[toolId] || {};
   };
 
   const handleProcess = async () => {
@@ -117,13 +165,12 @@ export default function ToolsPage() {
     try {
       const endpoint = getApiEndpoint(activeTool);
       
-      // 构建请求体
-      const requestBody: any = { imageUrl: uploadedImage };
-      
-      // 添加特定工具的参数
-      if (activeTool === 'upscale') {
-        requestBody.scale = 2; // 默认 2x 放大
-      }
+      // 构建请求体 - 合并默认参数
+      const defaultParams = getDefaultParams(activeTool);
+      const requestBody: any = { 
+        imageUrl: uploadedImage,
+        ...defaultParams 
+      };
       
       const response = await fetch(endpoint, {
         method: 'POST',
