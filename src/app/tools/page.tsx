@@ -6,7 +6,7 @@ import {
   Scissors, RefreshCw, Smile, Baby, Filter, Layers,
   Shirt, Home, MapPin, Calculator, PartyPopper,
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
-  FlipHorizontal, Type, Grid, Monitor, Smartphone
+  FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
 } from 'lucide-react';
 
 // 功能列表
