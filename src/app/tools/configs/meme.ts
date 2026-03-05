@@ -1,7 +1,7 @@
 import { ToolConfig } from '../types';
 
-export const memeGenConfig: ToolConfig = {
-  id: 'meme-gen',
+export const memeConfig: ToolConfig = {
+  id: 'meme',
   presets: [
     {
       id: 'classic',

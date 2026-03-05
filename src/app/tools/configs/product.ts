@@ -1,7 +1,7 @@
 import { ToolConfig } from '../types';
 
-export const productPhotoConfig: ToolConfig = {
-  id: 'product-photo',
+export const productConfig: ToolConfig = {
+  id: 'product',
   presets: [
     {
       id: 'white',

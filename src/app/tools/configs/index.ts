@@ -5,24 +5,26 @@ import { restoreConfig } from './restore';
 import { colorizeConfig } from './colorize';
 import { portraitConfig } from './portrait';
 import { upscaleConfig } from './upscale';
-import { sketchToImageConfig } from './sketch-to-image';
+import { sketchToPhotoConfig } from './sketch-to-photo';
 import { styleTransferConfig } from './style-transfer';
 import { cartoonConfig } from './cartoon';
-import { ageTransformConfig } from './age-transform';
-import { genderSwapConfig } from './gender-swap';
-import { hairstyleConfig } from './hairstyle';
-import { makeupConfig } from './makeup';
-import { petCartoonConfig } from './pet-cartoon';
-import { tattooConfig } from './tattoo';
+import { ageConfig } from './age';
+import { faceAgeConfig } from './face-age';
 import { interiorConfig } from './interior';
-import { productPhotoConfig } from './product-photo';
+import { productConfig } from './product';
 import { photoshootConfig } from './photoshoot';
-import { emojiGenConfig } from './emoji-gen';
-import { memeGenConfig } from './meme-gen';
-import { logoGenConfig } from './logo-gen';
+import { memeConfig } from './meme';
 import { mapGenConfig } from './map-gen';
 import { fashionConfig } from './fashion';
 import { composeConfig } from './compose';
+import { eraseConfig } from './erase';
+import { changeBgConfig } from './change-bg';
+import { avatarConfig } from './avatar';
+import { faceSwapConfig } from './face-swap';
+import { tryOnConfig } from './try-on';
+import { greetingConfig } from './greeting';
+import { cosplayConfig } from './cosplay';
+import { realEstateConfig } from './real-estate';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -31,24 +33,26 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'colorize': colorizeConfig,
   'portrait': portraitConfig,
   'upscale': upscaleConfig,
-  'sketch-to-image': sketchToImageConfig,
+  'sketch-to-photo': sketchToPhotoConfig,
   'style-transfer': styleTransferConfig,
   'cartoon': cartoonConfig,
-  'age-transform': ageTransformConfig,
-  'gender-swap': genderSwapConfig,
-  'hairstyle': hairstyleConfig,
-  'makeup': makeupConfig,
-  'pet-cartoon': petCartoonConfig,
-  'tattoo': tattooConfig,
+  'age': ageConfig,
+  'face-age': faceAgeConfig,
   'interior': interiorConfig,
-  'product-photo': productPhotoConfig,
+  'product': productConfig,
   'photoshoot': photoshootConfig,
-  'emoji-gen': emojiGenConfig,
-  'meme-gen': memeGenConfig,
-  'logo-gen': logoGenConfig,
+  'meme': memeConfig,
   'map-gen': mapGenConfig,
   'fashion': fashionConfig,
   'compose': composeConfig,
+  'erase': eraseConfig,
+  'change-bg': changeBgConfig,
+  'avatar': avatarConfig,
+  'face-swap': faceSwapConfig,
+  'try-on': tryOnConfig,
+  'greeting': greetingConfig,
+  'cosplay': cosplayConfig,
+  'real-estate': realEstateConfig,
 };
 
 export * from './enhance';
@@ -57,21 +61,23 @@ export * from './restore';
 export * from './colorize';
 export * from './portrait';
 export * from './upscale';
-export * from './sketch-to-image';
+export * from './sketch-to-photo';
 export * from './style-transfer';
 export * from './cartoon';
-export * from './age-transform';
-export * from './gender-swap';
-export * from './hairstyle';
-export * from './makeup';
-export * from './pet-cartoon';
-export * from './tattoo';
+export * from './age';
+export * from './face-age';
 export * from './interior';
-export * from './product-photo';
+export * from './product';
 export * from './photoshoot';
-export * from './emoji-gen';
-export * from './meme-gen';
-export * from './logo-gen';
+export * from './meme';
 export * from './map-gen';
 export * from './fashion';
 export * from './compose';
+export * from './erase';
+export * from './change-bg';
+export * from './avatar';
+export * from './face-swap';
+export * from './try-on';
+export * from './greeting';
+export * from './cosplay';
+export * from './real-estate';

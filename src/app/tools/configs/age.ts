@@ -1,7 +1,7 @@
 import { ToolConfig } from '../types';
 
-export const ageTransformConfig: ToolConfig = {
-  id: 'age-transform',
+export const ageConfig: ToolConfig = {
+  id: 'age',
   presets: [
     {
       id: 'younger',

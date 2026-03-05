@@ -1,7 +1,7 @@
 import { ToolConfig } from '../types';
 
-export const sketchToImageConfig: ToolConfig = {
-  id: 'sketch-to-image',
+export const sketchToPhotoConfig: ToolConfig = {
+  id: 'sketch-to-photo',
   presets: [
     {
       id: 'realistic',
