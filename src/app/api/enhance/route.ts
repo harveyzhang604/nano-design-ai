@@ -79,8 +79,16 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行图像超分辨率增强
-    // 关键：保持原图完整，不裁剪，不改变宽高比
-    const prompt = `Enhance this image to ultra-high resolution with maximum quality. CRITICAL: Keep the ENTIRE image intact - do NOT crop, do NOT cut any part, maintain the EXACT same aspect ratio and composition. Only enhance: sharpen details, improve clarity, reduce noise, enhance textures and fine details. Make every part of the image crystal clear and detailed. Professional super-resolution enhancement while preserving the complete original image.`;
+    // 关键：保持原图完整，提升质量，但人脸要自然真实
+    const prompt = `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
+2. Maintain the EXACT same aspect ratio and composition
+3. For faces/portraits: Keep skin tones NATURAL and REALISTIC. Do NOT over-sharpen, do NOT add artificial smoothness, do NOT change skin color. Natural skin texture only.
+4. Enhance overall clarity and details without making anything look artificial or over-processed
+5. Keep colors natural and balanced - no oversaturation
+6. Professional photo-quality enhancement, not artificial AI art style
+
+The result should look like a professionally enhanced photograph, not AI-generated content.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
