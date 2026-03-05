@@ -79,12 +79,13 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行照片上色
+    // 优化后的 prompt - 强调历史准确性、自然色彩过渡、细节保留
     const colorStyles: Record<string, string> = {
-      natural: 'Colorize this black and white photo with natural, realistic colors. Preserve the original composition and details. Make colors look authentic to the time period and setting.',
-      vibrant: 'Colorize this black and white photo with vibrant, saturated colors. Make the colors pop and appear more vivid and lively while keeping it realistic.',
-      vintage: 'Colorize this black and white photo with a vintage, nostalgic feel. Slightly desaturated tones like old photographs from the 1950s-1960s.',
-      warm: 'Colorize this black and white photo with warm, golden tones. Give it a warm, cozy atmosphere.',
-      cool: 'Colorize this black and white photo with cool, blue tones. Give it a cool, calm atmosphere.',
+      natural: 'Colorize this black and white photograph with historically accurate, natural colors. Analyze the era, clothing, environment, and context to apply authentic period-appropriate colors. Use realistic skin tones, natural fabric colors, and accurate environmental hues. Ensure smooth color transitions and gradients. Preserve all original details, textures, and tonal values. Professional colorization quality.',
+      vibrant: 'Colorize this black and white photo with rich, vibrant colors while maintaining realism. Enhance color saturation to make the image more vivid and eye-catching. Use bold but natural colors for clothing, landscapes, and objects. Keep skin tones realistic. Smooth color transitions with no harsh boundaries.',
+      vintage: 'Colorize this black and white photo with authentic vintage color palette from 1950s-1960s era. Apply slightly faded, nostalgic tones with subtle desaturation. Use period-accurate colors for clothing and environments. Warm, aged color grading with soft transitions. Preserve the vintage photograph aesthetic.',
+      warm: 'Colorize this black and white photo with warm, golden color palette. Apply warm tones: golden yellows, amber, soft oranges, warm browns. Create a cozy, inviting atmosphere. Natural skin tones with warm undertones. Smooth color blending throughout.',
+      cool: 'Colorize this black and white photo with cool, blue-toned color palette. Apply cool hues: blues, teals, cool grays, subtle purples. Create a calm, serene atmosphere. Natural skin tones with cool undertones. Smooth color transitions and gradients.',
     };
     
     const prompt = colorStyles[colorStyle] || colorStyles.natural;
@@ -103,9 +104,9 @@ export async function POST(req: Request) {
           ]
         }],
         generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95
+          temperature: 0.35,
+          topK: 32,
+          topP: 0.9
         }
       })
     });

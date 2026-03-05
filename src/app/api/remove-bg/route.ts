@@ -79,10 +79,10 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行图像编辑
-    // 使用 prompt 控制进行背景移除
+    // 优化后的 prompt - 更精确的主体识别和边缘处理
     const prompt = mode === 'remove-bg' 
-      ? 'Remove the background completely. Make it transparent. Keep only the main subject.'
-      : 'Remove the background and replace with a clean white background. Keep the main subject intact.';
+      ? 'Precisely identify and isolate the main subject in this image. Remove the entire background completely, making it fully transparent. Preserve fine details like hair strands, fur, fabric textures, and object edges with pixel-perfect accuracy. Maintain natural edge transitions and avoid harsh cutouts. Professional background removal quality.'
+      : 'Accurately detect and extract the main subject from this image. Remove the original background completely and replace it with a pure white (#FFFFFF) background. Keep the subject perfectly intact with clean, natural edges. Preserve all fine details including hair, textures, and transparent elements. Studio-quality cutout with smooth edge transitions.';
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -98,9 +98,9 @@ export async function POST(req: Request) {
           ]
         }],
         generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95
+          temperature: 0.3,
+          topK: 32,
+          topP: 0.9
         }
       })
     });

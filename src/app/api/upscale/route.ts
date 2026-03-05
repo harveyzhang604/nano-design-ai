@@ -79,9 +79,9 @@ export async function POST(req: Request) {
     const imageBase64 = await imageToBase64(imageUrl);
     
     // 调用 Gemini API 进行图像放大
-    // 使用 prompt 控制进行分辨率提升
-    const scaleText = scale === 4 ? '4K' : scale === 8 ? '8K' : '2K';
-    const prompt = `Upscale this image to higher resolution. Enhance details and quality. Make it ${scaleText} resolution. Keep the original content and composition exactly the same. Improve sharpness, clarity, and add more details.`;
+    // 优化后的 prompt - 强调细节保留、降噪、清晰度
+    const scaleText = scale === 4 ? '4K ultra-high' : scale === 8 ? '8K maximum' : 'high';
+    const prompt = `Upscale this image to ${scaleText} resolution with professional quality enhancement. Preserve and enhance fine details, textures, and edges. Apply intelligent noise reduction while maintaining natural grain. Sharpen details without introducing artifacts. Enhance clarity and definition. Keep original composition, colors, and lighting exactly the same. Output should be crisp, clean, and print-ready quality.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -97,9 +97,9 @@ export async function POST(req: Request) {
           ]
         }],
         generationConfig: {
-          temperature: 0.4,
-          topK: 40,
-          topP: 0.95
+          temperature: 0.3,
+          topK: 32,
+          topP: 0.9
         }
       })
     });
