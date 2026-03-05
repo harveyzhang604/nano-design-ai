@@ -93,6 +93,21 @@ export default function ToolsPage() {
     }
   };
 
+  // 根据工具 ID 获取对应的 API 端点
+  const getApiEndpoint = (toolId: string): string => {
+    const endpoints: Record<string, string> = {
+      'remove-bg': '/api/remove-bg',
+      'upscale': '/api/upscale',
+      'colorize': '/api/colorize',
+      'restore': '/api/restore',
+      'erase': '/api/erase',
+      'change-bg': '/api/change-bg',
+      'portrait': '/api/portrait',
+      'enhance': '/api/enhance',
+    };
+    return endpoints[toolId] || '/api/generate';
+  };
+
   const handleProcess = async () => {
     if (!uploadedImage || !activeTool) return;
     
@@ -100,13 +115,32 @@ export default function ToolsPage() {
     setResultImage(null);
     
     try {
-      // 模拟处理 - 实际会调用对应的 API
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const endpoint = getApiEndpoint(activeTool);
       
-      // 临时使用原图作为结果展示
-      setResultImage(uploadedImage);
-    } catch (error) {
+      // 构建请求体
+      const requestBody: any = { imageUrl: uploadedImage };
+      
+      // 添加特定工具的参数
+      if (activeTool === 'upscale') {
+        requestBody.scale = 2; // 默认 2x 放大
+      }
+      
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(requestBody),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || '处理失败');
+      }
+
+      setResultImage(data.imageUrl);
+    } catch (error: any) {
       console.error('Processing error:', error);
+      alert('处理失败: ' + error.message);
     } finally {
       setIsProcessing(false);
     }
