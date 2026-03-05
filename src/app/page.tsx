@@ -2,13 +2,13 @@
 import { useState, useEffect, Suspense } from 'react';
 import { 
   Camera, Layers, Send, Loader2, Download, History, 
-  Palette, AlertCircle, Image as ImageIcon, Home, Package, 
+  Palette, AlertCircle, ImageIcon, Home, Package, 
   Smartphone, Paintbrush, Award, Box, Building2, Sparkles,
   FileText, BookOpen, Coffee, TrendingUp, Film,
   Share2, Presentation, BarChart, Atom, Clock, Map,
   UtensilsCrossed, Plane, Dumbbell, Megaphone, ShoppingCart,
   Building, Calendar, Gamepad2, Music
-} from 'lucide-react';
+} from '../components/icons';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { mainDomains, domainCategoriesMap, designCategories, promptTemplates } from '../config/templates';

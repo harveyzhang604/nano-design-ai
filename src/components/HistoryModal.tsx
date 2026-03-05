@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { X, Trash2, RotateCcw, Download } from 'lucide-react';
+import { X, Trash2, RotateCcw, Download } from '../components/icons';
 import { getHistory, deleteHistoryItem, clearHistory, type HistoryItem } from '../lib/history';
 
 interface HistoryModalProps {

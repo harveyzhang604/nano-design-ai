@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import { ArrowLeft, Copy, Check, ExternalLink, Search } from 'lucide-react';
+import { ArrowLeft, Copy, Check, ExternalLink, Search } from '../../components/icons';
 import Link from 'next/link';
 import Image from 'next/image';
 import galleryData from '../../data/gallery.json';
