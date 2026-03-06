@@ -2,35 +2,58 @@ const { chromium } = require('playwright');
 
 (async () => {
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  
-  console.log('1. 访问网站...');
-  await page.goto('https://talkphoto.app/tools', { waitUntil: 'networkidle' });
-  
-  console.log('2. 查找功能按钮...');
-  const buttons = await page.$$('button');
-  console.log('   找到按钮数量:', buttons.length);
-  
-  console.log('\n3. 点击"图像超分"功能...');
-  await page.click('button:has-text("图像超分")');
-  await page.waitForTimeout(2000);
-  
-  console.log('4. 检查参数控制面板...');
-  const panelVisible = await page.isVisible('text=上传图片');
-  console.log('   面板显示:', panelVisible ? '✓' : '✗');
-  
-  // 检查是否有参数控制相关文字
-  const hasPreset = await page.locator('text=预设').count() > 0;
-  const hasBeauty = await page.locator('text=美化').count() > 0;
-  const hasNatural = await page.locator('text=自然').count() > 0;
-  
-  console.log('   预设选项:', hasPreset ? '✓' : '✗');
-  console.log('   美化相关:', hasBeauty ? '✓' : '✗');
-  console.log('   自然选项:', hasNatural ? '✓' : '✗');
-  
-  // 截图当前状态
-  await page.screenshot({ path: '/root/.openclaw/workspace/panel-open.png', fullPage: true });
-  console.log('\n5. 截图保存: panel-open.png');
-  
-  await browser.close();
+  const context = await browser.newContext();
+  const page = await context.newPage();
+
+  try {
+    console.log('📱 访问网站...');
+    await page.goto('https://talkphoto.app/tools');
+    await page.waitForLoadState('networkidle');
+
+    console.log('🎯 点击"照片放大"功能...');
+    await page.click('text=照片放大');
+    await page.waitForTimeout(2000);
+
+    console.log('🔍 检查参数面板...');
+    
+    // 检查是否有"选择预设"文本
+    const hasPreset = await page.locator('text=选择预设').count() > 0;
+    console.log(`  - 选择预设: ${hasPreset ? '✅ 存在' : '❌ 不存在'}`);
+
+    // 检查是否有下拉框
+    const selectCount = await page.locator('select, [role="combobox"]').count();
+    console.log(`  - 下拉框数量: ${selectCount}`);
+
+    // 检查是否有参数相关文本
+    const hasParams = await page.locator('text=/放大倍数|画质|参数/').count() > 0;
+    console.log(`  - 参数文本: ${hasParams ? '✅ 存在' : '❌ 不存在'}`);
+
+    // 截图
+    await page.screenshot({ path: '/root/test-params-screenshot.png', fullPage: true });
+    console.log('📸 截图已保存: /root/test-params-screenshot.png');
+
+    // 测试最新部署URL
+    console.log('\n🆕 测试最新部署URL...');
+    await page.goto('https://25b21b05.nano-design-ai-v2.pages.dev/tools');
+    await page.waitForLoadState('networkidle');
+    
+    await page.click('text=照片放大');
+    await page.waitForTimeout(2000);
+
+    const hasPresetNew = await page.locator('text=选择预设').count() > 0;
+    console.log(`  - 选择预设: ${hasPresetNew ? '✅ 存在' : '❌ 不存在'}`);
+
+    const selectCountNew = await page.locator('select, [role="combobox"]').count();
+    console.log(`  - 下拉框数量: ${selectCountNew}`);
+
+    await page.screenshot({ path: '/root/test-params-new-screenshot.png', fullPage: true });
+    console.log('📸 新部署截图: /root/test-params-new-screenshot.png');
+
+    console.log('\n✅ 测试完成！');
+
+  } catch (error) {
+    console.error('❌ 测试失败:', error.message);
+  } finally {
+    await browser.close();
+  }
 })();
