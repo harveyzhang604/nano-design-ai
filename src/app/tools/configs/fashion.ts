@@ -3,49 +3,18 @@ import { ToolConfig } from '../types';
 export const fashionConfig: ToolConfig = {
   id: 'fashion',
   presets: [
-    {
-      id: 'casual',
-      name: '休闲风格',
-      description: '日常休闲穿搭',
-      params: { style: 'casual', season: 'spring' }
-    },
-    {
-      id: 'formal',
-      name: '正式风格',
-      description: '商务正装',
-      params: { style: 'formal', season: 'spring' }
-    },
-    {
-      id: 'trendy',
-      name: '时尚风格',
-      description: '潮流时尚',
-      params: { style: 'trendy', season: 'spring' }
-    }
+    { id: 'casual', name: '休闲时尚', description: '日常休闲风格', params: { style: 'casual', intensity: 70 } },
+    { id: 'formal', name: '正装时尚', description: '商务正装风格', params: { style: 'formal', intensity: 80 } },
+    { id: 'trendy', name: '潮流时尚', description: '潮流前沿风格', params: { style: 'trendy', intensity: 85 } },
+    { id: 'elegant', name: '优雅时尚', description: '优雅高贵风格', params: { style: 'elegant', intensity: 90 } }
   ],
   params: [
-    {
-      id: 'style',
-      name: '服装风格',
-      type: 'select',
-      default: 'casual',
-      options: [
-        { value: 'casual', label: '休闲' },
-        { value: 'formal', label: '正式' },
-        { value: 'trendy', label: '时尚' },
-        { value: 'vintage', label: '复古' }
-      ]
-    },
-    {
-      id: 'season',
-      name: '季节',
-      type: 'select',
-      default: 'spring',
-      options: [
-        { value: 'spring', label: '春季' },
-        { value: 'summer', label: '夏季' },
-        { value: 'autumn', label: '秋季' },
-        { value: 'winter', label: '冬季' }
-      ]
-    }
+    { id: 'style', name: '风格', type: 'select', default: 'casual', options: [
+      { value: 'casual', label: '休闲' },
+      { value: 'formal', label: '正装' },
+      { value: 'trendy', label: '潮流' },
+      { value: 'elegant', label: '优雅' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
   ]
 };

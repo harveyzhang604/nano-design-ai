@@ -4,35 +4,61 @@ export const eraseConfig: ToolConfig = {
   id: 'erase',
   presets: [
     {
+      id: 'quick',
+      name: '快速去除',
+      description: '速度优先，适合简单背景',
+      params: { 
+        quality: 'fast',
+        edgeBlend: 50
+      }
+    },
+    {
       id: 'precise',
-      name: '精准移除',
-      description: '精确移除选中物体',
-      params: { mode: 'precise' }
+      name: '精准去除',
+      description: '质量优先，适合复杂背景',
+      params: { 
+        quality: 'high',
+        edgeBlend: 80
+      }
     },
     {
       id: 'smart',
       name: '智能填充',
-      description: '自动填充背景',
-      params: { mode: 'smart' }
+      description: 'AI自动填充，适合大面积去除',
+      params: { 
+        quality: 'smart',
+        edgeBlend: 70
+      }
     },
     {
-      id: 'blend',
-      name: '自然融合',
-      description: '无缝融合周围',
-      params: { mode: 'blend' }
+      id: 'watermark',
+      name: '去水印',
+      description: '专用于去除水印、文字',
+      params: { 
+        quality: 'high',
+        edgeBlend: 90
+      }
     }
   ],
   params: [
     {
-      id: 'mode',
-      name: '移除模式',
+      id: 'quality',
+      name: '处理质量',
       type: 'select',
-      default: 'smart',
+      default: 'high',
       options: [
-        { value: 'precise', label: '精准' },
-        { value: 'smart', label: '智能' },
-        { value: 'blend', label: '融合' }
+        { value: 'fast', label: '快速' },
+        { value: 'high', label: '高质量' },
+        { value: 'smart', label: '智能' }
       ]
+    },
+    {
+      id: 'edgeBlend',
+      name: '边缘融合',
+      type: 'slider',
+      default: 70,
+      min: 0,
+      max: 100
     }
   ]
 };

@@ -3,47 +3,16 @@ import { ToolConfig } from '../types';
 export const ageConfig: ToolConfig = {
   id: 'age',
   presets: [
-    {
-      id: 'younger',
-      name: '年轻化',
-      description: '回到青春',
-      params: { direction: 'younger', intensity: 'medium' }
-    },
-    {
-      id: 'older',
-      name: '老年化',
-      description: '预见未来',
-      params: { direction: 'older', intensity: 'medium' }
-    },
-    {
-      id: 'child',
-      name: '童年化',
-      description: '回到童年',
-      params: { direction: 'child', intensity: 'strong' }
-    }
+    { id: 'younger', name: '年轻化', description: '回到年轻时光', params: { style: 'younger', intensity: 70 } },
+    { id: 'older', name: '老年化', description: '预测老年样貌', params: { style: 'older', intensity: 75 } },
+    { id: 'child', name: '童年化', description: '回到童年时期', params: { style: 'child', intensity: 80 } }
   ],
   params: [
-    {
-      id: 'direction',
-      name: '变化方向',
-      type: 'select',
-      default: 'younger',
-      options: [
-        { value: 'younger', label: '年轻化' },
-        { value: 'older', label: '老年化' },
-        { value: 'child', label: '童年化' }
-      ]
-    },
-    {
-      id: 'intensity',
-      name: '变化程度',
-      type: 'select',
-      default: 'medium',
-      options: [
-        { value: 'light', label: '轻度' },
-        { value: 'medium', label: '中度' },
-        { value: 'strong', label: '强烈' }
-      ]
-    }
+    { id: 'style', name: '风格', type: 'select', default: 'younger', options: [
+      { value: 'younger', label: '年轻' },
+      { value: 'older', label: '老年' },
+      { value: 'child', label: '童年' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
   ]
 };

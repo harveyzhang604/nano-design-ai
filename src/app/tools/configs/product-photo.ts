@@ -3,13 +3,18 @@ import { ToolConfig } from '../types';
 export const productPhotoConfig: ToolConfig = {
   id: 'product-photo',
   presets: [
+    { id: 'ecommerce', name: '电商白底', description: '纯白背景，符合电商要求', params: { style: 'ecommerce', intensity: 80 } },
+    { id: 'lifestyle', name: '生活场景', description: '真实场景，提升代入感', params: { style: 'lifestyle', intensity: 70 } },
+    { id: 'premium', name: '高端质感', description: '奢华质感，适合高端产品', params: { style: 'premium', intensity: 85 } },
+    { id: 'minimal', name: '极简风格', description: '简约设计，突出产品', params: { style: 'minimal', intensity: 75 } }
   ],
   params: [
-    { id: 'background', name: '背景', type: 'select', default: 'white', options: [
-      { value: 'white', label: '纯白' }, { value: 'gradient', label: '渐变' }, { value: 'scene', label: '场景' }
+    { id: 'style', name: '风格', type: 'select', default: 'ecommerce', options: [
+      { value: 'ecommerce', label: '电商' },
+      { value: 'lifestyle', label: '生活' },
+      { value: 'premium', label: '高端' },
+      { value: 'minimal', label: '极简' }
     ]},
-    { id: 'lighting', name: '光照', type: 'select', default: 'studio', options: [
-      { value: 'studio', label: '影棚光' }, { value: 'natural', label: '自然光' }, { value: 'dramatic', label: '戏剧光' }, { value: 'soft', label: '柔和光' }
-    ]}
+    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
   ]
 };

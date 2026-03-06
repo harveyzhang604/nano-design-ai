@@ -3,37 +3,16 @@ import { ToolConfig } from '../types';
 export const realEstateConfig: ToolConfig = {
   id: 'real-estate',
   presets: [
-    {
-      id: 'modern',
-      name: '现代风格',
-      description: '现代简约装修',
-      params: { style: 'modern' }
-    },
-    {
-      id: 'luxury',
-      name: '豪华风格',
-      description: '高端奢华装修',
-      params: { style: 'luxury' }
-    },
-    {
-      id: 'cozy',
-      name: '温馨风格',
-      description: '温馨舒适装修',
-      params: { style: 'cozy' }
-    }
+    { id: 'modern', name: '现代风格', description: '现代家居布置', params: { style: 'modern', intensity: 80 } },
+    { id: 'luxury', name: '豪华风格', description: '豪华家居布置', params: { style: 'luxury', intensity: 85 } },
+    { id: 'minimal', name: '极简风格', description: '极简家居布置', params: { style: 'minimal', intensity: 75 } }
   ],
   params: [
-    {
-      id: 'style',
-      name: '装修风格',
-      type: 'select',
-      default: 'modern',
-      options: [
-        { value: 'modern', label: '现代' },
-        { value: 'luxury', label: '豪华' },
-        { value: 'cozy', label: '温馨' },
-        { value: 'minimalist', label: '极简' }
-      ]
-    }
+    { id: 'style', name: '风格', type: 'select', default: 'modern', options: [
+      { value: 'modern', label: '现代' },
+      { value: 'luxury', label: '豪华' },
+      { value: 'minimal', label: '极简' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 80, min: 0, max: 100 }
   ]
 };

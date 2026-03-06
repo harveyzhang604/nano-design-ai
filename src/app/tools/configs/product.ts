@@ -3,48 +3,18 @@ import { ToolConfig } from '../types';
 export const productConfig: ToolConfig = {
   id: 'product',
   presets: [
-    {
-      id: 'white',
-      name: '纯白背景',
-      description: '电商标准白底',
-      params: { background: 'white', lighting: 'studio' }
-    },
-    {
-      id: 'lifestyle',
-      name: '生活场景',
-      description: '真实使用场景',
-      params: { background: 'lifestyle', lighting: 'natural' }
-    },
-    {
-      id: 'luxury',
-      name: '高端质感',
-      description: '奢华展示效果',
-      params: { background: 'luxury', lighting: 'dramatic' }
-    }
+    { id: 'ecommerce', name: '电商白底', description: '纯白背景，符合电商要求', params: { style: 'ecommerce', intensity: 80 } },
+    { id: 'lifestyle', name: '生活场景', description: '真实场景，提升代入感', params: { style: 'lifestyle', intensity: 70 } },
+    { id: 'premium', name: '高端质感', description: '奢华质感，适合高端产品', params: { style: 'premium', intensity: 85 } },
+    { id: 'minimal', name: '极简风格', description: '简约设计，突出产品', params: { style: 'minimal', intensity: 75 } }
   ],
   params: [
-    {
-      id: 'background',
-      name: '背景类型',
-      type: 'select',
-      default: 'white',
-      options: [
-        { value: 'white', label: '纯白' },
-        { value: 'lifestyle', label: '生活场景' },
-        { value: 'luxury', label: '高端' },
-        { value: 'gradient', label: '渐变' }
-      ]
-    },
-    {
-      id: 'lighting',
-      name: '光照效果',
-      type: 'select',
-      default: 'studio',
-      options: [
-        { value: 'studio', label: '影棚光' },
-        { value: 'natural', label: '自然光' },
-        { value: 'dramatic', label: '戏剧光' }
-      ]
-    }
+    { id: 'style', name: '风格', type: 'select', default: 'ecommerce', options: [
+      { value: 'ecommerce', label: '电商' },
+      { value: 'lifestyle', label: '生活' },
+      { value: 'premium', label: '高端' },
+      { value: 'minimal', label: '极简' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
   ]
 };

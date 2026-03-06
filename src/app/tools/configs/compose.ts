@@ -3,48 +3,16 @@ import { ToolConfig } from '../types';
 export const composeConfig: ToolConfig = {
   id: 'compose',
   presets: [
-    {
-      id: 'blend',
-      name: '自然融合',
-      description: '自然过渡融合',
-      params: { mode: 'blend', intensity: 'medium' }
-    },
-    {
-      id: 'overlay',
-      name: '叠加效果',
-      description: '图层叠加',
-      params: { mode: 'overlay', intensity: 'medium' }
-    },
-    {
-      id: 'collage',
-      name: '拼贴效果',
-      description: '创意拼贴',
-      params: { mode: 'collage', intensity: 'strong' }
-    }
+    { id: 'natural', name: '自然合成', description: '自然融合效果', params: { style: 'natural', intensity: 75 } },
+    { id: 'creative', name: '创意合成', description: '创意艺术效果', params: { style: 'creative', intensity: 80 } },
+    { id: 'seamless', name: '无缝融合', description: '完美无缝融合', params: { style: 'seamless', intensity: 90 } }
   ],
   params: [
-    {
-      id: 'mode',
-      name: '合成模式',
-      type: 'select',
-      default: 'blend',
-      options: [
-        { value: 'blend', label: '融合' },
-        { value: 'overlay', label: '叠加' },
-        { value: 'collage', label: '拼贴' },
-        { value: 'mask', label: '蒙版' }
-      ]
-    },
-    {
-      id: 'intensity',
-      name: '效果强度',
-      type: 'select',
-      default: 'medium',
-      options: [
-        { value: 'light', label: '轻度' },
-        { value: 'medium', label: '中度' },
-        { value: 'strong', label: '强烈' }
-      ]
-    }
+    { id: 'style', name: '风格', type: 'select', default: 'natural', options: [
+      { value: 'natural', label: '自然' },
+      { value: 'creative', label: '创意' },
+      { value: 'seamless', label: '无缝' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
   ]
 };
