@@ -20,6 +20,11 @@ const nextConfig = {
   },
   // Enable SWC minification
   swcMinify: true,
+  // Phase 5: Font optimization
+  optimizeFonts: true,
+  experimental: {
+    optimizeCss: true,
+  },
 };
 
 export default nextConfig;
