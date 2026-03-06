@@ -8,6 +8,8 @@ import {
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
   FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
 } from '@/components/icons';
+import ToolParams from './components/ToolParams';
+import { toolConfigs } from './configs';
 
 // 功能列表
 const tools = [
@@ -78,9 +80,14 @@ export default function ToolsPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [toolParams, setToolParams] = useState<Record<string, any>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentTool = tools.find(t => t.id === activeTool);
+
+  const handleParamsChange = (params: Record<string, any>) => {
+    setToolParams(params);
+  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -117,13 +124,11 @@ export default function ToolsPage() {
     try {
       const endpoint = getApiEndpoint(activeTool);
       
-      // 构建请求体
-      const requestBody: any = { imageUrl: uploadedImage };
-      
-      // 添加特定工具的参数
-      if (activeTool === 'upscale') {
-        requestBody.scale = 2; // 默认 2x 放大
-      }
+      // 构建请求体，包含用户选择的参数
+      const requestBody: any = { 
+        imageUrl: uploadedImage,
+        ...toolParams  // 添加用户选择的参数
+      };
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -307,6 +312,16 @@ export default function ToolsPage() {
                   className="hidden"
                 />
               </div>
+
+              {/* 参数调节面板 */}
+              {activeTool && toolConfigs[activeTool] && (
+                <div className="mb-6">
+                  <ToolParams 
+                    toolId={activeTool} 
+                    onParamsChange={handleParamsChange}
+                  />
+                </div>
+              )}
 
               {/* 处理按钮 */}
               <button
