@@ -13,7 +13,8 @@ export const removeBgConfig: ToolConfig = {
         bgType: 'transparent',
         shadow: false,
         feather: 1
-      }
+      },
+      recommended: true // 推荐
     },
     {
       id: 'product',
@@ -25,7 +26,8 @@ export const removeBgConfig: ToolConfig = {
         bgType: 'white',
         shadow: true,
         feather: 2
-      }
+      },
+      popular: true // 热门
     },
     {
       id: 'social',
@@ -70,6 +72,7 @@ export const removeBgConfig: ToolConfig = {
       name: '主体类型',
       type: 'select',
       default: 'person',
+      tooltip: '选择图片中的主要对象类型，AI会针对性优化',
       options: [
         { value: 'person', label: '人像' },
         { value: 'product', label: '产品' },
@@ -83,6 +86,7 @@ export const removeBgConfig: ToolConfig = {
       name: '边缘质量',
       type: 'select',
       default: 'high',
+      tooltip: '边缘处理精度，质量越高处理时间越长',
       options: [
         { value: 'ultra', label: '极致（慢）' },
         { value: 'high', label: '高质量' },
@@ -95,6 +99,7 @@ export const removeBgConfig: ToolConfig = {
       name: '背景类型',
       type: 'select',
       default: 'transparent',
+      tooltip: '选择新背景的类型',
       options: [
         { value: 'transparent', label: '透明背景' },
         { value: 'white', label: '纯白背景' },
@@ -106,7 +111,8 @@ export const removeBgConfig: ToolConfig = {
       id: 'shadow',
       name: '添加阴影',
       type: 'toggle',
-      default: false
+      default: false,
+      tooltip: '为主体添加自然阴影，增强立体感'
     },
     {
       id: 'feather',
@@ -114,7 +120,19 @@ export const removeBgConfig: ToolConfig = {
       type: 'slider',
       default: 2,
       min: 0,
-      max: 10
+      max: 10,
+      tooltip: '边缘柔化程度，数值越大边缘越柔和'
     }
+  ],
+  tips: [
+    '人像照片建议选择"人像证件照"预设',
+    '电商产品图必须使用纯白背景',
+    '边缘羽化可以让抠图更自然',
+    '批量处理时选择"快速处理"模式'
+  ],
+  examples: [
+    '证件照：人像 + 高质量 + 透明背景',
+    '电商图：产品 + 高质量 + 白色背景 + 阴影',
+    '社交媒体：人像 + 标准 + 模糊背景'
   ]
 };

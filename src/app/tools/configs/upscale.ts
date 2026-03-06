@@ -13,7 +13,8 @@ export const upscaleConfig: ToolConfig = {
         quality: 'high',
         denoise: true,
         sharpen: 30
-      }
+      },
+      recommended: true
     },
     {
       id: 'landscape',
@@ -49,7 +50,8 @@ export const upscaleConfig: ToolConfig = {
         quality: 'ultra',
         denoise: true,
         sharpen: 40
-      }
+      },
+      popular: true
     },
     {
       id: 'quick',
@@ -70,6 +72,7 @@ export const upscaleConfig: ToolConfig = {
       name: '放大倍数',
       type: 'select',
       default: 4,
+      tooltip: '放大倍数越大，图片尺寸越大，处理时间越长',
       options: [
         { value: 2, label: '2倍（快速）' },
         { value: 4, label: '4倍（推荐）' },
@@ -82,6 +85,7 @@ export const upscaleConfig: ToolConfig = {
       name: '场景类型',
       type: 'select',
       default: 'auto',
+      tooltip: 'AI会根据场景类型优化放大算法',
       options: [
         { value: 'auto', label: '自动识别' },
         { value: 'portrait', label: '人像' },
@@ -96,6 +100,7 @@ export const upscaleConfig: ToolConfig = {
       name: '画质',
       type: 'select',
       default: 'high',
+      tooltip: '画质越高，细节越丰富，处理时间越长',
       options: [
         { value: 'ultra', label: '极致（慢）' },
         { value: 'high', label: '高质量' },
@@ -107,7 +112,8 @@ export const upscaleConfig: ToolConfig = {
       id: 'denoise',
       name: '降噪',
       type: 'toggle',
-      default: true
+      default: true,
+      tooltip: '去除图片噪点，让画面更干净'
     },
     {
       id: 'sharpen',
@@ -115,7 +121,19 @@ export const upscaleConfig: ToolConfig = {
       type: 'slider',
       default: 40,
       min: 0,
-      max: 100
+      max: 100,
+      tooltip: '增强图片清晰度，数值越大越锐利'
     }
+  ],
+  tips: [
+    '4倍放大是最常用的倍数，兼顾质量和速度',
+    '打印输出建议使用8倍或16倍放大',
+    '文字文档要关闭降噪，提高锐化强度',
+    '人像照片建议开启降噪，锐化不要太高'
+  ],
+  examples: [
+    '自拍放大：4倍 + 人像 + 高质量 + 降噪 + 锐化30',
+    '打印海报：8倍 + 照片 + 极致 + 降噪 + 锐化40',
+    '扫描文档：4倍 + 文字 + 极致 + 不降噪 + 锐化80'
   ]
 };

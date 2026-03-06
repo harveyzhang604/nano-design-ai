@@ -5,6 +5,8 @@ export interface ToolPreset {
   name: string;
   description: string;
   params: Record<string, any>;
+  recommended?: boolean; // 是否推荐（显示"推荐"标签）
+  popular?: boolean; // 是否热门（显示"热门"标签）
 }
 
 export interface ToolParam {
@@ -16,12 +18,16 @@ export interface ToolParam {
   step?: number;
   default: any;
   options?: { value: any; label: string }[];
+  tooltip?: string; // 参数说明tooltip
+  description?: string; // 详细说明
 }
 
 export interface ToolConfig {
   id: string;
   presets: ToolPreset[];
   params: ToolParam[];
+  tips?: string[]; // 使用技巧
+  examples?: string[]; // 使用示例
 }
 
 export interface Tool {

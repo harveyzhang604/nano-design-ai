@@ -25,7 +25,8 @@ export const portraitConfig: ToolConfig = {
         brighten: 30,
         eyeEnhance: 40,
         faceSlim: 20
-      }
+      },
+      recommended: true
     },
     {
       id: 'professional',
@@ -37,7 +38,8 @@ export const portraitConfig: ToolConfig = {
         brighten: 50,
         eyeEnhance: 60,
         faceSlim: 30
-      }
+      },
+      popular: true
     },
     {
       id: 'glamour',
@@ -70,6 +72,7 @@ export const portraitConfig: ToolConfig = {
       name: '美颜程度',
       type: 'select',
       default: 'natural',
+      tooltip: '整体美颜强度，影响所有参数的基准值',
       options: [
         { value: 'minimal', label: '最小' },
         { value: 'natural', label: '自然' },
@@ -84,7 +87,8 @@ export const portraitConfig: ToolConfig = {
       type: 'slider',
       default: 40,
       min: 0,
-      max: 100
+      max: 100,
+      tooltip: '平滑皮肤，去除瑕疵和毛孔，保留自然纹理'
     },
     {
       id: 'brighten',
@@ -92,7 +96,8 @@ export const portraitConfig: ToolConfig = {
       type: 'slider',
       default: 30,
       min: 0,
-      max: 100
+      max: 100,
+      tooltip: '提亮肤色，让皮肤更白皙透亮'
     },
     {
       id: 'eyeEnhance',
@@ -100,7 +105,8 @@ export const portraitConfig: ToolConfig = {
       type: 'slider',
       default: 40,
       min: 0,
-      max: 100
+      max: 100,
+      tooltip: '增大眼睛，提亮眼神，让眼睛更有神'
     },
     {
       id: 'faceSlim',
@@ -108,7 +114,19 @@ export const portraitConfig: ToolConfig = {
       type: 'slider',
       default: 20,
       min: 0,
-      max: 100
+      max: 100,
+      tooltip: '自然瘦脸，优化脸型轮廓'
     }
+  ],
+  tips: [
+    '日常自拍推荐"自然美颜"，不会过度处理',
+    '证件照、商务照选择"专业修图"',
+    '磨皮不要太高，保留皮肤纹理更自然',
+    '瘦脸强度不要超过50，避免变形'
+  ],
+  examples: [
+    '日常自拍：自然 + 磨皮40 + 美白30 + 眼睛40 + 瘦脸20',
+    '证件照：专业 + 磨皮60 + 美白50 + 眼睛60 + 瘦脸30',
+    '婚纱照：婚纱 + 磨皮70 + 美白60 + 眼睛70 + 瘦脸40'
   ]
 };
