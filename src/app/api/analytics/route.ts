@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+// 配置 Edge Runtime
+export const runtime = 'edge';
+
 // POST /api/analytics - 接收分析数据
 export async function POST(request: NextRequest) {
   try {
