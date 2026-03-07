@@ -213,15 +213,6 @@ function DesignPageContent() {
         </div>
       </div>
 
-      {/* 营销优化 - 价格对比 */}
-      <PriceComparison />
-
-      {/* 营销优化 - 核心优势 */}
-      <CoreValues />
-
-      {/* 营销优化 - 用户评价 */}
-      <SocialProof />
-
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12" role="main">
         {/* 控制面板 */}
         <aside className="lg:col-span-4 space-y-8 animate-in fade-in slide-in-from-left duration-700" role="complementary" aria-label="设计控制面板">
@@ -425,6 +416,15 @@ function DesignPageContent() {
           </div>
         </section>
       </main>
+
+      {/* 营销优化 - 价格对比 */}
+      <PriceComparison />
+
+      {/* 营销优化 - 核心优势 */}
+      <CoreValues />
+
+      {/* 营销优化 - 用户评价 */}
+      <SocialProof />
 
       {/* 用户评价 - Testimonials */}
       <section className="max-w-7xl mx-auto mt-20 mb-12 animate-in fade-in slide-in-from-bottom duration-700">
