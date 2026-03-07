@@ -51,17 +51,17 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  const example = toolExamples[tool.id as keyof typeof toolExamples];
+  // 暂时禁用示例图片，等待真实图片上传
+  // const example = toolExamples[tool.id as keyof typeof toolExamples];
   
   return (
     <button
       onClick={onClick}
       className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
     >
-      {/* 示例图片 - Before/After 对比 */}
+      {/* 示例图片 - 暂时禁用，等待真实图片上传
       {example && (
         <div className="relative h-32 bg-neutral-800 overflow-hidden">
-          {/* Before 图片（左半部分） */}
           <div className="absolute inset-0 w-1/2 left-0">
             <img 
               src={example.before} 
@@ -69,7 +69,6 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
               className="w-full h-full object-cover"
               loading="lazy"
               onError={(e) => {
-                // 图片加载失败时隐藏
                 e.currentTarget.style.display = 'none';
               }}
             />
@@ -78,7 +77,6 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
             </div>
           </div>
           
-          {/* After 图片（右半部分） */}
           <div className="absolute inset-0 w-1/2 right-0">
             <img 
               src={example.after} 
@@ -94,10 +92,10 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
             </div>
           </div>
           
-          {/* 中间分割线 */}
           <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/30"></div>
         </div>
       )}
+      */}
       
       {/* 工具信息 - 图标和文字同一行 */}
       <div className="p-4">
