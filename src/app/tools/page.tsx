@@ -28,6 +28,8 @@ const tools = [
   { id: 'style-transfer', name: '艺术风格', icon: Paintbrush, color: 'from-violet-500 to-purple-500', desc: '油画水彩漫画风格', category: 'P1' },
   { id: 'avatar', name: 'AI头像', icon: Smile, color: 'from-rose-500 to-pink-500', desc: '生成风格化头像', category: 'P1' },
   { id: 'cartoon', name: '卡通化', icon: PartyPopper, color: 'from-orange-500 to-amber-500', desc: '照片转动漫风格', category: 'P1' },
+  { id: 'caricature', name: '职业漫画化', icon: Smile, color: 'from-amber-500 to-orange-500', desc: '12种职业漫画风格', category: 'P1' },
+  { id: 'yearbook', name: '年鉴照', icon: Camera, color: 'from-indigo-500 to-purple-500', desc: '70s-00s复古年鉴风', category: 'P1' },
   { id: 'sketch-to-photo', name: '草图转照片', icon: Grid, color: 'from-slate-500 to-zinc-500', desc: '手绘草图真实化', category: 'P1' },
   { id: 'product', name: '产品摄影', icon: Monitor, color: 'from-emerald-500 to-green-500', desc: '电商产品展示图', category: 'P1' },
   { id: 'face-swap', name: 'AI换脸', icon: User, color: 'from-red-500 to-orange-500', desc: '替换照片人脸', category: 'P1' },
@@ -39,6 +41,7 @@ const tools = [
   // P2 - 有趣功能
   { id: 'meme', name: '表情包', icon: Calculator, color: 'from-yellow-400 to-amber-600', desc: '文字生成表情包', category: 'P2' },
   { id: 'greeting', name: '生日贺卡', icon: Heart, color: 'from-pink-400 to-rose-500', desc: 'AI定制贺卡', category: 'P2' },
+  { id: 'pet-cartoon', name: '宠物卡通化', icon: Heart, color: 'from-pink-500 to-rose-500', desc: '宠物变卡通+拟人化', category: 'P2' },
   { id: 'cosplay', name: 'Cosplay', icon: Sparkles, color: 'from-purple-400 to-fuchsia-500', desc: 'AI生成Cos照片', category: 'P2' },
   { id: 'photoshoot', name: 'AI写真', icon: Camera, color: 'from-cyan-400 to-blue-500', desc: '个人AI写真集', category: 'P2' },
   { id: 'real-estate', name: '房产渲染', icon: MapPin, color: 'from-green-400 to-emerald-600', desc: '装修前后对比', category: 'P2' },
@@ -227,7 +230,7 @@ export default function ToolsPage() {
             🎨 <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">AI 图像工具箱</span>
           </h1>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-            26+ 强大 AI 功能，涵盖图像处理、创意生成、社交娱乐等场景
+            31 个强大 AI 功能，涵盖图像处理、创意生成、社交娱乐等场景
           </p>
         </div>
 
@@ -256,7 +259,7 @@ export default function ToolsPage() {
             <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-amber-500 rounded-full"></span>
               P1 - 实用功能
-              <span className="text-xs text-neutral-500 font-normal ml-2">10 个功能</span>
+              <span className="text-xs text-neutral-500 font-normal ml-2">12 个功能</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.filter(t => t.category === 'P1').map(tool => (
@@ -274,7 +277,7 @@ export default function ToolsPage() {
             <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-green-500 rounded-full"></span>
               P2 - 创意玩法
-              <span className="text-xs text-neutral-500 font-normal ml-2">8 个功能</span>
+              <span className="text-xs text-neutral-500 font-normal ml-2">11 个功能</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.filter(t => t.category === 'P2').map(tool => (
