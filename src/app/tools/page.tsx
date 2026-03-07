@@ -105,6 +105,7 @@ export default function ToolsPage() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [resultImage, setResultImage] = useState<string | null>(null);
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [toolParams, setToolParams] = useState<Record<string, any>>({});
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -115,14 +116,36 @@ export default function ToolsPage() {
   };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        setUploadedImage(e.target?.result as string);
-      };
-      reader.readAsDataURL(file);
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    // 图像合成：支持多图上传
+    if (activeTool === 'compose') {
+      const readers = files.map(
+        (file) =>
+          new Promise<string>((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (ev) => resolve((ev.target?.result as string) || '');
+            reader.readAsDataURL(file);
+          })
+      );
+
+      Promise.all(readers).then((results) => {
+        const valid = results.filter(Boolean);
+        setUploadedImages((prev) => [...prev, ...valid].slice(0, 6)); // 最多6张
+        if (valid[0]) setUploadedImage(valid[0]); // 兼容旧逻辑
+      });
+      return;
     }
+
+    // 其他工具：单图上传
+    const file = files[0];
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      setUploadedImage(ev.target?.result as string);
+      setUploadedImages([]);
+    };
+    reader.readAsDataURL(file);
   };
 
   // 根据工具 ID 获取对应的 API 端点
@@ -141,7 +164,12 @@ export default function ToolsPage() {
   };
 
   const handleProcess = async () => {
-    if (!uploadedImage || !activeTool) return;
+    if (!activeTool) return;
+    if (activeTool === 'compose' && uploadedImages.length < 2) {
+      alert('图像合成请至少上传 2 张图片');
+      return;
+    }
+    if (activeTool !== 'compose' && !uploadedImage) return;
     
     setIsProcessing(true);
     setResultImage(null);
@@ -150,10 +178,16 @@ export default function ToolsPage() {
       const endpoint = getApiEndpoint(activeTool);
       
       // 构建请求体，包含用户选择的参数
-      const requestBody: any = { 
-        imageUrl: uploadedImage,
-        ...toolParams  // 添加用户选择的参数
-      };
+      const requestBody: any = activeTool === 'compose'
+        ? {
+            prompt: `请把这 ${uploadedImages.length} 张图片做自然无缝合成，主体边缘干净，光影一致，结果真实。`,
+            imageUrls: uploadedImages,
+            ...toolParams
+          }
+        : {
+            imageUrl: uploadedImage,
+            ...toolParams
+          };
       
       const response = await fetch(endpoint, {
         method: 'POST',
@@ -179,6 +213,8 @@ export default function ToolsPage() {
   const handleToolClick = (toolId: string) => {
     setActiveTool(toolId);
     setResultImage(null);
+    setUploadedImage(null);
+    setUploadedImages([]);
   };
 
   return (
@@ -302,17 +338,45 @@ export default function ToolsPage() {
               {/* 上传区域 */}
               <div className="mb-6">
                 <label className="block text-sm font-medium text-neutral-300 mb-3">
-                  上传图片
+                  {activeTool === 'compose' ? '上传图片（可多选）' : '上传图片'}
                 </label>
                 <div 
                   onClick={() => fileInputRef.current?.click()}
                   className={`border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer transition-all ${
-                    uploadedImage 
-                      ? 'border-amber-500 bg-amber-500/10' 
+                    (activeTool === 'compose' ? uploadedImages.length > 0 : !!uploadedImage)
+                      ? 'border-amber-500 bg-amber-500/10'
                       : 'border-neutral-700 hover:border-neutral-600 hover:bg-neutral-800/50'
                   }`}
                 >
-                  {uploadedImage ? (
+                  {activeTool === 'compose' ? (
+                    uploadedImages.length > 0 ? (
+                      <div>
+                        <div className="grid grid-cols-3 gap-3">
+                          {uploadedImages.map((img, idx) => (
+                            <div key={idx} className="relative">
+                              <img src={img} alt={`Uploaded ${idx + 1}`} className="h-24 w-full object-cover rounded-lg" />
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setUploadedImages((prev) => prev.filter((_, i) => i !== idx));
+                                }}
+                                className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-black/80 text-white text-xs"
+                              >
+                                ×
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                        <p className="text-sm text-amber-400 mt-3">已上传 {uploadedImages.length} 张（至少 2 张）</p>
+                      </div>
+                    ) : (
+                      <div className="py-8">
+                        <Upload className="w-12 h-12 mx-auto text-neutral-500 mb-4" />
+                        <p className="text-neutral-400 mb-2">点击或拖拽上传多张图片</p>
+                        <p className="text-xs text-neutral-500">支持 JPG、PNG，最多 6 张，单张最大 10MB</p>
+                      </div>
+                    )
+                  ) : uploadedImage ? (
                     <div className="relative">
                       <img 
                         src={uploadedImage} 
@@ -333,6 +397,7 @@ export default function ToolsPage() {
                   ref={fileInputRef}
                   type="file"
                   accept="image/*"
+                  multiple={activeTool === 'compose'}
                   onChange={handleFileSelect}
                   className="hidden"
                 />
@@ -351,7 +416,7 @@ export default function ToolsPage() {
               {/* 处理按钮 */}
               <button
                 onClick={handleProcess}
-                disabled={!uploadedImage || isProcessing}
+                disabled={isProcessing || (activeTool === 'compose' ? uploadedImages.length < 2 : !uploadedImage)}
                 className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 disabled:from-neutral-700 disabled:to-neutral-800 text-neutral-950 font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-all disabled:cursor-not-allowed"
               >
                 {isProcessing ? (
