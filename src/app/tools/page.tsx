@@ -10,6 +10,7 @@ import {
 } from '@/components/icons';
 import ToolParams from './components/ToolParams';
 import { toolConfigs } from './configs';
+import { toolExamples } from './examples';
 
 // 功能列表
 const tools = [
@@ -47,29 +48,68 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
+  const example = toolExamples[tool.id as keyof typeof toolExamples];
+  
   return (
     <button
       onClick={onClick}
-      className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl p-6 text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
+      className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
     >
-      <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-        <tool.icon className="w-7 h-7 text-white" />
-      </div>
-      <h3 className="text-lg font-bold text-neutral-100 mb-1 group-hover:text-amber-400 transition-colors">
-        {tool.name}
-      </h3>
-      <p className="text-sm text-neutral-400">{tool.desc}</p>
-      <div className="mt-4 flex items-center justify-between">
-        <span className={`text-xs px-2 py-1 rounded-full ${
-          tool.category === 'P0' ? 'bg-red-500/20 text-red-400' :
-          tool.category === 'P1' ? 'bg-amber-500/20 text-amber-400' :
-          'bg-green-500/20 text-green-400'
-        }`}>
-          {tool.category}
-        </span>
-        <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors flex items-center gap-1">
-          立即体验 →
-        </span>
+      {/* 示例图片 - Before/After 对比 */}
+      {example && (
+        <div className="relative h-40 bg-neutral-800 overflow-hidden">
+          {/* Before 图片（左半部分） */}
+          <div className="absolute inset-0 w-1/2 left-0">
+            <img 
+              src={example.before} 
+              alt={`${tool.name} 处理前`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute top-2 left-2 px-2 py-1 bg-neutral-900/80 text-white text-xs rounded">
+              处理前
+            </div>
+          </div>
+          
+          {/* After 图片（右半部分） */}
+          <div className="absolute inset-0 w-1/2 right-0">
+            <img 
+              src={example.after} 
+              alt={`${tool.name} 处理后`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute top-2 right-2 px-2 py-1 bg-amber-500 text-neutral-950 text-xs rounded font-bold">
+              处理后
+            </div>
+          </div>
+          
+          {/* 中间分割线 */}
+          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/50"></div>
+        </div>
+      )}
+      
+      {/* 工具信息 */}
+      <div className="p-6">
+        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${tool.color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+          <tool.icon className="w-7 h-7 text-white" />
+        </div>
+        <h3 className="text-lg font-bold text-neutral-100 mb-1 group-hover:text-amber-400 transition-colors">
+          {tool.name}
+        </h3>
+        <p className="text-sm text-neutral-400">{tool.desc}</p>
+        <div className="mt-4 flex items-center justify-between">
+          <span className={`text-xs px-2 py-1 rounded-full ${
+            tool.category === 'P0' ? 'bg-red-500/20 text-red-400' :
+            tool.category === 'P1' ? 'bg-amber-500/20 text-amber-400' :
+            'bg-green-500/20 text-green-400'
+          }`}>
+            {tool.category}
+          </span>
+          <span className="text-xs text-neutral-500 group-hover:text-amber-400 transition-colors flex items-center gap-1">
+            立即体验 →
+          </span>
+        </div>
       </div>
     </button>
   );
