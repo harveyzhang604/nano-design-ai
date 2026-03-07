@@ -52,7 +52,7 @@ const tools = [
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
   // 使用 Nano Banana Pro 生成的真实示例图片
-  const exampleImage = `/${tool.id}-example.png`;
+  const exampleImage = `/${tool.id}-example.webp`;
   
   return (
     <button
@@ -66,6 +66,11 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
           alt={`${tool.name} 效果对比`}
           className="w-full h-full object-cover"
           loading="lazy"
+          decoding="async"
+          onError={(e) => {
+            const img = e.currentTarget;
+            if (img.src.endsWith('.webp')) img.src = `/${tool.id}-example.png`;
+          }}
         />
       </div>
       
