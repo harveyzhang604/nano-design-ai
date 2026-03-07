@@ -51,29 +51,47 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
+  // 使用 Unsplash 或其他图片服务的占位图
+  const getExampleImage = (toolId: string) => {
+    // 使用 picsum.photos 生成随机占位图
+    const seed = toolId;
+    return {
+      before: `https://picsum.photos/seed/${seed}-before/400/300?grayscale&blur=2`,
+      after: `https://picsum.photos/seed/${seed}-after/400/300`
+    };
+  };
+  
+  const example = getExampleImage(tool.id);
+  
   return (
     <button
       onClick={onClick}
       className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
     >
-      {/* 示例图片 - 视觉对比效果 */}
+      {/* 示例图片 - Before/After 真实图片对比 */}
       <div className="relative h-32 bg-neutral-800 overflow-hidden">
-        {/* Before 效果（左半部分 - 灰暗模糊） */}
-        <div className="absolute inset-0 w-1/2 left-0 bg-gradient-to-br from-neutral-700 to-neutral-800">
-          <div className="absolute inset-0 flex items-center justify-center opacity-40">
-            <div className="w-20 h-20 rounded-full bg-neutral-600 blur-sm"></div>
-          </div>
+        {/* Before 图片（左半部分） */}
+        <div className="absolute inset-0 w-1/2 left-0">
+          <img 
+            src={example.before}
+            alt={`${tool.name} 处理前`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
           <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-neutral-900/90 text-white text-[10px] rounded">
             处理前
           </div>
         </div>
         
-        {/* After 效果（右半部分 - 明亮清晰） */}
-        <div className={`absolute inset-0 w-1/2 right-0 bg-gradient-to-br ${tool.color}`}>
-          <div className="absolute inset-0 flex items-center justify-center opacity-80">
-            <tool.icon className="w-16 h-16 text-white" />
-          </div>
-          <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-neutral-950/80 text-white text-[10px] rounded font-bold">
+        {/* After 图片（右半部分） */}
+        <div className="absolute inset-0 w-1/2 right-0">
+          <img 
+            src={example.after}
+            alt={`${tool.name} 处理后`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-amber-500 text-neutral-950 text-[10px] rounded font-bold">
             处理后
           </div>
         </div>
