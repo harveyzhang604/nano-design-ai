@@ -25,6 +25,8 @@ import { tryOnConfig } from './try-on';
 import { greetingConfig } from './greeting';
 import { cosplayConfig } from './cosplay';
 import { realEstateConfig } from './real-estate';
+import { caricatureConfig } from './caricature';
+import { yearbookConfig } from './yearbook';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -53,6 +55,8 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'greeting': greetingConfig,
   'cosplay': cosplayConfig,
   'real-estate': realEstateConfig,
+  'caricature': caricatureConfig,
+  'yearbook': yearbookConfig,
 };
 
 export * from './enhance';
@@ -81,3 +85,5 @@ export * from './try-on';
 export * from './greeting';
 export * from './cosplay';
 export * from './real-estate';
+export * from './caricature';
+export * from './yearbook';
