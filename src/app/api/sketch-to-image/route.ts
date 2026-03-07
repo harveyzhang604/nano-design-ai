@@ -78,11 +78,91 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 草图转真实图片
+    // 草图转真实图片 - 2026-03-07 Week 4 优化：情感化、真实感
     const realismPrompts: Record<string, string> = {
-      'photorealistic': 'Transform this sketch/drawing into a photorealistic image. Add realistic textures, proper lighting, shadows, and details. Make it look like a professional photograph.',
-      'artistic': 'Transform this sketch into an artistic realistic image. Add colors, textures, and details while maintaining an artistic quality. Semi-realistic style.',
-      'hyperrealistic': 'Transform this sketch into a hyperrealistic image. Ultra-detailed textures, perfect lighting, maximum realism. Make it indistinguishable from a real photograph.',
+      'photorealistic': `Transform this sketch into a PHOTOREALISTIC image - bring the drawing to LIFE.
+
+PHILOSOPHY: Great transformations honor the artist's vision while adding reality.
+
+PHOTOREALISTIC TRANSFORMATION:
+- Analyze the sketch composition and intent
+- Add realistic textures (skin, fabric, materials)
+- Add proper lighting and shadows (natural, believable)
+- Add realistic details (pores, wrinkles, fabric weave)
+- Professional photograph quality
+- Natural, believable result
+
+PRESERVE SKETCH INTENT:
+- Keep the composition exactly as sketched
+- Maintain the pose and proportions
+- Honor the artist's vision and style
+- Keep the mood and feeling
+- Respect the original concept
+
+NATURAL REALISM:
+- Realistic but not artificial
+- Natural lighting and colors
+- Believable textures
+- Real-world quality
+- Like a professional photo
+
+GOAL: Like the sketch came to life - photorealistic, natural, honors the original vision.`,
+      
+      'artistic': `Transform this sketch into ARTISTIC realistic image - add life while keeping the ART.
+
+PHILOSOPHY: Artistic realism balances reality with creative vision.
+
+ARTISTIC TRANSFORMATION:
+- Add colors, textures, and details
+- Maintain artistic quality (not pure photo)
+- Semi-realistic style (artistic yet believable)
+- Creative interpretation
+- Painterly or illustrative feel
+- Beautiful, artistic result
+
+PRESERVE SKETCH INTENT:
+- Keep the composition and style
+- Maintain the artistic vision
+- Honor the creative intent
+- Keep the mood and feeling
+- Respect the original art
+
+ARTISTIC BALANCE:
+- Realistic enough to be believable
+- Artistic enough to be beautiful
+- Creative interpretation
+- Not too photographic
+- Artistic soul preserved
+
+GOAL: Like an artistic illustration - realistic yet artistic, beautiful and believable.`,
+      
+      'hyperrealistic': `Transform this sketch into HYPERREALISTIC image - make it MORE real than real.
+
+PHILOSOPHY: Hyperrealism is about perfect detail and clarity.
+
+HYPERREALISTIC TRANSFORMATION:
+- Ultra-detailed textures (every pore, every fiber)
+- Perfect lighting (studio-quality, flawless)
+- Maximum realism (indistinguishable from photo)
+- Sharp, crystal-clear details
+- Professional studio photography quality
+- Flawless, perfect result
+
+PRESERVE SKETCH INTENT:
+- Keep the composition exactly
+- Maintain the pose and proportions
+- Honor the original vision
+- Keep the concept intact
+- Respect the artist's intent
+
+MAXIMUM DETAIL:
+- Every detail rendered perfectly
+- Ultra-sharp and clear
+- Perfect textures and materials
+- Studio-quality lighting
+- Flawless execution
+
+GOAL: Like a high-end studio photograph - hyperrealistic, perfect, every detail crystal clear.`,
     };
     
     const prompt = realismPrompts[realism] || realismPrompts['photorealistic'];

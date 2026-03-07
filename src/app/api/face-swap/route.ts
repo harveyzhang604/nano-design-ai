@@ -59,8 +59,41 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 换脸功能
-    const prompt = `Swap the face from the source image onto the target image. Keep the target image's pose, body, background, and lighting. Only replace the face while maintaining natural skin tone matching, proper lighting, and seamless blending. Make it look realistic and natural.`;
+    // 换脸功能 - 2026-03-07 Week 4 优化：情感化、真实感
+    const prompt = `Swap faces between these two images - make it look SEAMLESS and NATURAL.
+
+PHILOSOPHY: Great face swaps look real, not fake or creepy.
+
+FACE SWAP PROCESS:
+- Take the face from source image
+- Place it on target image's body
+- Match skin tone perfectly (natural color matching)
+- Match lighting and shadows (same lighting as target)
+- Seamless blending at edges (no visible seams)
+- Natural, realistic result
+
+PRESERVE TARGET:
+- Keep target's pose exactly (body position, angle)
+- Keep target's body and clothing (only face changes)
+- Keep target's background (environment unchanged)
+- Keep target's lighting (match face to scene lighting)
+- Keep target's overall composition
+
+NATURAL INTEGRATION:
+- Blend face naturally with neck and body
+- Match skin texture and tone
+- Adjust face size to fit naturally
+- Match lighting direction and intensity
+- Seamless, invisible transitions
+
+FORBIDDEN:
+- DO NOT make it look fake or artificial
+- DO NOT create visible seams or edges
+- DO NOT mismatch skin tones
+- DO NOT ignore lighting differences
+- DO NOT make it look creepy or uncanny
+
+GOAL: Like a real photo - seamless, natural, looks like they were always in that scene.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",

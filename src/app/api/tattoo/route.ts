@@ -78,8 +78,43 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 纹身预览
-    const prompt = `Add a realistic tattoo to this person's ${bodyPart}. Tattoo design: ${tattooDesign}. Make it look like a real tattoo with proper shading, skin texture, and natural placement. The tattoo should blend naturally with the skin.`;
+    // 纹身预览 - 2026-03-07 Week 4 优化：情感化、真实感
+    const prompt = `Add a REALISTIC tattoo to this person's ${bodyPart} - make it look REAL and NATURAL.
+
+PHILOSOPHY: Great tattoo previews help people visualize their body art dreams.
+
+TATTOO DESIGN: ${tattooDesign}
+
+REALISTIC TATTOO APPLICATION:
+- Place tattoo naturally on ${bodyPart} (anatomically correct)
+- Realistic tattoo ink appearance (proper black/color saturation)
+- Professional tattoo shading and details (depth, dimension)
+- Natural skin texture integration (tattoo on skin, not floating)
+- Proper lighting and shadows (follows body contours)
+- Looks like a real, healed tattoo
+
+NATURAL INTEGRATION:
+- Blend with skin tone naturally
+- Follow body curves and contours
+- Realistic ink saturation (not too bright, not too dark)
+- Natural skin texture visible through tattoo
+- Proper placement and sizing
+- Like it's been there for a while
+
+PRESERVE PERSON:
+- Keep person exactly the same
+- Only add the tattoo
+- Maintain natural skin appearance
+- Keep body position and lighting
+- Don't alter anything else
+
+FORBIDDEN:
+- DO NOT make tattoo look fake or sticker-like
+- DO NOT make it too bright or artificial
+- DO NOT alter the person's appearance
+- DO NOT change skin texture unnaturally
+
+GOAL: Like a real tattoo photo - natural, realistic, helps them visualize their body art dream.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",

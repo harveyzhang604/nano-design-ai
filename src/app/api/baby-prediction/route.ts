@@ -59,11 +59,94 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 婴儿预测
+    // 婴儿预测 - 2026-03-07 Week 4 优化：情感化、真实感
     const agePrompts: Record<string, string> = {
-      'newborn': 'Generate a realistic image of a newborn baby (0-3 months) that combines facial features from both parents. Natural baby appearance, soft skin, innocent expression.',
-      '6months': 'Generate a realistic image of a 6-month-old baby that combines facial features from both parents. Chubby cheeks, bright eyes, happy expression.',
-      '1year': 'Generate a realistic image of a 1-year-old toddler that combines facial features from both parents. Cute toddler features, playful expression.',
+      'newborn': `Generate a realistic NEWBORN BABY (0-3 months) - imagine their FUTURE CHILD with LOVE.
+
+PHILOSOPHY: Baby predictions are about hope, dreams, and future love.
+
+NEWBORN BABY (0-3 months):
+- Combine facial features from both parents naturally
+- Soft, delicate baby skin (newborn texture)
+- Innocent, peaceful expression (sleeping or calm)
+- Tiny features (small nose, soft cheeks)
+- Natural baby appearance (real, not artificial)
+- Adorable and precious
+
+GENETIC COMBINATION:
+- Blend eye color from both parents
+- Mix skin tone naturally
+- Combine facial structure (nose, mouth, face shape)
+- Natural genetic inheritance
+- Realistic baby features
+- Believable combination
+
+EMOTIONAL TONE:
+- Precious and innocent
+- Full of hope and love
+- Future dreams
+- Pure and beautiful
+- Heartwarming
+
+GOAL: Like a real newborn photo - precious, innocent, makes you dream of the future with love.`,
+      
+      '6months': `Generate a realistic 6-MONTH-OLD BABY - imagine their HAPPY, HEALTHY CHILD.
+
+PHILOSOPHY: Baby predictions show hope, joy, and future happiness.
+
+6-MONTH-OLD BABY:
+- Combine facial features from both parents naturally
+- Chubby baby cheeks (healthy, adorable)
+- Bright, curious eyes (alert, happy)
+- Happy, playful expression (smiling, joyful)
+- Healthy baby appearance (thriving, growing)
+- Cute and lovable
+
+GENETIC COMBINATION:
+- Blend eye color from both parents
+- Mix skin tone naturally
+- Combine facial features (nose, mouth, face shape)
+- Natural genetic inheritance
+- Realistic baby features
+- Believable combination
+
+EMOTIONAL TONE:
+- Happy and joyful
+- Healthy and thriving
+- Playful and curious
+- Full of life
+- Heartwarming
+
+GOAL: Like a real 6-month baby photo - happy, healthy, makes you smile with joy.`,
+      
+      '1year': `Generate a realistic 1-YEAR-OLD TODDLER - imagine their ADORABLE, PLAYFUL CHILD.
+
+PHILOSOPHY: Toddler predictions show personality, joy, and future adventures.
+
+1-YEAR-OLD TODDLER:
+- Combine facial features from both parents naturally
+- Cute toddler features (developing personality)
+- Playful, curious expression (exploring, learning)
+- Healthy, active appearance (growing, thriving)
+- Adorable toddler look (cute, lovable)
+- Full of personality
+
+GENETIC COMBINATION:
+- Blend eye color from both parents
+- Mix skin tone naturally
+- Combine facial features (nose, mouth, face shape)
+- Natural genetic inheritance
+- Realistic toddler features
+- Believable combination
+
+EMOTIONAL TONE:
+- Playful and curious
+- Full of personality
+- Adventurous spirit
+- Growing and learning
+- Heartwarming
+
+GOAL: Like a real toddler photo - adorable, playful, makes you excited for the future.`,
     };
     
     const prompt = `${agePrompts[babyAge] || agePrompts['newborn']} Analyze the facial features, skin tone, eye color, and other characteristics from both parent images to create a realistic prediction.`;
