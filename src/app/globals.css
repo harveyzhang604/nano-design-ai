@@ -29,28 +29,28 @@ body {
 
 /* Custom Scrollbar - 黑金配色 */
 .custom-scrollbar::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
+  height: 8px;
+  width: 8px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #171717; /* neutral-900 */
+  background: transparent; /* 透明背景，融入页面 */
   border-radius: 10px;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: linear-gradient(90deg, #f59e0b, #eab308); /* amber-500 to yellow-500 */
+  background: rgba(115, 115, 115, 0.3); /* 半透明灰色 */
   border-radius: 10px;
   transition: background 0.3s ease;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(90deg, #d97706, #ca8a04); /* amber-600 to yellow-600 */
+  background: rgba(245, 158, 11, 0.5); /* Hover 时显示金色 */
 }
 
 /* Firefox */
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: #f59e0b #171717; /* thumb track */
+  scrollbar-color: rgba(115, 115, 115, 0.3) transparent; /* thumb track */
 }
 

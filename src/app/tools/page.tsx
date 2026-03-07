@@ -292,7 +292,7 @@ export default function ToolsPage() {
       {/* 功能处理面板 */}
       {activeTool && currentTool && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6">
-          <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+          <div className="bg-neutral-900 border border-neutral-800 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar">
             {/* 面板头部 */}
             <div className="p-6 border-b border-neutral-800 flex items-center justify-between">
               <div className="flex items-center gap-4">
