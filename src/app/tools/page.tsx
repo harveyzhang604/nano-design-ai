@@ -52,25 +52,7 @@ const tools = [
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
   // 使用 Nano Banana Pro 生成的真实示例图片
-  const getExampleImage = (toolId: string) => {
-    // 已生成的真实示例图片
-    const realExamples: Record<string, string> = {
-      'remove-bg': '/remove-bg-example.png',
-      'upscale': '/upscale-example.png',
-      'colorize': '/colorize-example.png',
-    };
-    
-    // 如果有真实示例图，直接使用
-    if (realExamples[toolId]) {
-      return realExamples[toolId];
-    }
-    
-    // 其他功能使用 picsum.photos 占位图
-    const seed = toolId;
-    return `https://picsum.photos/seed/${seed}/800/400`;
-  };
-  
-  const exampleImage = getExampleImage(tool.id);
+  const exampleImage = `/${tool.id}-example.png`;
   
   return (
     <button
