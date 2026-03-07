@@ -14,7 +14,6 @@ import { useSearchParams } from 'next/navigation';
 import { mainDomains, domainCategoriesMap, designCategories } from '../config/templates';
 import HistoryModal from '../components/HistoryModal';
 import { saveToHistory } from '../lib/history';
-import { PriceComparison, CoreValues, SocialProof } from '../components/MarketingHero';
 
 function DesignPageContent() {
   const searchParams = useSearchParams();
@@ -212,15 +211,6 @@ function DesignPageContent() {
           </div>
         </div>
       </div>
-
-      {/* 营销优化 - 价格对比 */}
-      <PriceComparison />
-
-      {/* 营销优化 - 核心优势 */}
-      <CoreValues />
-
-      {/* 营销优化 - 用户评价 */}
-      <SocialProof />
 
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12" role="main">
         {/* 控制面板 */}

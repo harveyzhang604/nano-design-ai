@@ -16,11 +16,18 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Nano Design AI - AI 设计生成器 | 6大领域30+场景",
-  description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。涵盖设计、内容创作、教育科普、生活方式、商业营销、娱乐媒体 6 大领域，30+ 细分场景。免费在线 AI 设计工具。",
+  title: "Nano Design AI - 完全免费的 AI 图像处理工具 | 真实自然，不改变你",
+  description: "完全免费，无需订阅。老照片修复不改变表情，人像增强保留真实纹理。真实、自然、有温度的 AI 图像处理。31个功能，包括背景移除、照片修复、人像增强、卡通化等。",
   keywords: [
-    "AI设计", "AI生成器", "Nano Banana", "设计工具", "内容创作", 
-    "商业营销", "教育科普", "生活方式", "娱乐媒体", "免费AI工具",
+    // 英文关键词（SEO优化）
+    "free AI photo editor", "AI photo editor no subscription", 
+    "AI photo restoration without changing face", "natural skin texture AI portrait",
+    "remove background free unlimited", "AI image enhancement free",
+    // 中文关键词
+    "免费AI图像处理", "AI图片编辑器", "老照片修复", "不改变表情",
+    "人像增强", "真实纹理", "背景移除", "照片修复",
+    "AI卡通化", "职业漫画化", "年鉴照", "宠物拟人化",
+    "无需订阅", "完全免费", "真实自然", "Nano Design AI",
     "图片生成", "AI绘画", "设计灵感", "创意设计"
   ],
   authors: [{ name: "Nano Design AI" }],
@@ -38,8 +45,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "zh_CN",
     url: "https://talkphoto.app",
-    title: "Nano Design AI - AI 设计生成器",
-    description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。涵盖 6 大领域 30+ 场景。",
+    title: "Nano Design AI - 完全免费的 AI 图像处理工具",
+    description: "完全免费，无需订阅。老照片修复不改变表情，人像增强保留真实纹理。真实、自然、有温度的 AI 图像处理。",
     siteName: "Nano Design AI",
     images: [
       {
@@ -52,8 +59,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nano Design AI - AI 设计生成器",
-    description: "使用 Nano Banana 2 AI 引擎，一键生成高质量设计作品。",
+    title: "Nano Design AI - 完全免费的 AI 图像处理工具",
+    description: "完全免费，无需订阅。老照片修复不改变表情，人像增强保留真实纹理。真实、自然、有温度的 AI 图像处理。",
   },
 };
 
