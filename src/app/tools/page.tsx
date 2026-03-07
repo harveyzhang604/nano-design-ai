@@ -51,51 +51,93 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  // 暂时禁用示例图片，等待真实图片上传
-  // const example = toolExamples[tool.id as keyof typeof toolExamples];
+  // 使用 placeholder 图片服务生成简单的示例图
+  const getExampleImages = (toolId: string, toolName: string) => {
+    // 使用 placeholder 服务生成简单的对比图
+    const baseUrl = 'https://placehold.co';
+    const width = 400;
+    const height = 300;
+    
+    // 根据功能类型生成不同的示例图
+    const examples: Record<string, { before: string; after: string }> = {
+      'remove-bg': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=有背景`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=无背景` },
+      'upscale': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=模糊`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=清晰` },
+      'colorize': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=黑白`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=彩色` },
+      'restore': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=破损`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=修复` },
+      'erase': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=有杂物`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=已移除` },
+      'change-bg': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=原背景`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=新背景` },
+      'portrait': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=原图`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=美颜` },
+      'enhance': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=低画质`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=高画质` },
+      'style-transfer': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=艺术风格` },
+      'avatar': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=头像` },
+      'cartoon': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=卡通` },
+      'caricature': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=漫画` },
+      'yearbook': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=现代`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=复古` },
+      'sketch-to-photo': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=草图`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=照片` },
+      'product': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=普通`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=专业` },
+      'face-swap': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=原脸`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=换脸` },
+      'try-on': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=原衣服`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=新衣服` },
+      'interior': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=空房间`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=装修后` },
+      'age': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=现在`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=年老` },
+      'face-age': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=现在`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=童年` },
+      'meme': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=图片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=表情包` },
+      'greeting': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=贺卡` },
+      'pet-cartoon': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=宠物`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=卡通` },
+      'cosplay': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=照片`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=Cos` },
+      'photoshoot': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=普通`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=写真` },
+      'real-estate': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=毛坯`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=精装` },
+      'map-gen': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=文字`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=地图` },
+      'fashion': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=衣服`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=模特` },
+      'compose': { before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=多图`, after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=合成` }
+    };
+    
+    // 默认示例图
+    const defaultExample = {
+      before: `${baseUrl}/${width}x${height}/1a1a1a/666666?text=处理前`,
+      after: `${baseUrl}/${width}x${height}/1a1a1a/f59e0b?text=处理后`
+    };
+    
+    return examples[toolId] || defaultExample;
+  };
+  
+  const example = getExampleImages(tool.id, tool.name);
   
   return (
     <button
       onClick={onClick}
       className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
     >
-      {/* 示例图片 - 暂时禁用，等待真实图片上传
-      {example && (
-        <div className="relative h-32 bg-neutral-800 overflow-hidden">
-          <div className="absolute inset-0 w-1/2 left-0">
-            <img 
-              src={example.before} 
-              alt={`${tool.name} 处理前`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-neutral-900/90 text-white text-[10px] rounded">
-              处理前
-            </div>
+      {/* 示例图片 - Before/After 对比 */}
+      <div className="relative h-32 bg-neutral-800 overflow-hidden">
+        {/* Before 图片（左半部分） */}
+        <div className="absolute inset-0 w-1/2 left-0">
+          <img 
+            src={example.before} 
+            alt={`${tool.name} 处理前`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-neutral-900/90 text-white text-[10px] rounded">
+            处理前
           </div>
-          
-          <div className="absolute inset-0 w-1/2 right-0">
-            <img 
-              src={example.after} 
-              alt={`${tool.name} 处理后`}
-              className="w-full h-full object-cover"
-              loading="lazy"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-            <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-amber-500 text-neutral-950 text-[10px] rounded font-bold">
-              处理后
-            </div>
-          </div>
-          
-          <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/30"></div>
         </div>
-      )}
-      */}
+        
+        {/* After 图片（右半部分） */}
+        <div className="absolute inset-0 w-1/2 right-0">
+          <img 
+            src={example.after} 
+            alt={`${tool.name} 处理后`}
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+          <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-amber-500 text-neutral-950 text-[10px] rounded font-bold">
+            处理后
+          </div>
+        </div>
+        
+        {/* 中间分割线 */}
+        <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/30"></div>
+      </div>
       
       {/* 工具信息 - 图标和文字同一行 */}
       <div className="p-4">
