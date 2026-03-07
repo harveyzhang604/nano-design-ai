@@ -78,33 +78,67 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 根据美颜程度调整prompt
+    // 根据美颜程度调整prompt - 2026-03-07 Week 4 优化：情感化、真实感
     const prompts: Record<string, string> = {
-      'natural': `Enhance this portrait with SUBTLE, natural beauty improvements:
-- Gently reduce visible blemishes and minor imperfections
-- Very light skin smoothing while keeping natural texture visible
-- Subtle brightening of eyes
-- Keep original skin tone and features
-- Result should look like a good quality photo with minimal retouching
-- Natural first, enhancement barely noticeable`,
+      'natural': `Enhance this portrait with SUBTLE, natural beauty - keep it REAL and AUTHENTIC.
+
+PHILOSOPHY: Real beauty has character. Don't erase personality.
+
+GENTLE IMPROVEMENTS:
+- Soften minor blemishes (keep natural skin texture visible)
+- Very light, barely-there skin smoothing
+- Subtle eye brightening (keep natural eye color and character)
+- Preserve freckles, beauty marks, natural features
+- Keep original skin tone and warmth
+- Maintain natural expressions and emotions
+
+FORBIDDEN:
+- DO NOT over-smooth skin (plastic look)
+- DO NOT change facial structure
+- DO NOT remove character (wrinkles, smile lines are beautiful)
+- DO NOT make it look "too perfect"
+
+GOAL: Like a good quality photo on a good day - natural, real, YOU.`,
       
-      'fresh': `Enhance this portrait with MODERATE, fresh beauty improvements:
-- Remove blemishes and skin imperfections
-- Moderate skin smoothing with natural texture preserved
-- Brighten eyes and enhance their clarity
-- Even out skin tone naturally
-- Light contouring for facial definition
-- Result should look fresh and polished but still natural
-- Balanced enhancement - noticeable but not overdone`,
+      'fresh': `Enhance this portrait with MODERATE, fresh improvements - polished but REAL.
+
+PHILOSOPHY: Fresh and confident, not fake. Keep the soul.
+
+BALANCED IMPROVEMENTS:
+- Remove temporary blemishes (keep natural texture and character)
+- Moderate skin smoothing with visible pores and texture
+- Brighten eyes naturally (enhance, don't change)
+- Even out skin tone gently (keep natural warmth)
+- Light contouring for definition (subtle, not dramatic)
+- Preserve personality, expressions, natural features
+
+FORBIDDEN:
+- DO NOT create artificial perfection
+- DO NOT remove natural character (freckles, beauty marks)
+- DO NOT change the person's essence
+- DO NOT make it look heavily edited
+
+GOAL: Fresh, polished, confident - but still authentically YOU. Like a great day, not a different person.`,
       
-      'professional': `Enhance this portrait with CLEAR, professional beauty improvements:
-- Remove all blemishes, spots, and skin imperfections
-- Professional skin smoothing with subtle texture
-- Significantly brighten and enhance eyes
-- Even out and slightly brighten skin tone
-- Define facial contours and features
-- Result should look like professional portrait photography
-- Magazine-quality enhancement while keeping realistic appearance`
+      'professional': `Enhance this portrait with CLEAR, professional quality - magazine-ready but AUTHENTIC.
+
+PHILOSOPHY: Professional doesn't mean fake. Real people in professional photos.
+
+PROFESSIONAL IMPROVEMENTS:
+- Remove all temporary imperfections (acne, redness)
+- Professional skin smoothing (keep subtle texture visible)
+- Significantly brighten and enhance eyes (natural enhancement)
+- Even out and slightly brighten skin tone (keep natural warmth)
+- Define facial contours professionally (subtle, tasteful)
+- Preserve unique features, expressions, personality
+
+FORBIDDEN:
+- DO NOT create unrealistic perfection
+- DO NOT remove permanent features (moles, freckles, scars - they're part of you)
+- DO NOT change facial structure or expressions
+- DO NOT make it look like a different person
+
+GOAL: Professional portrait photography quality - polished, confident, magazine-worthy, but still recognizably and authentically YOU. Real person, professional quality.`,
     };
     
     const prompt = prompts[beautyLevel] || prompts['fresh'];
