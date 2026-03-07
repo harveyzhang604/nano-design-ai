@@ -78,8 +78,40 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 调用 Gemini API 进行背景替换
-    const prompt = `Replace the background of this image with: ${backgroundPrompt}. Keep the main subject (person or object) intact with perfect edge detection. Make the new background look natural and professionally integrated. Ensure proper lighting and color matching between subject and new background.`;
+    // 调用 Gemini API 进行背景替换 - 2026-03-07 Week 4 优化：情感化、真实感
+    const prompt = `Replace the background with: ${backgroundPrompt} - make it look NATURAL and BELIEVABLE.
+
+PHILOSOPHY: Great background replacement looks like it was always there.
+
+BACKGROUND REPLACEMENT:
+- Remove current background completely
+- Replace with: ${backgroundPrompt}
+- Make new background look natural and realistic
+- Professional integration (no obvious edges)
+- Proper lighting match (subject fits the scene)
+- Color harmony (subject and background work together)
+
+SUBJECT PRESERVATION:
+- Keep main subject PERFECTLY intact
+- Perfect edge detection (clean, natural edges)
+- Preserve all subject details (hair, clothing, textures)
+- Maintain subject's lighting and colors
+- Keep subject looking natural in new environment
+
+NATURAL INTEGRATION:
+- Match lighting direction and intensity
+- Adjust subject colors to fit new environment
+- Add natural shadows if needed
+- Ensure depth and perspective match
+- Make it look like a real photo
+
+FORBIDDEN:
+- DO NOT create obvious cutout edges
+- DO NOT make lighting look mismatched
+- DO NOT make it look fake or composited
+- DO NOT lose subject details
+
+GOAL: Like the photo was taken in that location - natural, believable, professional. Seamless integration.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",

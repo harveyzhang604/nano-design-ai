@@ -78,11 +78,110 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 性别转换
+    // 性别转换 - 2026-03-07 Week 4 优化：情感化、真实感
     const genderPrompts: Record<string, string> = {
-      'male': 'Transform this person to look male. Masculine facial features, stronger jawline, facial hair if appropriate, male hairstyle. Keep the person recognizable.',
-      'female': 'Transform this person to look female. Feminine facial features, softer jawline, makeup if appropriate, female hairstyle. Keep the person recognizable.',
-      'opposite': 'Transform this person to the opposite gender. If male, make feminine features. If female, make masculine features. Natural and realistic transformation while keeping identity recognizable.',
+      'male': `Transform this person to look MALE - but keep them RECOGNIZABLE.
+
+PHILOSOPHY: Gender transformation shows possibility, not creates a stranger.
+
+MASCULINE FEATURES:
+- Stronger, more defined jawline
+- Broader facial structure
+- Masculine brow ridge
+- Facial hair if appropriate (natural, well-groomed)
+- Male hairstyle (natural, flattering)
+- Masculine skin texture
+- Natural masculine appearance
+
+PRESERVE IDENTITY:
+- Keep core facial features recognizable
+- Maintain eye shape and character
+- Keep their essence and personality
+- Preserve unique features
+- Keep natural expressions
+
+NATURAL TRANSFORMATION:
+- Realistic masculine features
+- Natural skin texture
+- Appropriate facial hair
+- Believable transformation
+- Keep it real, not exaggerated
+
+FORBIDDEN:
+- DO NOT make them unrecognizable
+- DO NOT create artificial features
+- DO NOT exaggerate masculinity
+- DO NOT lose their identity
+
+GOAL: Like their male version - recognizable, natural, believable. Still THEM, just masculine.`,
+      
+      'female': `Transform this person to look FEMALE - but keep them RECOGNIZABLE.
+
+PHILOSOPHY: Gender transformation shows possibility, not creates a stranger.
+
+FEMININE FEATURES:
+- Softer, more delicate jawline
+- Softer facial structure
+- Feminine brow shape
+- Natural makeup if appropriate (subtle, flattering)
+- Female hairstyle (natural, beautiful)
+- Softer skin texture
+- Natural feminine appearance
+
+PRESERVE IDENTITY:
+- Keep core facial features recognizable
+- Maintain eye shape and character
+- Keep their essence and personality
+- Preserve unique features
+- Keep natural expressions
+
+NATURAL TRANSFORMATION:
+- Realistic feminine features
+- Natural skin texture
+- Subtle, natural makeup
+- Believable transformation
+- Keep it real, not exaggerated
+
+FORBIDDEN:
+- DO NOT make them unrecognizable
+- DO NOT create artificial features
+- DO NOT exaggerate femininity
+- DO NOT lose their identity
+
+GOAL: Like their female version - recognizable, natural, believable. Still THEM, just feminine.`,
+      
+      'opposite': `Transform this person to the OPPOSITE gender - but keep them RECOGNIZABLE.
+
+PHILOSOPHY: Gender transformation shows possibility, not creates a stranger.
+
+TRANSFORMATION RULES:
+- If male → feminine features (softer jawline, feminine styling, natural makeup)
+- If female → masculine features (stronger jawline, masculine styling, facial hair if appropriate)
+- Natural, realistic transformation
+- Keep core identity recognizable
+- Preserve unique features and personality
+
+PRESERVE IDENTITY:
+- Keep core facial features recognizable
+- Maintain eye shape and character
+- Keep their essence and personality
+- Preserve what makes them unique
+- Keep natural expressions
+
+NATURAL TRANSFORMATION:
+- Realistic gender features
+- Natural skin texture
+- Appropriate styling
+- Believable transformation
+- Keep it real, not exaggerated
+
+FORBIDDEN:
+- DO NOT make them unrecognizable
+- DO NOT create artificial features
+- DO NOT exaggerate gender features
+- DO NOT lose their identity
+
+GOAL: Like their opposite gender version - recognizable, natural, believable. Still THEM, just different gender.`,
     };
     
     const prompt = genderPrompts[targetGender] || genderPrompts['opposite'];
