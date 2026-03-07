@@ -51,53 +51,40 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  // 使用 Unsplash 或其他图片服务的占位图
+  // 使用 Nano Banana Pro 生成的真实示例图片
   const getExampleImage = (toolId: string) => {
-    // 使用 picsum.photos 生成随机占位图
-    const seed = toolId;
-    return {
-      before: `https://picsum.photos/seed/${seed}-before/400/300?grayscale&blur=2`,
-      after: `https://picsum.photos/seed/${seed}-after/400/300`
+    // 已生成的真实示例图片
+    const realExamples: Record<string, string> = {
+      'remove-bg': '/remove-bg-example.png',
+      'upscale': '/upscale-example.png',
+      'colorize': '/colorize-example.png',
     };
+    
+    // 如果有真实示例图，直接使用
+    if (realExamples[toolId]) {
+      return realExamples[toolId];
+    }
+    
+    // 其他功能使用 picsum.photos 占位图
+    const seed = toolId;
+    return `https://picsum.photos/seed/${seed}/800/400`;
   };
   
-  const example = getExampleImage(tool.id);
+  const exampleImage = getExampleImage(tool.id);
   
   return (
     <button
       onClick={onClick}
       className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
     >
-      {/* 示例图片 - Before/After 真实图片对比 */}
+      {/* 示例图片 - Nano Banana Pro 生成的真实对比图 */}
       <div className="relative h-32 bg-neutral-800 overflow-hidden">
-        {/* Before 图片（左半部分） */}
-        <div className="absolute inset-0 w-1/2 left-0">
-          <img 
-            src={example.before}
-            alt={`${tool.name} 处理前`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute bottom-2 left-2 px-2 py-0.5 bg-neutral-900/90 text-white text-[10px] rounded">
-            处理前
-          </div>
-        </div>
-        
-        {/* After 图片（右半部分） */}
-        <div className="absolute inset-0 w-1/2 right-0">
-          <img 
-            src={example.after}
-            alt={`${tool.name} 处理后`}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-          <div className="absolute bottom-2 right-2 px-2 py-0.5 bg-amber-500 text-neutral-950 text-[10px] rounded font-bold">
-            处理后
-          </div>
-        </div>
-        
-        {/* 中间分割线 */}
-        <div className="absolute top-0 bottom-0 left-1/2 w-0.5 bg-white/50"></div>
+        <img 
+          src={exampleImage}
+          alt={`${tool.name} 效果对比`}
+          className="w-full h-full object-cover"
+          loading="lazy"
+        />
       </div>
       
       {/* 工具信息 - 图标和文字同一行 */}
