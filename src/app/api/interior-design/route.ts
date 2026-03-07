@@ -78,15 +78,154 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 室内设计风格
+    // 室内设计风格 - 2026-03-07 Week 4 优化：情感化、真实感
     const stylePrompts: Record<string, string> = {
-      'modern': 'Transform this room into modern interior design style. Clean lines, minimalist furniture, neutral colors, contemporary aesthetic. Professional interior design.',
-      'scandinavian': 'Transform this room into Scandinavian interior design style. Light wood, white walls, cozy textiles, minimalist Nordic aesthetic.',
-      'industrial': 'Transform this room into industrial interior design style. Exposed brick, metal elements, concrete, urban loft aesthetic.',
-      'bohemian': 'Transform this room into bohemian interior design style. Colorful textiles, plants, eclectic furniture, artistic and free-spirited vibe.',
-      'luxury': 'Transform this room into luxury interior design style. High-end furniture, elegant materials, sophisticated colors, premium aesthetic.',
-      'minimalist': 'Transform this room into minimalist interior design style. Ultra-clean, simple furniture, monochrome colors, zen aesthetic.',
-      'traditional': 'Transform this room into traditional interior design style. Classic furniture, warm colors, elegant details, timeless aesthetic.',
+      'modern': `Transform this room into MODERN interior design - make it feel CLEAN and SOPHISTICATED.
+
+PHILOSOPHY: Modern design is about simplicity, function, and elegance.
+
+MODERN DESIGN:
+- Clean lines and simple forms (no clutter)
+- Minimalist furniture (functional, beautiful)
+- Neutral color palette (whites, grays, blacks, natural tones)
+- Contemporary aesthetic (current, stylish)
+- Open, airy feel (spacious, breathable)
+- Professional interior design quality
+
+CREATE ATMOSPHERE:
+- Calm, sophisticated feel
+- Functional elegance
+- Natural light emphasis
+- Clean, organized space
+- Modern living
+
+GOAL: Like a design magazine - clean, sophisticated, makes you want to live there.`,
+      
+      'scandinavian': `Transform this room into SCANDINAVIAN interior design - make it feel COZY and BRIGHT.
+
+PHILOSOPHY: Scandinavian design is about warmth, light, and simplicity.
+
+SCANDINAVIAN DESIGN:
+- Light wood tones (natural, warm)
+- White walls (bright, airy)
+- Cozy textiles (soft throws, cushions)
+- Minimalist Nordic aesthetic (simple, functional)
+- Natural materials (wood, wool, linen)
+- Hygge atmosphere (cozy, comfortable)
+
+CREATE ATMOSPHERE:
+- Warm, inviting feel
+- Bright and airy
+- Cozy and comfortable
+- Natural and simple
+- Home sweet home
+
+GOAL: Like a Scandinavian home - cozy, bright, makes you feel at home.`,
+      
+      'industrial': `Transform this room into INDUSTRIAL interior design - make it feel URBAN and EDGY.
+
+PHILOSOPHY: Industrial design is about raw materials, urban edge, and character.
+
+INDUSTRIAL DESIGN:
+- Exposed brick walls (raw, authentic)
+- Metal elements (steel, iron, industrial fixtures)
+- Concrete surfaces (urban, modern)
+- Urban loft aesthetic (spacious, open)
+- Raw, unfinished materials (character, authenticity)
+- Edgy, contemporary feel
+
+CREATE ATMOSPHERE:
+- Urban, edgy vibe
+- Raw, authentic character
+- Spacious loft feel
+- Modern industrial
+- Cool and confident
+
+GOAL: Like a NYC loft - urban, edgy, makes you feel cool.`,
+      
+      'bohemian': `Transform this room into BOHEMIAN interior design - make it feel ARTISTIC and FREE.
+
+PHILOSOPHY: Bohemian design is about creativity, freedom, and self-expression.
+
+BOHEMIAN DESIGN:
+- Colorful textiles (patterns, textures, layers)
+- Lots of plants (green, alive, natural)
+- Eclectic furniture (mixed styles, unique pieces)
+- Artistic and free-spirited vibe (creative, personal)
+- Global influences (travel, culture, stories)
+- Warm, inviting atmosphere
+
+CREATE ATMOSPHERE:
+- Creative, artistic feel
+- Free-spirited and relaxed
+- Warm and welcoming
+- Personal and unique
+- Lived-in and loved
+
+GOAL: Like an artist's home - creative, free, makes you feel inspired.`,
+      
+      'luxury': `Transform this room into LUXURY interior design - make it feel ELEGANT and PREMIUM.
+
+PHILOSOPHY: Luxury design is about quality, elegance, and sophistication.
+
+LUXURY DESIGN:
+- High-end furniture (designer pieces, quality craftsmanship)
+- Elegant materials (marble, velvet, brass, premium fabrics)
+- Sophisticated color palette (rich, refined colors)
+- Premium aesthetic (magazine-worthy, aspirational)
+- Impeccable details (every element considered)
+- Exclusive, refined feel
+
+CREATE ATMOSPHERE:
+- Elegant, sophisticated feel
+- Premium quality everywhere
+- Refined and tasteful
+- Aspirational living
+- Luxury lifestyle
+
+GOAL: Like a luxury hotel suite - elegant, premium, makes you feel special.`,
+      
+      'minimalist': `Transform this room into MINIMALIST interior design - make it feel ZEN and PEACEFUL.
+
+PHILOSOPHY: Minimalist design is about less is more, peace, and clarity.
+
+MINIMALIST DESIGN:
+- Ultra-clean spaces (no clutter, no excess)
+- Simple, essential furniture (only what's needed)
+- Monochrome color palette (whites, blacks, grays)
+- Zen aesthetic (calm, peaceful, meditative)
+- Empty space as design element (breathing room)
+- Pure, simple beauty
+
+CREATE ATMOSPHERE:
+- Calm, peaceful feel
+- Clear mind, clear space
+- Zen and meditative
+- Simple elegance
+- Pure tranquility
+
+GOAL: Like a zen retreat - peaceful, simple, makes you feel calm.`,
+      
+      'traditional': `Transform this room into TRADITIONAL interior design - make it feel TIMELESS and ELEGANT.
+
+PHILOSOPHY: Traditional design is about classic beauty, comfort, and timelessness.
+
+TRADITIONAL DESIGN:
+- Classic furniture (timeless pieces, quality craftsmanship)
+- Warm color palette (rich woods, warm tones)
+- Elegant details (moldings, classic patterns)
+- Timeless aesthetic (never goes out of style)
+- Comfortable, inviting feel (home, warmth)
+- Classic elegance
+
+CREATE ATMOSPHERE:
+- Warm, welcoming feel
+- Timeless elegance
+- Comfortable and inviting
+- Classic beauty
+- Home and heritage
+
+GOAL: Like a classic family home - timeless, elegant, makes you feel at home.`,
     };
     
     const prompt = stylePrompts[designStyle] || stylePrompts['modern'];

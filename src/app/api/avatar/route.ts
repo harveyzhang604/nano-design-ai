@@ -78,14 +78,127 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // AI 头像生成
+    // AI 头像生成 - 2026-03-07 Week 4 优化：情感化、真实感
     const avatarStyles: Record<string, string> = {
-      'cartoon': 'Transform this portrait into a cute cartoon avatar. Big expressive eyes, simplified features, vibrant colors, Disney/Pixar style.',
-      'anime': 'Transform this portrait into anime/manga style avatar. Large eyes, detailed hair, Japanese animation aesthetic.',
-      '3d': 'Transform this portrait into 3D rendered avatar. Smooth surfaces, Pixar-quality rendering, professional 3D character design.',
-      'pixel': 'Transform this portrait into pixel art avatar. 8-bit/16-bit retro game style, limited color palette.',
-      'minimalist': 'Transform this portrait into minimalist line art avatar. Simple clean lines, geometric shapes, modern design.',
-      'cyberpunk': 'Transform this portrait into cyberpunk avatar. Neon colors, futuristic elements, sci-fi aesthetic.',
+      'cartoon': `Transform this portrait into CARTOON avatar - make it CUTE and EXPRESSIVE.
+
+PHILOSOPHY: Great avatars capture personality, not just appearance.
+
+CARTOON AVATAR:
+- Big expressive eyes (show personality and emotion)
+- Simplified features (cute, friendly, approachable)
+- Vibrant colors (eye-catching, cheerful)
+- Disney/Pixar style (professional, polished)
+- Exaggerated personality traits (what makes them unique)
+- Warm, friendly feel
+
+PRESERVE IDENTITY:
+- Keep recognizable features (hair, face shape, key characteristics)
+- Capture their personality and expression
+- Keep what makes them unique
+- Maintain their essence
+
+GOAL: Like a Pixar character - cute, expressive, captures their personality perfectly.`,
+      
+      'anime': `Transform this portrait into ANIME avatar - make it EXPRESSIVE and STYLISH.
+
+PHILOSOPHY: Anime avatars are about style, emotion, and character.
+
+ANIME AVATAR:
+- Large expressive eyes (emotion and character)
+- Detailed hair (anime-style, dynamic)
+- Japanese animation aesthetic (professional, stylish)
+- Vibrant colors and shading (anime quality)
+- Character and personality (what makes them unique)
+- Stylish, cool feel
+
+PRESERVE IDENTITY:
+- Keep recognizable features
+- Capture their personality
+- Keep their unique characteristics
+- Maintain their essence
+
+GOAL: Like an anime character - stylish, expressive, captures their character.`,
+      
+      '3d': `Transform this portrait into 3D RENDERED avatar - make it POLISHED and PROFESSIONAL.
+
+PHILOSOPHY: 3D avatars are about quality, polish, and personality.
+
+3D AVATAR:
+- Smooth surfaces (Pixar-quality rendering)
+- Professional 3D character design (polished, high-quality)
+- Realistic lighting and shading (professional 3D)
+- Vibrant, appealing colors (eye-catching)
+- Personality and warmth (not robotic)
+- Professional, polished feel
+
+PRESERVE IDENTITY:
+- Keep recognizable features
+- Capture their personality
+- Keep their warmth and humanity
+- Maintain their essence
+
+GOAL: Like a Pixar/Disney 3D character - polished, professional, full of personality.`,
+      
+      'pixel': `Transform this portrait into PIXEL ART avatar - make it RETRO and COOL.
+
+PHILOSOPHY: Pixel art is about nostalgia, simplicity, and charm.
+
+PIXEL ART AVATAR:
+- 8-bit/16-bit retro game style (nostalgic, cool)
+- Limited color palette (retro aesthetic)
+- Simplified but recognizable (pixel art charm)
+- Retro gaming feel (nostalgic, fun)
+- Character and personality (even in pixels)
+- Cool, retro vibe
+
+PRESERVE IDENTITY:
+- Keep recognizable features (even simplified)
+- Capture their personality
+- Keep their unique characteristics
+- Maintain their essence
+
+GOAL: Like a retro game character - cool, nostalgic, captures their personality in pixels.`,
+      
+      'minimalist': `Transform this portrait into MINIMALIST LINE ART avatar - make it ELEGANT and MODERN.
+
+PHILOSOPHY: Minimalist avatars are about simplicity and elegance.
+
+MINIMALIST AVATAR:
+- Simple clean lines (elegant, modern)
+- Geometric shapes (simplified, stylish)
+- Modern design (contemporary, sophisticated)
+- Minimal colors (clean, elegant)
+- Essential features only (less is more)
+- Elegant, sophisticated feel
+
+PRESERVE IDENTITY:
+- Keep recognizable features (simplified)
+- Capture their essence
+- Keep their unique characteristics
+- Maintain their personality
+
+GOAL: Like modern minimalist art - elegant, simple, captures their essence beautifully.`,
+      
+      'cyberpunk': `Transform this portrait into CYBERPUNK avatar - make it FUTURISTIC and EDGY.
+
+PHILOSOPHY: Cyberpunk avatars are about future, technology, and attitude.
+
+CYBERPUNK AVATAR:
+- Neon colors (pink, blue, purple glow)
+- Futuristic elements (tech, cybernetic, sci-fi)
+- Sci-fi aesthetic (Blade Runner inspired)
+- Edgy, cool vibe (attitude and style)
+- Tech-enhanced features (futuristic)
+- Bold, confident feel
+
+PRESERVE IDENTITY:
+- Keep recognizable features
+- Capture their personality
+- Keep their attitude and character
+- Maintain their essence
+
+GOAL: Like a cyberpunk character - futuristic, edgy, captures their personality with attitude.`,
     };
     
     const prompt = avatarStyles[avatarStyle] || avatarStyles['cartoon'];

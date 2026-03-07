@@ -78,11 +78,88 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 虚拟模特展示
+    // 虚拟模特展示 - 2026-03-07 Week 4 优化：情感化、真实感
     const modelPrompts: Record<string, string> = {
-      'professional': `Transform this clothing item into professional fashion model photography. ${pose} pose, studio lighting, clean background, e-commerce quality. Keep the clothing exactly the same.`,
-      'lifestyle': `Transform this clothing item into lifestyle fashion photography. ${pose} pose, natural setting, casual atmosphere, Instagram-worthy. Keep the clothing exactly the same.`,
-      'editorial': `Transform this clothing item into editorial fashion photography. ${pose} pose, dramatic lighting, magazine quality, high fashion aesthetic. Keep the clothing exactly the same.`,
+      'professional': `Transform this clothing into PROFESSIONAL fashion model photography - make it SELL.
+
+PHILOSOPHY: Great fashion photography makes you want to wear it.
+
+PROFESSIONAL MODEL PHOTOGRAPHY:
+- ${pose} pose (natural, confident, professional)
+- Studio lighting (perfect, even, flattering)
+- Clean background (white or neutral, professional)
+- E-commerce quality (clear, detailed, trustworthy)
+- Model looks confident and natural
+- Professional fashion photography
+
+CLOTHING PRESENTATION:
+- Keep clothing EXACTLY the same (colors, details, fit)
+- Show how it fits and flows naturally
+- Highlight fabric texture and quality
+- Make it look desirable and wearable
+- Show the clothing at its best
+
+FORBIDDEN:
+- DO NOT change the clothing design
+- DO NOT alter colors or patterns
+- DO NOT make it look fake
+- DO NOT over-edit
+
+GOAL: Like a professional e-commerce photo - makes you want to buy and wear it.`,
+      
+      'lifestyle': `Transform this clothing into LIFESTYLE fashion photography - make it RELATABLE.
+
+PHILOSOPHY: Lifestyle fashion shows real people wearing real clothes.
+
+LIFESTYLE MODEL PHOTOGRAPHY:
+- ${pose} pose (natural, relaxed, authentic)
+- Natural setting (outdoor, urban, home - real environment)
+- Casual atmosphere (relaxed, approachable, real)
+- Instagram-worthy (shareable, aspirational)
+- Model looks natural and relatable
+- Lifestyle fashion aesthetic
+
+CLOTHING PRESENTATION:
+- Keep clothing EXACTLY the same (colors, details, fit)
+- Show how it looks in real life
+- Natural, wearable styling
+- Make it look desirable and accessible
+- Show the lifestyle, not just clothes
+
+FORBIDDEN:
+- DO NOT change the clothing design
+- DO NOT make it look staged
+- DO NOT lose authenticity
+- DO NOT over-style
+
+GOAL: Like an Instagram fashion post - relatable, desirable, makes you see yourself wearing it.`,
+      
+      'editorial': `Transform this clothing into EDITORIAL fashion photography - make it ARTISTIC.
+
+PHILOSOPHY: Editorial fashion is about art, drama, and high fashion.
+
+EDITORIAL MODEL PHOTOGRAPHY:
+- ${pose} pose (dramatic, artistic, high fashion)
+- Dramatic lighting (mood, atmosphere, artistic)
+- Magazine quality (Vogue-level, professional)
+- High fashion aesthetic (editorial, artistic)
+- Model looks confident and striking
+- Fashion as art
+
+CLOTHING PRESENTATION:
+- Keep clothing EXACTLY the same (colors, details, fit)
+- Show it in artistic, dramatic way
+- Highlight design and craftsmanship
+- Make it look high fashion and desirable
+- Fashion photography as art
+
+FORBIDDEN:
+- DO NOT change the clothing design
+- DO NOT lose clothing visibility
+- DO NOT make it unwearable-looking
+- DO NOT over-dramatize
+
+GOAL: Like a Vogue editorial - artistic, dramatic, makes you desire high fashion.`,
     };
     
     const prompt = modelPrompts[modelType] || modelPrompts['professional'];

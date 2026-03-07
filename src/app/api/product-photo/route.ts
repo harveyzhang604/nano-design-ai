@@ -78,13 +78,143 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 产品摄影场景
+    // 产品摄影场景 - 2026-03-07 Week 4 优化：情感化、真实感
     const scenePrompts: Record<string, string> = {
-      'studio': 'Transform this product photo into professional studio photography. Clean white background, perfect lighting, soft shadows, commercial quality. Make it look like an e-commerce product photo.',
-      'lifestyle': 'Transform this product into lifestyle photography. Natural setting, real-world context, warm lighting, Instagram-worthy aesthetic.',
-      'luxury': 'Transform this product into luxury brand photography. Premium background, dramatic lighting, high-end aesthetic, magazine quality.',
-      'minimal': 'Transform this product into minimalist photography. Simple clean background, soft lighting, modern aesthetic, Apple-style product photo.',
-      'outdoor': 'Transform this product into outdoor photography. Natural environment, daylight, fresh atmosphere, lifestyle context.',
+      'studio': `Transform this into PROFESSIONAL STUDIO product photography - make it SELL.
+
+PHILOSOPHY: Great product photos make you want to buy.
+
+STUDIO PHOTOGRAPHY:
+- Clean white background (pure, professional)
+- Perfect studio lighting (soft, even, no harsh shadows)
+- Subtle soft shadows (depth and dimension)
+- Product perfectly centered and composed
+- Sharp focus on product details
+- Commercial e-commerce quality
+- Professional, trustworthy feel
+
+PRODUCT ENHANCEMENT:
+- Enhance product details and textures
+- Show quality and craftsmanship
+- Make colors accurate and appealing
+- Highlight key features
+- Make it look premium
+
+FORBIDDEN:
+- DO NOT change the product itself
+- DO NOT add fake features
+- DO NOT over-process
+- DO NOT make it look unrealistic
+
+GOAL: Like an Amazon or Apple product photo - professional, clean, makes you want to buy it.`,
+      
+      'lifestyle': `Transform this into LIFESTYLE product photography - make it DESIRABLE.
+
+PHILOSOPHY: Great lifestyle photos show the product in real life.
+
+LIFESTYLE PHOTOGRAPHY:
+- Natural, real-world setting (home, office, outdoor)
+- Warm, inviting lighting (natural daylight feel)
+- Product in context (being used, displayed naturally)
+- Instagram-worthy aesthetic (shareable, aspirational)
+- Authentic, relatable feel
+- Emotional connection
+
+PRODUCT PRESENTATION:
+- Show product in natural use
+- Create aspirational lifestyle
+- Warm, inviting atmosphere
+- Make it relatable and desirable
+- Show the experience, not just product
+
+FORBIDDEN:
+- DO NOT make it look staged or fake
+- DO NOT over-style
+- DO NOT lose authenticity
+- DO NOT make it look like an ad
+
+GOAL: Like an Instagram lifestyle photo - natural, desirable, makes you want that life.`,
+      
+      'luxury': `Transform this into LUXURY brand product photography - make it PREMIUM.
+
+PHILOSOPHY: Luxury is about exclusivity, quality, and desire.
+
+LUXURY PHOTOGRAPHY:
+- Premium background (elegant, sophisticated)
+- Dramatic, artistic lighting (mood and atmosphere)
+- High-end aesthetic (magazine editorial quality)
+- Exclusive, aspirational feel
+- Impeccable composition
+- Premium brand quality
+
+PRODUCT PRESENTATION:
+- Showcase premium quality
+- Create desire and exclusivity
+- Dramatic, artistic presentation
+- Sophisticated, elegant feel
+- Make it look expensive and worth it
+
+FORBIDDEN:
+- DO NOT make it look cheap or common
+- DO NOT over-dramatize
+- DO NOT lose product clarity
+- DO NOT make it look fake
+
+GOAL: Like a Vogue or luxury brand ad - premium, exclusive, makes you desire it.`,
+      
+      'minimal': `Transform this into MINIMALIST product photography - make it ELEGANT.
+
+PHILOSOPHY: Less is more. Simplicity is sophistication.
+
+MINIMALIST PHOTOGRAPHY:
+- Simple, clean background (white, gray, or soft color)
+- Soft, even lighting (gentle, no drama)
+- Modern, clean aesthetic (Apple-style simplicity)
+- Perfect composition (balanced, centered)
+- Focus on product essence
+- Sophisticated simplicity
+
+PRODUCT PRESENTATION:
+- Let product speak for itself
+- Clean, uncluttered presentation
+- Highlight design and form
+- Modern, sophisticated feel
+- Elegant simplicity
+
+FORBIDDEN:
+- DO NOT add unnecessary elements
+- DO NOT over-complicate
+- DO NOT lose focus on product
+- DO NOT make it boring
+
+GOAL: Like an Apple product photo - simple, elegant, sophisticated. Pure product beauty.`,
+      
+      'outdoor': `Transform this into OUTDOOR product photography - make it ALIVE.
+
+PHILOSOPHY: Outdoor photos show products in real, vibrant life.
+
+OUTDOOR PHOTOGRAPHY:
+- Natural outdoor environment (nature, urban, lifestyle)
+- Natural daylight (golden hour feel, warm and inviting)
+- Fresh, vibrant atmosphere (alive, energetic)
+- Product in natural context (real-world use)
+- Authentic, adventurous feel
+- Connection with nature/life
+
+PRODUCT PRESENTATION:
+- Show product in natural environment
+- Create sense of adventure or lifestyle
+- Fresh, vibrant colors
+- Natural, authentic feel
+- Make it look alive and real
+
+FORBIDDEN:
+- DO NOT make lighting look artificial
+- DO NOT lose product visibility
+- DO NOT make it look staged
+- DO NOT over-process
+
+GOAL: Like an outdoor lifestyle brand photo - fresh, alive, makes you want to go outside.`,
     };
     
     const prompt = scenePrompts[scene] || scenePrompts['studio'];
