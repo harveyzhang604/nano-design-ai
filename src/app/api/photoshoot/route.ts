@@ -78,13 +78,107 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // AI写真主题
+    // AI写真主题 - 2026-03-07 Week 4 优化：情感化、真实感
     const themePrompts: Record<string, string> = {
-      'professional': 'Transform this into professional portrait photography. Studio lighting, clean background, business attire, confident pose. High-quality professional headshot.',
-      'casual': 'Transform this into casual lifestyle photography. Natural lighting, relaxed pose, everyday setting. Instagram-worthy casual portrait.',
-      'artistic': 'Transform this into artistic portrait photography. Creative lighting, artistic composition, unique aesthetic. Gallery-quality art portrait.',
-      'vintage': 'Transform this into vintage portrait photography. Film photography aesthetic, retro styling, nostalgic feel. Classic vintage portrait.',
-      'fashion': 'Transform this into fashion portrait photography. High fashion styling, dramatic lighting, editorial quality. Vogue-style fashion portrait.',
+      'professional': `Transform this into PROFESSIONAL portrait photography - make them look CONFIDENT and CAPABLE.
+
+PHILOSOPHY: Professional portraits show competence, confidence, and approachability.
+
+PROFESSIONAL PORTRAIT:
+- Studio lighting (perfect, flattering, professional)
+- Clean background (neutral, professional)
+- Business attire (professional, polished)
+- Confident pose (approachable yet professional)
+- High-quality headshot (LinkedIn-worthy)
+- Professional, trustworthy feel
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain natural expressions
+- Keep their personality and warmth
+- Show confidence, not stiffness
+
+GOAL: Like a professional headshot - confident, capable, makes you want to hire them.`,
+      
+      'casual': `Transform this into CASUAL lifestyle photography - make them look NATURAL and RELATABLE.
+
+PHILOSOPHY: Casual portraits show real people in real moments.
+
+CASUAL PORTRAIT:
+- Natural lighting (soft, warm, real)
+- Relaxed pose (natural, comfortable, authentic)
+- Everyday setting (home, outdoor, casual environment)
+- Instagram-worthy (shareable, relatable)
+- Natural, genuine smile
+- Warm, approachable feel
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain natural expressions
+- Keep their personality and warmth
+- Show them at their most natural
+
+GOAL: Like an Instagram portrait - natural, relatable, makes you feel like you know them.`,
+      
+      'artistic': `Transform this into ARTISTIC portrait photography - make it BEAUTIFUL and UNIQUE.
+
+PHILOSOPHY: Artistic portraits are about creativity, emotion, and beauty.
+
+ARTISTIC PORTRAIT:
+- Creative lighting (dramatic, artistic, mood)
+- Artistic composition (unique, creative framing)
+- Unique aesthetic (artistic vision, creative)
+- Gallery-quality (art photography, professional)
+- Emotional depth (feeling, soul, story)
+- Beautiful, artistic feel
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain their essence and personality
+- Show their beauty and character
+- Capture their soul
+
+GOAL: Like gallery art photography - beautiful, unique, captures their soul.`,
+      
+      'vintage': `Transform this into VINTAGE portrait photography - make it TIMELESS and NOSTALGIC.
+
+PHILOSOPHY: Vintage portraits capture timeless beauty and nostalgia.
+
+VINTAGE PORTRAIT:
+- Film photography aesthetic (grain, faded colors)
+- Retro styling (classic, timeless)
+- Nostalgic feel (warm, memories, timeless)
+- Classic vintage portrait (1950s-1970s feel)
+- Warm, aged tones
+- Timeless, nostalgic feel
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain their natural beauty
+- Keep their personality
+- Show timeless quality
+
+GOAL: Like a treasured vintage photo - timeless, nostalgic, beautiful.`,
+      
+      'fashion': `Transform this into FASHION portrait photography - make them look STUNNING and STYLISH.
+
+PHILOSOPHY: Fashion portraits are about style, confidence, and high fashion.
+
+FASHION PORTRAIT:
+- High fashion styling (editorial, trendy, stylish)
+- Dramatic lighting (mood, atmosphere, fashion)
+- Editorial quality (Vogue-level, professional)
+- Fashion-forward (stylish, confident, bold)
+- Striking, confident pose
+- High fashion feel
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain their personality
+- Show their confidence and style
+- Keep their essence
+
+GOAL: Like a Vogue fashion portrait - stunning, stylish, makes them look like a model.`,
     };
     
     const prompt = themePrompts[theme] || themePrompts['professional'];
