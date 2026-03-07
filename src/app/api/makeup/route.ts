@@ -78,14 +78,163 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 妆容风格
+    // 妆容风格 - 2026-03-07 Week 4 优化：情感化、真实感
     const makeupPrompts: Record<string, string> = {
-      'natural': 'Apply natural makeup to this face. Light foundation, subtle blush, natural lip color, light mascara. Fresh and natural look.',
-      'glamorous': 'Apply glamorous makeup to this face. Full coverage foundation, dramatic eyeshadow, bold lipstick, false lashes, contouring. Red carpet ready.',
-      'smokey': 'Apply smokey eye makeup to this face. Dark smokey eyeshadow, winged eyeliner, nude lips, dramatic lashes. Evening look.',
-      'korean': 'Apply Korean makeup style to this face. Dewy skin, gradient lips, straight brows, aegyo sal, soft colors. K-beauty aesthetic.',
-      'vintage': 'Apply vintage makeup to this face. Classic red lips, winged eyeliner, defined brows, matte skin. 1950s Hollywood glamour.',
-      'editorial': 'Apply editorial makeup to this face. Artistic and bold, creative colors, dramatic features. Fashion magazine quality.',
+      'natural': `Apply NATURAL makeup to this face - enhance beauty, don't hide it.
+
+PHILOSOPHY: Natural makeup enhances, not masks. You're beautiful already.
+
+NATURAL MAKEUP:
+- Light, breathable foundation (even skin tone, keep natural texture)
+- Subtle blush (natural flush, healthy glow)
+- Natural lip color (enhance natural lip color, not change it)
+- Light mascara (define lashes, not dramatic)
+- Groomed brows (natural shape, just defined)
+- Fresh, dewy finish (healthy, alive, glowing)
+
+PRESERVE IDENTITY:
+- Keep facial features exactly the same
+- Maintain natural expressions
+- Keep personality and character
+- Enhance, don't transform
+
+FORBIDDEN:
+- DO NOT over-apply makeup
+- DO NOT create artificial perfection
+- DO NOT change facial structure
+- DO NOT make it look heavily made up
+
+GOAL: Fresh, natural, glowing - like you on your best day. Makeup that says "I woke up like this."`,
+      
+      'glamorous': `Apply GLAMOROUS makeup to this face - bold, confident, stunning.
+
+PHILOSOPHY: Glamorous is about confidence and drama, not fake perfection.
+
+GLAMOROUS MAKEUP:
+- Full coverage foundation (flawless base, still natural texture)
+- Dramatic eyeshadow (bold colors, expertly blended)
+- Bold lipstick (statement lips, confident color)
+- False lashes or dramatic mascara (stunning eyes)
+- Contouring and highlighting (defined features)
+- Red carpet ready (polished, professional)
+
+PRESERVE IDENTITY:
+- Keep facial features recognizable
+- Maintain personality and character
+- Enhance, don't change who they are
+- Keep natural expressions
+
+FORBIDDEN:
+- DO NOT make it look fake or plastic
+- DO NOT change facial structure
+- DO NOT lose their identity
+- DO NOT make it look costume-like
+
+GOAL: Red carpet glamour - bold, confident, stunning, but still authentically THEM.`,
+      
+      'smokey': `Apply SMOKEY EYE makeup to this face - dramatic, mysterious, alluring.
+
+PHILOSOPHY: Smokey eyes are about drama and confidence, not hiding.
+
+SMOKEY EYE MAKEUP:
+- Dark, blended eyeshadow (smokey gradient, expertly done)
+- Winged eyeliner (dramatic, precise)
+- Nude or soft lips (balance the dramatic eyes)
+- Dramatic lashes (false lashes or heavy mascara)
+- Defined brows (frame the eyes)
+- Evening-ready look (sophisticated, alluring)
+
+PRESERVE IDENTITY:
+- Keep facial features the same
+- Maintain personality
+- Enhance eyes, don't change face
+- Keep natural expressions
+
+FORBIDDEN:
+- DO NOT make it look messy or overdone
+- DO NOT change facial structure
+- DO NOT lose their character
+- DO NOT make it look costume-like
+
+GOAL: Dramatic evening look - mysterious, alluring, confident, still recognizably THEM.`,
+      
+      'korean': `Apply KOREAN K-BEAUTY makeup to this face - fresh, youthful, glowing.
+
+PHILOSOPHY: K-beauty is about healthy, glowing skin and soft features.
+
+K-BEAUTY MAKEUP:
+- Dewy, glowing skin (healthy, hydrated look)
+- Gradient lips (soft, natural ombre effect)
+- Straight, natural brows (soft, youthful)
+- Aegyo sal (cute under-eye highlight)
+- Soft, natural colors (pinks, corals, soft browns)
+- Fresh, youthful aesthetic (innocent, glowing)
+
+PRESERVE IDENTITY:
+- Keep facial features the same
+- Maintain natural expressions
+- Enhance with K-beauty style
+- Keep personality
+
+FORBIDDEN:
+- DO NOT change facial structure
+- DO NOT make it look artificial
+- DO NOT lose their identity
+- DO NOT over-whiten skin
+
+GOAL: K-beauty glow - fresh, youthful, dewy, healthy. Natural beauty enhanced Korean style.`,
+      
+      'vintage': `Apply VINTAGE makeup to this face - classic Hollywood glamour.
+
+PHILOSOPHY: Vintage glamour is timeless elegance and confidence.
+
+VINTAGE MAKEUP (1950s Hollywood):
+- Classic red lips (bold, matte, perfectly defined)
+- Winged eyeliner (cat-eye, precise, dramatic)
+- Defined brows (arched, elegant)
+- Matte, porcelain skin (flawless, classic)
+- Subtle blush (classic placement)
+- Timeless elegance (sophisticated, glamorous)
+
+PRESERVE IDENTITY:
+- Keep facial features recognizable
+- Maintain personality
+- Apply vintage style, keep their essence
+- Keep natural expressions
+
+FORBIDDEN:
+- DO NOT make it look costume-like
+- DO NOT change facial structure
+- DO NOT lose their identity
+- DO NOT make it look fake
+
+GOAL: Classic Hollywood glamour - timeless, elegant, confident. Vintage beauty, still authentically THEM.`,
+      
+      'editorial': `Apply EDITORIAL makeup to this face - artistic, bold, creative.
+
+PHILOSOPHY: Editorial makeup is art - creative, bold, expressive.
+
+EDITORIAL MAKEUP:
+- Artistic and bold (creative expression)
+- Creative colors (unexpected, artistic)
+- Dramatic features (statement-making)
+- Fashion-forward (avant-garde, trendy)
+- Magazine-quality (professional, polished)
+- Artistic interpretation (creative, unique)
+
+PRESERVE IDENTITY:
+- Keep facial features recognizable
+- Maintain personality
+- Apply artistic makeup, keep their essence
+- Show creativity, not transformation
+
+FORBIDDEN:
+- DO NOT make it look costume-like
+- DO NOT change facial structure completely
+- DO NOT lose their identity
+- DO NOT make it unwearable
+
+GOAL: Fashion magazine editorial - artistic, bold, creative, but still recognizably THEM. Wearable art.`,
     };
     
     const prompt = makeupPrompts[makeupStyle] || makeupPrompts['natural'];

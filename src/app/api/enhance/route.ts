@@ -78,41 +78,100 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 根据美化程度调整prompt
+    // 根据美化程度调整prompt - 2026-03-07 Week 4 优化：情感化、真实感
     const prompts: Record<string, string> = {
-      'subtle': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
-1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
-2. Maintain the EXACT same aspect ratio and composition
-3. For faces/portraits: 
-   - Gently reduce visible skin imperfections (acne, blemishes, dark spots)
-   - SUBTLE skin tone improvement - keep original skin color, just slightly more even
-   - Light smoothing while preserving natural skin texture
-   - DO NOT over-brighten or over-whiten the skin
-   - Result should look like a good quality photo with minimal retouching, not heavily edited
-4. Keep colors natural and realistic
-5. The enhancement should be barely noticeable - natural first, beauty second`,
+      'subtle': `Enhance this image with super-resolution quality - make it BETTER while keeping it REAL.
+
+PHILOSOPHY: Enhancement means bringing out the best, not creating fake perfection.
+
+CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - NO cropping, NO cutting
+2. Maintain EXACT aspect ratio and composition
+3. Enhance quality, not change reality
+
+FOR FACES/PORTRAITS:
+- Gently reduce temporary imperfections (acne, blemishes)
+- SUBTLE skin tone evening (keep original warmth and character)
+- Light smoothing (preserve natural texture and pores)
+- Keep freckles, beauty marks, natural features
+- DO NOT over-brighten or over-whiten skin
+- Keep natural expressions and personality
+
+FOR ALL IMAGES:
+- Enhance sharpness and clarity naturally
+- Improve colors subtly (more vibrant, still natural)
+- Reduce noise while keeping natural grain
+- Enhance details without artifacts
+
+FORBIDDEN:
+- DO NOT create artificial perfection
+- DO NOT over-process or over-smooth
+- DO NOT change the photo's character
+- DO NOT make it look heavily edited
+
+GOAL: Like a good quality photo on a good day - natural, real, just BETTER.`,
       
-      'light': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
-1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
-2. Maintain the EXACT same aspect ratio and composition
-3. For faces/portraits:
-   - Remove visible skin imperfections (acne, blemishes, dark spots)
-   - Moderate skin tone improvement and brightening
-   - Smooth skin while keeping natural texture visible
-   - Light beauty enhancement - natural but noticeably improved
-4. Keep colors natural and realistic
-5. Result should look like a professionally retouched photo with moderate enhancement`,
+      'light': `Enhance this image with super-resolution quality - NOTICEABLE improvement, still AUTHENTIC.
+
+PHILOSOPHY: Professional quality doesn't mean fake. Real people, better quality.
+
+CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - NO cropping, NO cutting
+2. Maintain EXACT aspect ratio and composition
+3. Clear enhancement, still believable
+
+FOR FACES/PORTRAITS:
+- Remove visible imperfections (acne, blemishes, dark spots)
+- Moderate skin tone improvement (brighter, more even)
+- Smooth skin while keeping natural texture visible
+- Light beauty enhancement (natural but improved)
+- Keep personality and character
+- Preserve unique features
+
+FOR ALL IMAGES:
+- Significantly enhance sharpness and clarity
+- Improve colors noticeably (vibrant, still realistic)
+- Professional noise reduction
+- Enhance all details
+
+FORBIDDEN:
+- DO NOT create unrealistic perfection
+- DO NOT over-smooth (keep texture)
+- DO NOT change the person's essence
+- DO NOT make it look fake
+
+GOAL: Professionally retouched quality - noticeably better, still authentically YOU.`,
       
-      'professional': `Enhance this image with professional quality super-resolution. CRITICAL REQUIREMENTS:
-1. Keep the ENTIRE image intact - do NOT crop, do NOT cut any part
-2. Maintain the EXACT same aspect ratio and composition
-3. For faces/portraits:
-   - Remove all skin imperfections (acne, blemishes, dark spots, pores)
-   - Brighten and even out skin tone significantly
-   - Professional skin smoothing with natural texture
-   - Clear beauty enhancement - magazine-quality retouching
-4. Keep colors vibrant but realistic
-5. Result should look like professional portrait photography with clear enhancement`
+      'professional': `Enhance this image with super-resolution quality - MAGAZINE-READY, still REAL.
+
+PHILOSOPHY: Professional photography quality - polished, not plastic.
+
+CRITICAL REQUIREMENTS:
+1. Keep the ENTIRE image intact - NO cropping, NO cutting
+2. Maintain EXACT aspect ratio and composition
+3. Professional quality, still authentic
+
+FOR FACES/PORTRAITS:
+- Remove all temporary imperfections (acne, blemishes, spots)
+- Brighten and even out skin tone significantly
+- Professional skin smoothing (keep subtle texture)
+- Clear beauty enhancement (magazine-quality)
+- Preserve unique features and personality
+- Keep natural expressions and character
+
+FOR ALL IMAGES:
+- Maximum sharpness and clarity
+- Vibrant, professional colors (still realistic)
+- Professional noise reduction
+- Enhance every detail
+
+FORBIDDEN:
+- DO NOT create artificial perfection
+- DO NOT remove permanent features (moles, freckles, scars)
+- DO NOT change facial structure
+- DO NOT make it look like a different person
+
+GOAL: Professional portrait photography - magazine-ready, polished, but still recognizably and authentically YOU.`
     };
     
     const prompt = prompts[beautyLevel] || prompts['subtle'];

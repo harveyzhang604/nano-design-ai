@@ -78,10 +78,35 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 调用 Gemini API 进行图像放大
-    // 优化后的 prompt - 强调细节保留、降噪、清晰度
+    // 调用 Gemini API 进行图像放大 - 2026-03-07 Week 4 优化：情感化、真实感
     const scaleText = scale === 4 ? '4K ultra-high' : scale === 8 ? '8K maximum' : 'high';
-    const prompt = `Upscale this image to ${scaleText} resolution with professional quality enhancement. Preserve and enhance fine details, textures, and edges. Apply intelligent noise reduction while maintaining natural grain. Sharpen details without introducing artifacts. Enhance clarity and definition. Keep original composition, colors, and lighting exactly the same. Output should be crisp, clean, and print-ready quality.`;
+    const prompt = `Upscale this image to ${scaleText} resolution - make it SHARP and CLEAR while keeping it REAL.
+
+PHILOSOPHY: Bigger doesn't mean fake. Enhance quality, not change reality.
+
+UPSCALING GOALS:
+- Increase resolution to ${scaleText} quality
+- Preserve and ENHANCE fine details (every texture matters)
+- Sharpen edges and definition (crisp, not artificial)
+- Intelligent noise reduction (clean, not plastic)
+- Maintain natural grain and texture (real photos have texture)
+- Enhance clarity without introducing artifacts
+
+PRESERVE AUTHENTICITY:
+- Keep original composition EXACTLY the same
+- Maintain original colors and lighting
+- Preserve natural textures and details
+- Keep the photo's character and soul
+- Maintain realistic appearance
+
+FORBIDDEN:
+- DO NOT over-sharpen (no halos or artifacts)
+- DO NOT over-smooth (keep natural texture)
+- DO NOT change colors or lighting
+- DO NOT make it look artificial or processed
+- DO NOT lose the photo's natural character
+
+GOAL: Print-ready quality - sharp, clear, detailed, but still REAL and natural. Like the photo was taken with a better camera.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
