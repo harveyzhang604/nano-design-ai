@@ -78,35 +78,73 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 根据修复强度调整prompt
+    // 根据修复强度调整prompt - 2026-03-07 优化：强调保守修复，不改变表情
     const prompts: Record<string, string> = {
-      'conservative': `Restore this old or damaged photo with CONSERVATIVE approach. CRITICAL - DO NOT change any original details:
-- ONLY repair visible damage: scratches, tears, stains, fading
-- ONLY reduce noise and grain where clearly damaged
-- ONLY fix obvious blur in damaged areas
-- DO NOT change: facial expressions, poses, positions, clothing, background elements
-- DO NOT add details that weren't there
-- DO NOT "improve" or "enhance" beyond damage repair
-- Keep the original character and authenticity of the photo
-- Minimal intervention - preserve history`,
+      'conservative': `Restore this old or damaged photo with ULTRA-CONSERVATIVE approach. 
+ABSOLUTE RULES - NEVER VIOLATE:
+1. PRESERVE EXACTLY: facial expressions, eye direction, mouth shape, wrinkles, skin texture
+2. PRESERVE EXACTLY: poses, body positions, hand gestures, head angles
+3. PRESERVE EXACTLY: clothing details, patterns, colors, accessories
+4. PRESERVE EXACTLY: background elements, lighting, composition
+
+ONLY REPAIR PHYSICAL DAMAGE:
+- Remove scratches, tears, cracks, stains
+- Fix fading and discoloration
+- Reduce noise ONLY in damaged areas
+- Fix blur ONLY where clearly damaged
+
+FORBIDDEN ACTIONS:
+- DO NOT change any facial features or expressions
+- DO NOT "improve" or "beautify" faces
+- DO NOT add missing details - leave them as is
+- DO NOT change emotions or moods
+- DO NOT modernize or stylize
+
+GOAL: Make it look like the photo was never damaged, but keep EVERYTHING else identical to the original.`,
       
-      'standard': `Restore this old or damaged photo with BALANCED approach. CRITICAL - preserve original details:
-- Repair damage: scratches, tears, stains, fading, cracks
+      'standard': `Restore this old or damaged photo with CONSERVATIVE-BALANCED approach.
+ABSOLUTE RULES - NEVER VIOLATE:
+1. PRESERVE EXACTLY: facial expressions, emotions, eye contact
+2. PRESERVE EXACTLY: poses, positions, gestures
+3. PRESERVE EXACTLY: original character and authenticity
+
+REPAIR DAMAGE:
+- Remove scratches, tears, cracks, stains, fading
 - Reduce noise and grain moderately
-- Fix blur and improve clarity where damaged
-- DO NOT change: facial expressions, poses, positions
-- DO NOT add new details
-- Balance between repair and preservation
-- Keep authentic look while improving quality`,
+- Fix blur and improve clarity in damaged areas
+- Restore colors where faded
+
+FORBIDDEN ACTIONS:
+- DO NOT change facial expressions or emotions
+- DO NOT add details that weren't there
+- DO NOT "enhance" beyond damage repair
+- DO NOT change the mood or feeling of the photo
+
+GOAL: Repair damage while keeping the soul of the original photo intact.`,
       
-      'deep': `Restore this old or damaged photo with THOROUGH approach. CRITICAL - still preserve core details:
-- Repair all damage: scratches, tears, stains, fading, cracks, discoloration
+      'deep': `Restore this old or damaged photo with THOROUGH approach.
+ABSOLUTE RULES - NEVER VIOLATE:
+1. PRESERVE: facial expressions, core emotions, personality
+2. PRESERVE: poses, main composition, key elements
+
+THOROUGH REPAIR:
+- Remove all damage: scratches, tears, cracks, stains, discoloration
 - Significantly reduce noise and grain
 - Fix blur and maximize clarity
-- Enhance overall quality
-- DO NOT change: facial expressions, poses, core composition
-- Thorough restoration while keeping authenticity
-- Maximum quality improvement within preservation limits`
+- Enhance overall quality and sharpness
+- Restore colors and contrast
+
+ALLOWED ENHANCEMENTS:
+- Improve technical quality (sharpness, clarity, color)
+- Reduce noise and artifacts
+- Fix lighting and exposure
+
+FORBIDDEN ACTIONS:
+- DO NOT change facial expressions or core emotions
+- DO NOT change poses or main composition
+- DO NOT add elements that weren't there
+
+GOAL: Maximum quality restoration while preserving the essence and character of the original.`
     };
     
     const prompt = prompts[restoreLevel] || prompts['standard'];

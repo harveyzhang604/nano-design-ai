@@ -135,7 +135,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: r2Url, 
         isR2: true,
-        mode: mode || 'remove-bg'
+        mode: 'remove-bg'
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
@@ -143,7 +143,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: fullBase64, 
         isR2: false,
-        mode: mode || 'remove-bg'
+        mode: 'remove-bg'
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });

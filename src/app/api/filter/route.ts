@@ -78,16 +78,16 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // AI滤镜效果
+    // AI滤镜效果 - 2026-03-07 优化：更明确的指令
     const filterPrompts: Record<string, string> = {
-      'warm': 'Apply warm color filter to this image. Golden tones, warm atmosphere, cozy feel. Instagram warm filter aesthetic.',
-      'cool': 'Apply cool color filter to this image. Blue tones, cool atmosphere, fresh feel. Instagram cool filter aesthetic.',
-      'vivid': 'Apply vivid color filter to this image. Saturated colors, high contrast, vibrant look. Instagram vivid filter.',
-      'bw': 'Apply black and white filter to this image. Classic monochrome, high contrast, dramatic. Professional B&W photography.',
-      'vintage': 'Apply vintage film filter to this image. Faded colors, film grain, retro aesthetic. Vintage film photography look.',
-      'cinematic': 'Apply cinematic color grading to this image. Movie-like colors, dramatic tones, professional color grade.',
-      'sunset': 'Apply sunset filter to this image. Orange and pink tones, golden hour lighting, romantic atmosphere.',
-      'moody': 'Apply moody filter to this image. Dark tones, dramatic shadows, atmospheric feel. Moody photography aesthetic.',
+      'warm': 'Transform this image with a warm color filter. Apply golden and orange tones throughout. Increase warmth in highlights. Create a cozy, inviting atmosphere. Similar to Instagram warm filter. Return the modified image.',
+      'cool': 'Transform this image with a cool color filter. Apply blue and cyan tones throughout. Increase coolness in shadows. Create a fresh, calm atmosphere. Similar to Instagram cool filter. Return the modified image.',
+      'vivid': 'Transform this image with a vivid color filter. Significantly increase color saturation. Boost contrast and vibrancy. Make colors pop and stand out. Similar to Instagram vivid filter. Return the modified image.',
+      'bw': 'Transform this image to black and white. Convert to monochrome with high contrast. Preserve details and textures. Create dramatic lighting. Professional black and white photography style. Return the modified image.',
+      'vintage': 'Transform this image with a vintage film filter. Apply faded colors and slight sepia tone. Add subtle film grain texture. Create retro 1970s-80s aesthetic. Vintage film photography look. Return the modified image.',
+      'cinematic': 'Transform this image with cinematic color grading. Apply movie-like color tones with teal shadows and orange highlights. Increase contrast and drama. Professional film color grade. Return the modified image.',
+      'sunset': 'Transform this image with a sunset filter. Apply warm orange, pink, and golden tones. Create golden hour lighting effect. Romantic and dreamy atmosphere. Return the modified image.',
+      'moody': 'Transform this image with a moody filter. Darken overall tones, increase shadows. Apply cool dark tones with muted colors. Create atmospheric and dramatic feel. Moody photography aesthetic. Return the modified image.',
     };
     
     const prompt = filterPrompts[filterType] || filterPrompts['warm'];

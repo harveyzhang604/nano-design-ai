@@ -155,7 +155,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: r2Url, 
         isR2: true,
-        enhanceLevel
+        mode: 'portrait'
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
@@ -163,7 +163,7 @@ export async function POST(req: Request) {
       return NextResponse.json({ 
         imageUrl: fullBase64, 
         isR2: false,
-        enhanceLevel
+        mode: 'portrait'
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
