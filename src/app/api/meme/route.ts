@@ -59,12 +59,99 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 表情包模板
+    // 表情包模板 - 2026-03-07 Week 4 优化：情感化、真实感
     const templatePrompts: Record<string, string> = {
-      'funny': `Create a funny meme image with the text: "${text}". Use bold white text with black outline, typical meme font style. Make it humorous and shareable.`,
-      'motivational': `Create a motivational meme image with the text: "${text}". Inspiring background, elegant typography, positive vibes.`,
-      'sarcastic': `Create a sarcastic meme image with the text: "${text}". Ironic style, typical internet meme aesthetic.`,
-      'wholesome': `Create a wholesome meme image with the text: "${text}". Cute, heartwarming, positive energy.`,
+      'funny': `Create a FUNNY meme image - make people LAUGH and SHARE.
+
+PHILOSOPHY: Great memes are relatable, funny, and instantly shareable.
+
+MEME TEXT: "${text}"
+
+FUNNY MEME DESIGN:
+- Bold white text with black outline (classic meme font)
+- Text at top and/or bottom (traditional meme layout)
+- Funny, relatable image (humor, irony, or absurdity)
+- Internet meme aesthetic (recognizable meme style)
+- Shareable and viral-worthy (makes people want to share)
+- Humorous and entertaining
+
+MEME QUALITY:
+- Clear, readable text (easy to read at any size)
+- Funny image that matches the text
+- Relatable humor (people get it immediately)
+- Shareable format (perfect for social media)
+- Classic meme style
+
+GOAL: Like a viral meme - funny, relatable, makes people laugh and share immediately.`,
+      
+      'motivational': `Create a MOTIVATIONAL meme image - INSPIRE and UPLIFT.
+
+PHILOSOPHY: Motivational memes inspire action and positive change.
+
+MEME TEXT: "${text}"
+
+MOTIVATIONAL DESIGN:
+- Inspiring background (nature, sunrise, mountains, success imagery)
+- Elegant, readable typography (inspiring font style)
+- Positive, uplifting colors (warm, energetic, hopeful)
+- Motivational aesthetic (professional, inspiring)
+- Shareable inspiration (makes people want to share positivity)
+- Empowering and encouraging
+
+EMOTIONAL TONE:
+- Inspiring and uplifting
+- Positive and empowering
+- Motivational energy
+- Hope and possibility
+- Action-oriented
+
+GOAL: Like an inspiring quote image - motivational, uplifting, makes people feel empowered.`,
+      
+      'sarcastic': `Create a SARCASTIC meme image - make people LAUGH with IRONY.
+
+PHILOSOPHY: Sarcastic memes use irony and wit to entertain.
+
+MEME TEXT: "${text}"
+
+SARCASTIC MEME DESIGN:
+- Ironic, sarcastic image (visual irony)
+- Classic meme font (bold white with black outline)
+- Internet meme aesthetic (recognizable sarcasm style)
+- Witty and clever (smart humor)
+- Shareable sarcasm (relatable irony)
+- Funny through contrast
+
+SARCASTIC TONE:
+- Ironic and witty
+- Clever humor
+- Relatable sarcasm
+- Smart and funny
+- Internet culture
+
+GOAL: Like a sarcastic internet meme - ironic, witty, makes people laugh at the truth.`,
+      
+      'wholesome': `Create a WHOLESOME meme image - spread JOY and POSITIVITY.
+
+PHILOSOPHY: Wholesome memes make the internet a better place.
+
+MEME TEXT: "${text}"
+
+WHOLESOME MEME DESIGN:
+- Cute, heartwarming image (animals, kindness, love)
+- Soft, friendly colors (warm, inviting, positive)
+- Wholesome aesthetic (pure, innocent, kind)
+- Positive energy (uplifting, heartwarming)
+- Shareable positivity (makes people smile)
+- Pure and genuine
+
+EMOTIONAL TONE:
+- Heartwarming and kind
+- Positive and uplifting
+- Pure and innocent
+- Genuine goodness
+- Spreads joy
+
+GOAL: Like a wholesome internet meme - cute, heartwarming, makes people smile and feel good.`,
     };
     
     let prompt = templatePrompts[template] || templatePrompts['funny'];
