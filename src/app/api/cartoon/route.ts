@@ -1,0 +1,103 @@
+import { NextResponse } from 'next/server';
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+
+export const runtime = 'edge';
+
+const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
+const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
+const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-images';
+
+const r2Client = new S3Client({
+  region: 'auto',
+  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+  credentials: {
+    accessKeyId: R2_ACCESS_KEY_ID,
+    secretAccessKey: R2_SECRET_ACCESS_KEY,
+  },
+});
+
+async function uploadToR2(base64Data: string, prefix: string = 'cartoon'): Promise<string | null> {
+  try {
+    const base64Content = base64Data.replace(/^data:image\/\w+;base64,/, '');
+    const imageBuffer = Buffer.from(base64Content, 'base64');
+    const filename = `${prefix}-${Date.now()}.png`;
+    const key = `images/${filename}`;
+    const command = new PutObjectCommand({
+      Bucket: R2_BUCKET_NAME,
+      Key: key,
+      Body: imageBuffer,
+      ContentType: 'image/png',
+    });
+    await r2Client.send(command);
+    return `https://img.talkphoto.app/${key}`;
+  } catch (error) {
+    console.error('R2 upload error:', error);
+    return null;
+  }
+}
+
+function imageToBase64(url: string): Promise<string> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      const base64 = buffer.toString('base64');
+      const mimeType = response.headers.get('content-type') || 'image/png';
+      resolve(`data:${mimeType};base64,${base64}`);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+
+export async function POST(req: Request) {
+  try {
+    const { imageUrl } = await req.json();
+    if (!imageUrl) {
+      return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
+    }
+    
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return NextResponse.json({ error: 'System Error: GEMINI_API_KEY not configured.' }, { status: 500 });
+    }
+
+    const imageBase64 = await imageToBase64(imageUrl);
+    
+    const prompt = `将这张照片转换为精美的动漫/卡通风格。保留人物的主要特征和面部表情，但使用动漫风格的渲染：柔和的线条、鲜明的色彩、略微放大的眼睛。可以添加适当的光影效果使画面更加生动。重要的是保持原始照片的完整性，不要添加任何不存在的元素。`;
+
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:predict?key=${apiKey}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        prompt: prompt,
+        image: imageBase64,
+      }),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error('Gemini API error:', error);
+      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
+    }
+
+    const result = await response.json();
+    const generatedImage = result.predicted_image || result.image;
+    
+    if (!generatedImage) {
+      return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+    }
+
+    const imageUrl_result = await uploadToR2(generatedImage, 'cartoon');
+    if (!imageUrl_result) {
+      return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
+    }
+
+    return NextResponse.json({ imageUrl: imageUrl_result });
+  } catch (error: any) {
+    console.error('Processing error:', error);
+    return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
+  }
+}

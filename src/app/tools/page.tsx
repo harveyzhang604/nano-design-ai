@@ -164,10 +164,46 @@ export default function ToolsPage() {
       'change-bg': '/api/change-bg',
       'portrait': '/api/portrait',
       'enhance': '/api/enhance',
+      'style-transfer': '/api/style-transfer',
+      'avatar': '/api/avatar',
+      'cartoon': '/api/cartoon',
       'caricature': '/api/caricature',
       'yearbook': '/api/yearbook',
+      'sketch-to-photo': '/api/sketch-to-image',
+      'product': '/api/product-photo',
+      'face-swap': '/api/face-swap',
+      'interior': '/api/interior-design',
+      'age': '/api/age-transform',
+      'face-age': '/api/age-transform',
+      'meme': '/api/meme',
+      'greeting': '/api/greeting-card',
+      'pet-cartoon': '/api/pet-cartoon',
+      'cosplay': '/api/cosplay',
+      'photoshoot': '/api/photoshoot',
+      'real-estate': '/api/real-estate',
+      'map-gen': '/api/map-gen',
+      'fashion': '/api/fashion-model',
+      'try-on': '/api/try-on',
+      'makeup': '/api/makeup',
+      'tattoo': '/api/tattoo',
+      'gender-swap': '/api/gender-swap',
+      'hairstyle': '/api/hairstyle',
+      'filter': '/api/filter',
+      'baby-prediction': '/api/baby-prediction',
     };
     return endpoints[toolId] || '/api/generate';
+  };
+
+  // 获取工具的默认 prompt（用于 /api/generate fallback）
+  const getDefaultPrompt = (toolId: string): string => {
+    const prompts: Record<string, string> = {
+      'cartoon': '将照片转换为动漫/卡通风格，保持人物特征自然',
+      'cosplay': '生成角色扮演主题的照片效果',
+      'try-on': '虚拟试穿效果，自然真实',
+      'real-estate': '房产渲染，室内装修效果图',
+      'map-gen': '根据描述生成地图场景',
+    };
+    return prompts[toolId] || '请处理这张图片';
   };
 
   const handleProcess = async () => {
@@ -193,6 +229,7 @@ export default function ToolsPage() {
           }
         : {
             imageUrl: uploadedImage,
+            prompt: getDefaultPrompt(activeTool),
             ...toolParams
           };
       
