@@ -65,14 +65,16 @@ function buildPrompt(beautyLevel: string, removeBlemishes: boolean, removeWrinkl
   let blemishInstruction = '';
   if (removeBlemishes) {
     blemishInstruction = `
-REMOVE (完全去除):
-- 痘印、痘痘 (acne marks, pimples)
-- 疤痕、伤痕 (scars, wounds)
-- 雀斑 (freckles)
-- 老年斑、晒斑 (age spots, sun spots)
-- 红血丝 (redness, broken capillaries)
-- 油光 (shiny/oily areas)
-- 毛孔粗大 (large pores)`;
+CRITICAL: You MUST completely remove these skin imperfections:
+- 雀斑 (freckles) - REMOVE COMPLETELY, no exceptions
+- 痘印、痘痘 (acne marks, pimples) - remove completely
+- 疤痕、伤痕 (scars, wounds) - smooth out
+- 老年斑、晒斑 (age spots, sun spots) - remove completely
+- 红血丝 (redness, broken capillaries) - remove
+- 油光 (shiny/oily areas) - reduce
+- 毛孔粗大 (large pores) - minimize
+
+The skin should be CLEAN and SMOOTH with NO visible freckles or blemishes.`;
   } else {
     blemishInstruction = `
 KEEP (保留以下自然特征):
