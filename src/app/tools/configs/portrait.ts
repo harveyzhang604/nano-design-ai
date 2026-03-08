@@ -12,7 +12,9 @@ export const portraitConfig: ToolConfig = {
         skinSmooth: 20,
         brighten: 10,
         eyeEnhance: 20,
-        faceSlim: 0
+        faceSlim: 0,
+        removeBlemishes: true,
+        removeWrinkles: 'keep'
       }
     },
     {
@@ -24,7 +26,9 @@ export const portraitConfig: ToolConfig = {
         skinSmooth: 40,
         brighten: 30,
         eyeEnhance: 40,
-        faceSlim: 20
+        faceSlim: 20,
+        removeBlemishes: true,
+        removeWrinkles: 'keep'
       },
       recommended: true
     },
@@ -37,7 +41,9 @@ export const portraitConfig: ToolConfig = {
         skinSmooth: 60,
         brighten: 50,
         eyeEnhance: 60,
-        faceSlim: 30
+        faceSlim: 30,
+        removeBlemishes: true,
+        removeWrinkles: 'optional'
       },
       popular: true
     },
@@ -50,7 +56,9 @@ export const portraitConfig: ToolConfig = {
         skinSmooth: 80,
         brighten: 70,
         eyeEnhance: 80,
-        faceSlim: 50
+        faceSlim: 50,
+        removeBlemishes: true,
+        removeWrinkles: 'remove'
       }
     },
     {
@@ -62,7 +70,9 @@ export const portraitConfig: ToolConfig = {
         skinSmooth: 70,
         brighten: 60,
         eyeEnhance: 70,
-        faceSlim: 40
+        faceSlim: 40,
+        removeBlemishes: true,
+        removeWrinkles: 'remove'
       }
     }
   ],
@@ -116,6 +126,29 @@ export const portraitConfig: ToolConfig = {
       min: 0,
       max: 100,
       tooltip: '自然瘦脸，优化脸型轮廓'
+    },
+    {
+      id: 'removeBlemishes',
+      name: '去除瑕疵',
+      type: 'select',
+      default: true,
+      tooltip: '去除痘印、疤痕、雀斑、老年斑等面部瑕疵',
+      options: [
+        { value: true, label: '开启' },
+        { value: false, label: '保留' }
+      ]
+    },
+    {
+      id: 'removeWrinkles',
+      name: '皱纹处理',
+      type: 'select',
+      default: 'keep',
+      tooltip: '处理面部皱纹（鱼尾纹、法令纹等）',
+      options: [
+        { value: 'keep', label: '保留' },
+        { value: 'optional', label: '可选' },
+        { value: 'remove', label: '去除' }
+      ]
     }
   ],
   tips: [

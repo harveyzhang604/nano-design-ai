@@ -61,7 +61,7 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, beautyLevel = 'fresh' } = await req.json();
+    const { imageUrl, beautyLevel = 'fresh', removeBlemishes = true, removeWrinkles = 'optional' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -78,9 +78,80 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 根据美颜程度调整prompt - 2026-03-07 Week 4 优化：情感化、真实感
+    // 瑕疵处理指令
+    let blemishInstruction = '';
+    if (removeBlemishes) {
+      blemishInstruction = `
+REMOVE (完全去除):
+- 痘印、痘痘 (acne marks, pimples)
+- 疤痕、伤痕 (scars, wounds)
+- 雀斑 (freckles - if unwanted)
+- 老年斑、晒斑 (age spots, sun spots)
+- 红血丝 (redness, broken capillaries)
+- 黑痣、痣 (moles, dark spots - optional, keep if looks natural)
+- 油光 (shiny/oily areas)
+- 毛孔粗大 (large pores)`;
+    } else {
+      blemishInstruction = `
+KEEP (保留以下自然特征):
+- 雀斑 (freckles)
+- 痣 (moles, beauty marks)
+- 疤痕 (scars - if subtle)
+- 自然皮肤纹理 (natural skin texture)`;
+    }
+
+    // 皱纹处理指令
+    let wrinkleInstruction = '';
+    if (removeWrinkles === 'remove') {
+      wrinkleInstruction = `
+REMOVE WRINKLES:
+- 鱼尾纹 (crow's feet)
+- 法令纹 (nasolabial folds)
+- 眉间纹 (frown lines)
+- 抬头纹 (forehead wrinkles)
+- 颈纹 (neck wrinkles)
+- 细纹 (fine lines)`;
+    } else if (removeWrinkles === 'keep') {
+      wrinkleInstruction = `
+KEEP WRINKLES (保留皱纹):
+- 鱼尾纹 (crow's feet - shows character)
+- 法令纹 (nasolabial folds - smile lines)
+- 眉间纹 (frown lines)
+- 抬头纹 (forehead wrinkles)
+- 皱纹是成熟的标志，保留自然表情`;
+    } else {
+      wrinkleInstruction = `
+OPTIONAL WRINKLES:
+- 轻轻淡化非常深的皱纹
+- 保留自然表情和成熟气质
+- 保持面部线条的自然流畅`;
+    }
+
+    // 根据美颜程度调整prompt
     const prompts: Record<string, string> = {
       'natural': `Enhance this portrait with SUBTLE, natural beauty - keep it REAL and AUTHENTIC.
+
+PHILOSOPHY: Real beauty has character. Don't erase personality.
+
+${blemishInstruction}
+
+${wrinkleInstruction}
+
+GENTLE IMPROVEMENTS:
+- Soften minor blemishes (keep natural skin texture visible)
+- Very light, barely-there skin smoothing
+- Subtle eye brightening (keep natural eye color and character)
+- Preserve freckles, beauty marks, natural features
+- Keep original skin tone and warmth
+- Maintain natural expressions and emotions
+
+FORBIDDEN:
+- DO NOT over-smooth skin (plastic look)
+- DO NOT change facial structure
+- DO NOT remove character (wrinkles, smile lines are beautiful)
+- DO NOT make it look "too perfect"
+
+GOAL: Like a good quality photo on a good day - natural, real, YOU.`
 
 PHILOSOPHY: Real beauty has character. Don't erase personality.
 
@@ -104,6 +175,10 @@ GOAL: Like a good quality photo on a good day - natural, real, YOU.`,
 
 PHILOSOPHY: Fresh and confident, not fake. Keep the soul.
 
+${blemishInstruction}
+
+${wrinkleInstruction}
+
 BALANCED IMPROVEMENTS:
 - Remove temporary blemishes (keep natural texture and character)
 - Moderate skin smoothing with visible pores and texture
@@ -123,6 +198,10 @@ GOAL: Fresh, polished, confident - but still authentically YOU. Like a great day
       'professional': `Enhance this portrait with CLEAR, professional quality - magazine-ready but AUTHENTIC.
 
 PHILOSOPHY: Professional doesn't mean fake. Real people in professional photos.
+
+${blemishInstruction}
+
+${wrinkleInstruction}
 
 PROFESSIONAL IMPROVEMENTS:
 - Remove all temporary imperfections (acne, redness)
