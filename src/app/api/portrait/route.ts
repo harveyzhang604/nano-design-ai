@@ -65,8 +65,9 @@ function buildPrompt(beautyLevel: string, removeBlemishes: boolean, removeWrinkl
   let blemishInstruction = '';
   if (removeBlemishes) {
     blemishInstruction = `
-CRITICAL: You MUST completely remove these skin imperfections:
-- 雀斑 (freckles) - REMOVE COMPLETELY, no exceptions
+🚨 CRITICAL INSTRUCTION - FRECKLES MUST BE REMOVED 🚨
+Remove ALL freckles (雀斑) from the face - every single one. This is mandatory.
+Other imperfections to remove:
 - 痘印、痘痘 (acne marks, pimples) - remove completely
 - 疤痕、伤痕 (scars, wounds) - smooth out
 - 老年斑、晒斑 (age spots, sun spots) - remove completely
@@ -74,7 +75,8 @@ CRITICAL: You MUST completely remove these skin imperfections:
 - 油光 (shiny/oily areas) - reduce
 - 毛孔粗大 (large pores) - minimize
 
-The skin should be CLEAN and SMOOTH with NO visible freckles or blemishes.`;
+FINAL RESULT: Perfectly clear skin with ZERO freckles or blemishes.`;
+
   } else {
     blemishInstruction = `
 KEEP (保留以下自然特征):
