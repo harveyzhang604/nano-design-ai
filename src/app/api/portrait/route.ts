@@ -68,6 +68,7 @@ function buildPrompt(beautyLevel: string, removeBlemishes: boolean, removeWrinkl
 REMOVE (完全去除):
 - 痘印、痘痘 (acne marks, pimples)
 - 疤痕、伤痕 (scars, wounds)
+- 雀斑 (freckles)
 - 老年斑、晒斑 (age spots, sun spots)
 - 红血丝 (redness, broken capillaries)
 - 油光 (shiny/oily areas)
