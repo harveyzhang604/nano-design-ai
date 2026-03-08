@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { toolConfigs } from '../configs';
 import { ToolConfig, ToolPreset } from '../types';
 
@@ -17,6 +17,14 @@ export default function ToolParams({ toolId, onParamsChange }: ToolParamsProps) 
 
   const [selectedPreset, setSelectedPreset] = useState<string>(config.presets[0]?.id || '');
   const [customParams, setCustomParams] = useState<Record<string, any>>({});
+
+  // 初始化时传递默认参数
+  useEffect(() => {
+    if (config.presets[0]?.params) {
+      setCustomParams(config.presets[0].params);
+      onParamsChange(config.presets[0].params);
+    }
+  }, [toolId]);
 
   const handlePresetChange = (presetId: string) => {
     setSelectedPreset(presetId);

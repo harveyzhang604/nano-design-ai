@@ -164,6 +164,8 @@ export default function ToolsPage() {
       'change-bg': '/api/change-bg',
       'portrait': '/api/portrait',
       'enhance': '/api/enhance',
+      'caricature': '/api/caricature',
+      'yearbook': '/api/yearbook',
     };
     return endpoints[toolId] || '/api/generate';
   };
