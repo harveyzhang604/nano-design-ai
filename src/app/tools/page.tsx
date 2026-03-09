@@ -26,7 +26,7 @@ const tools = [
   
   // P1 - 重要功能
   { id: 'style-transfer', name: '艺术风格', icon: Paintbrush, color: 'from-violet-500 to-purple-500', desc: '油画水彩漫画风格', category: 'P1' },
-  { id: 'style-transfer-pro', name: '风格迁移Pro', icon: Paintbrush, color: 'from-purple-500 to-fuchsia-500', desc: '10种艺术风格可调节', category: 'P1', exampleImage: 'https://img.talkphoto.app/examples/style-transfer-pro.jpg' },
+  { id: 'style-transfer-pro', name: '风格迁移Pro', icon: Paintbrush, color: 'from-purple-500 to-fuchsia-500', desc: '10种艺术风格可调节', category: 'P1' },
   { id: 'avatar', name: 'AI头像', icon: Smile, color: 'from-rose-500 to-pink-500', desc: '生成风格化头像', category: 'P1' },
   { id: 'cartoon', name: '卡通化', icon: PartyPopper, color: 'from-orange-500 to-amber-500', desc: '照片转动漫风格', category: 'P1' },
   { id: 'caricature', name: '职业漫画化', icon: Smile, color: 'from-amber-500 to-orange-500', desc: '12种职业漫画风格', category: 'P1' },
@@ -34,10 +34,10 @@ const tools = [
   { id: 'sketch-to-photo', name: '草图转照片', icon: Grid, color: 'from-slate-500 to-zinc-500', desc: '手绘草图真实化', category: 'P1' },
   { id: 'product', name: '产品摄影', icon: Monitor, color: 'from-emerald-500 to-green-500', desc: '电商产品展示图', category: 'P1' },
   { id: 'face-swap', name: 'AI换脸', icon: User, color: 'from-red-500 to-orange-500', desc: '替换照片人脸', category: 'P1' },
-  { id: 'outfit-change', name: 'AI换装', icon: Shirt, color: 'from-violet-500 to-purple-500', desc: '虚拟试穿不同服装', category: 'P1', exampleImage: 'https://img.talkphoto.app/examples/outfit-change.jpg' },
+  { id: 'outfit-change', name: 'AI换装', icon: Shirt, color: 'from-violet-500 to-purple-500', desc: '虚拟试穿不同服装', category: 'P1' },
   { id: 'try-on', name: '虚拟试穿', icon: Shirt, color: 'from-blue-500 to-indigo-500', desc: 'AI试穿衣服', category: 'P1' },
-  { id: 'beauty-enhance', name: '人像美化', icon: Sparkles, color: 'from-pink-500 to-rose-500', desc: '自然美颜可调节', category: 'P1', exampleImage: 'https://img.talkphoto.app/examples/beauty-enhance.jpg' },
-  { id: 'object-remove', name: '物体移除Pro', icon: Eraser, color: 'from-red-500 to-orange-500', desc: '智能填充边缘羽化', category: 'P1', exampleImage: 'https://img.talkphoto.app/examples/object-remove.jpg' },
+  { id: 'beauty-enhance', name: '人像美化', icon: Sparkles, color: 'from-pink-500 to-rose-500', desc: '自然美颜可调节', category: 'P1' },
+  { id: 'object-remove', name: '物体移除Pro', icon: Eraser, color: 'from-red-500 to-orange-500', desc: '智能填充边缘羽化', category: 'P1' },
   { id: 'interior', name: '室内设计', icon: Home, color: 'from-amber-500 to-yellow-500', desc: '房间装修效果图', category: 'P1' },
   { id: 'age', name: '年龄模拟', icon: Baby, color: 'from-teal-500 to-cyan-500', desc: '预测年轻/老年容貌', category: 'P1' },
   { id: 'face-age', name: '脸龄生成', icon: Contrast, color: 'from-rose-400 to-pink-600', desc: '童年未来长相', category: 'P1' },
