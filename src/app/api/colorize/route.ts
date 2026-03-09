@@ -209,41 +209,73 @@ GOAL: Like a peaceful memory - calm, serene, timeless. Photo that feels PEACEFUL
     
     const prompt = colorStyles[colorStyle] || colorStyles.natural;
 
-    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            { text: prompt },
-            { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
-          ]
-        }],
-        generationConfig: {
-          temperature: 0.35,
-          topK: 32,
-          topP: 0.9
-        }
-      })
-    });
-
-    const data = await apiResponse.json();
+    // 添加重试机制 - 最多重试 3 次
+    let base64Data = null;
+    let lastError = null;
     
-    if (!apiResponse.ok) {
-      console.error('Gemini API error:', data);
-      return NextResponse.json({ error: data.error?.message || 'Gemini API Error' }, { status: apiResponse.status });
-    }
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: prompt },
+                { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
+              ]
+            }],
+            generationConfig: {
+              temperature: 0.35 + (attempt - 1) * 0.05, // 每次重试稍微增加随机性
+              topK: 32,
+              topP: 0.9
+            }
+          })
+        });
 
-    // 从响应中提取图片
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    const imagePart = parts.find((p: any) => p.inlineData);
-    const base64Data = imagePart?.inlineData?.data;
+        const data = await apiResponse.json();
+        
+        if (!apiResponse.ok) {
+          lastError = data.error?.message || 'Gemini API Error';
+          console.error(`Attempt ${attempt} - Gemini API error:`, data);
+          if (attempt < 3) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt)); // 等待后重试
+            continue;
+          }
+          return NextResponse.json({ error: lastError }, { status: apiResponse.status });
+        }
+
+        // 从响应中提取图片
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        const imagePart = parts.find((p: any) => p.inlineData);
+        base64Data = imagePart?.inlineData?.data;
+        
+        if (base64Data) {
+          break; // 成功获取图片，退出重试循环
+        }
+        
+        lastError = 'No image data returned from AI';
+        console.error(`Attempt ${attempt} - No image data returned`);
+        
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt)); // 等待后重试
+        }
+      } catch (error: any) {
+        lastError = error.message;
+        console.error(`Attempt ${attempt} - Error:`, error);
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+        }
+      }
+    }
     
     if (!base64Data) {
-      return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
+      return NextResponse.json({ 
+        error: `Failed after 3 attempts: ${lastError}` 
+      }, { status: 500 });
     }
 
     const fullBase64 = `data:image/png;base64,${base64Data}`;
