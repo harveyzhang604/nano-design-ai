@@ -190,6 +190,7 @@ export default function ToolsPage() {
       'hairstyle': '/api/hairstyle',
       'filter': '/api/filter',
       'baby-prediction': '/api/baby-prediction',
+      'compose': '/api/compose',
     };
     return endpoints[toolId] || '/api/generate';
   };
