@@ -148,23 +148,23 @@ export const toolExamples = {
     description: '宠物卡通化'
   },
   'outfit-change': {
-    before: 'https://img.talkphoto.app/examples/outfit-change-before.jpg',
-    after: 'https://img.talkphoto.app/examples/outfit-change-after.jpg',
+    before: '/examples/outfit-change.jpg',
+    after: '/examples/outfit-change.jpg',
     description: 'AI换装，虚拟试穿'
   },
   'object-remove': {
-    before: 'https://img.talkphoto.app/examples/object-remove-before.jpg',
-    after: 'https://img.talkphoto.app/examples/object-remove-after.jpg',
+    before: '/examples/object-remove.jpg',
+    after: '/examples/object-remove.jpg',
     description: '智能移除物体'
   },
   'beauty-enhance': {
-    before: 'https://img.talkphoto.app/examples/beauty-enhance-before.jpg',
-    after: 'https://img.talkphoto.app/examples/beauty-enhance-after.jpg',
+    before: '/examples/beauty-enhance.jpg',
+    after: '/examples/beauty-enhance.jpg',
     description: '自然美颜增强'
   },
   'style-transfer-pro': {
-    before: 'https://img.talkphoto.app/examples/style-transfer-pro-before.jpg',
-    after: 'https://img.talkphoto.app/examples/style-transfer-pro-after.jpg',
+    before: '/examples/style-transfer-pro.jpg',
+    after: '/examples/style-transfer-pro.jpg',
     description: '艺术风格迁移'
   }
 };
