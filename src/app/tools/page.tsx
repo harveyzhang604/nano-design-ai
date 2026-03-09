@@ -55,8 +55,8 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  // 使用 Nano Banana Pro 生成的真实示例图片
-  const exampleImage = `/${tool.id}-example.webp`;
+  // 使用 toolExamples 配置的示例图片，如果没有则使用默认图片
+  const exampleImage = toolExamples[tool.id]?.before || `/${tool.id}-example.webp`;
   
   return (
     <button

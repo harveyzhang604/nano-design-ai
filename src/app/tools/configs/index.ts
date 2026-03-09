@@ -27,6 +27,10 @@ import { cosplayConfig } from './cosplay';
 import { realEstateConfig } from './real-estate';
 import { caricatureConfig } from './caricature';
 import { yearbookConfig } from './yearbook';
+import { outfitChangeConfig } from './outfit-change';
+import { objectRemoveConfig } from './object-remove';
+import { beautyEnhanceConfig } from './beauty-enhance';
+import { styleTransferProConfig } from './style-transfer-pro';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -57,6 +61,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'real-estate': realEstateConfig,
   'caricature': caricatureConfig,
   'yearbook': yearbookConfig,
+  'outfit-change': outfitChangeConfig,
+  'object-remove': objectRemoveConfig,
+  'beauty-enhance': beautyEnhanceConfig,
+  'style-transfer-pro': styleTransferProConfig,
 };
 
 export * from './enhance';
@@ -87,3 +95,7 @@ export * from './cosplay';
 export * from './real-estate';
 export * from './caricature';
 export * from './yearbook';
+export * from './outfit-change';
+export * from './object-remove';
+export * from './beauty-enhance';
+export * from './style-transfer-pro';
