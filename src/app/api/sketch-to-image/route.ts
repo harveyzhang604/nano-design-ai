@@ -165,6 +165,8 @@ MAXIMUM DETAIL:
 GOAL: Like a high-end studio photograph - hyperrealistic, perfect, every detail crystal clear.`,
     };
     
+    const prompt = realismPrompts[realism] || realismPrompts['photorealistic'];
+    
     // 改进的 prompt - 即使输入不是草图也能处理
     const enhancedPrompt = `${prompt}
 
