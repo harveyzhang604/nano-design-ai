@@ -3,18 +3,17 @@ import { ToolConfig } from '../types';
 export const memeConfig: ToolConfig = {
   id: 'meme',
   presets: [
-    { id: 'funny', name: '搞笑表情', description: '幽默搞笑风格', params: { style: 'funny', intensity: 80 } },
-    { id: 'cute', name: '可爱萌系', description: '萌系可爱风格', params: { style: 'cute', intensity: 75 } },
-    { id: 'cool', name: '酷炫风格', description: '帅气酷炫效果', params: { style: 'cool', intensity: 70 } },
-    { id: 'vintage', name: '复古表情', description: '怀旧复古风格', params: { style: 'vintage', intensity: 65 } }
+    { id: 'funny', name: '搞笑风格', description: '幽默表情包', params: { text: '哈哈哈', style: 'funny', intensity: 80 } },
+    { id: 'sarcastic', name: '讽刺风格', description: '讽刺表情包', params: { text: '呵呵', style: 'sarcastic', intensity: 75 } },
+    { id: 'cute', name: '可爱风格', description: '萌系表情包', params: { text: '么么哒', style: 'cute', intensity: 85 } }
   ],
   params: [
+    { id: 'text', name: '文字内容', type: 'text', default: '哈哈哈', placeholder: '输入表情包文字...' },
     { id: 'style', name: '风格', type: 'select', default: 'funny', options: [
       { value: 'funny', label: '搞笑' },
-      { value: 'cute', label: '可爱' },
-      { value: 'cool', label: '酷炫' },
-      { value: 'vintage', label: '复古' }
+      { value: 'sarcastic', label: '讽刺' },
+      { value: 'cute', label: '可爱' }
     ]},
-    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
+    { id: 'intensity', name: '强度', type: 'slider', default: 80, min: 0, max: 100 }
   ]
 };

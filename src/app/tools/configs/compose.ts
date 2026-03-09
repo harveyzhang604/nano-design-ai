@@ -3,16 +3,17 @@ import { ToolConfig } from '../types';
 export const composeConfig: ToolConfig = {
   id: 'compose',
   presets: [
-    { id: 'natural', name: '自然合成', description: '自然融合效果', params: { style: 'natural', intensity: 75 } },
-    { id: 'creative', name: '创意合成', description: '创意艺术效果', params: { style: 'creative', intensity: 80 } },
-    { id: 'seamless', name: '无缝融合', description: '完美无缝融合', params: { style: 'seamless', intensity: 90 } }
+    { id: 'blend', name: '混合模式', description: '图层混合', params: { overlayImageUrl: '', mode: 'blend', intensity: 50 } },
+    { id: 'overlay', name: '叠加模式', description: '图层叠加', params: { overlayImageUrl: '', mode: 'overlay', intensity: 70 } },
+    { id: 'multiply', name: '正片叠底', description: '正片叠底', params: { overlayImageUrl: '', mode: 'multiply', intensity: 60 } }
   ],
   params: [
-    { id: 'style', name: '风格', type: 'select', default: 'natural', options: [
-      { value: 'natural', label: '自然' },
-      { value: 'creative', label: '创意' },
-      { value: 'seamless', label: '无缝' }
+    { id: 'overlayImageUrl', name: '叠加图片URL', type: 'text', default: '', placeholder: '粘贴要叠加的图片URL...' },
+    { id: 'mode', name: '混合模式', type: 'select', default: 'blend', options: [
+      { value: 'blend', label: '混合' },
+      { value: 'overlay', label: '叠加' },
+      { value: 'multiply', label: '正片叠底' }
     ]},
-    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
+    { id: 'intensity', name: '不透明度', type: 'slider', default: 50, min: 0, max: 100 }
   ]
 };

@@ -3,115 +3,19 @@ import { ToolConfig } from '../types';
 export const changeBgConfig: ToolConfig = {
   id: 'change-bg',
   presets: [
-    {
-      id: 'white',
-      name: '纯白背景',
-      description: '电商产品图标准，符合淘宝、京东要求',
-      params: { 
-        bgType: 'solid-white',
-        shadow: true,
-        edgeQuality: 'high',
-        lighting: 50,
-        blend: 80
-      }
-    },
-    {
-      id: 'blur',
-      name: '模糊背景',
-      description: '突出主体，适合人像、产品摄影',
-      params: { 
-        bgType: 'blur',
-        shadow: false,
-        edgeQuality: 'high',
-        lighting: 50,
-        blend: 90
-      }
-    },
-    {
-      id: 'gradient',
-      name: '渐变背景',
-      description: '时尚渐变，适合社交媒体、海报',
-      params: { 
-        bgType: 'gradient',
-        shadow: false,
-        edgeQuality: 'medium',
-        lighting: 60,
-        blend: 85
-      }
-    },
-    {
-      id: 'outdoor',
-      name: '户外场景',
-      description: '自然场景背景，适合人像、产品展示',
-      params: { 
-        bgType: 'outdoor',
-        shadow: true,
-        edgeQuality: 'high',
-        lighting: 70,
-        blend: 90
-      }
-    },
-    {
-      id: 'studio',
-      name: '影棚效果',
-      description: '专业影棚背景，适合商业摄影',
-      params: { 
-        bgType: 'studio',
-        shadow: true,
-        edgeQuality: 'ultra',
-        lighting: 80,
-        blend: 95
-      }
-    }
+    { id: 'nature', name: '自然风光', description: '山川湖海背景', params: { background: '美丽的自然风光，山川湖海', style: 'nature', intensity: 80 } },
+    { id: 'city', name: '城市街景', description: '现代都市背景', params: { background: '现代城市街景，高楼大厦', style: 'city', intensity: 75 } },
+    { id: 'studio', name: '摄影棚', description: '专业摄影背景', params: { background: '专业摄影棚，纯色背景', style: 'studio', intensity: 85 } },
+    { id: 'fantasy', name: '梦幻场景', description: '奇幻背景', params: { background: '梦幻奇幻场景', style: 'fantasy', intensity: 90 } }
   ],
   params: [
-    {
-      id: 'bgType',
-      name: '背景类型',
-      type: 'select',
-      default: 'solid-white',
-      options: [
-        { value: 'solid-white', label: '纯白背景' },
-        { value: 'solid-color', label: '纯色背景' },
-        { value: 'gradient', label: '渐变背景' },
-        { value: 'blur', label: '模糊背景' },
-        { value: 'outdoor', label: '户外场景' },
-        { value: 'studio', label: '影棚效果' }
-      ]
-    },
-    {
-      id: 'shadow',
-      name: '添加阴影',
-      type: 'toggle',
-      default: true
-    },
-    {
-      id: 'edgeQuality',
-      name: '边缘质量',
-      type: 'select',
-      default: 'high',
-      options: [
-        { value: 'ultra', label: '极致' },
-        { value: 'high', label: '高' },
-        { value: 'medium', label: '中' },
-        { value: 'fast', label: '快速' }
-      ]
-    },
-    {
-      id: 'lighting',
-      name: '光照调整',
-      type: 'slider',
-      default: 50,
-      min: 0,
-      max: 100
-    },
-    {
-      id: 'blend',
-      name: '融合度',
-      type: 'slider',
-      default: 80,
-      min: 0,
-      max: 100
-    }
+    { id: 'background', name: '背景描述', type: 'text', default: '美丽的自然风光', placeholder: '描述想要的背景...' },
+    { id: 'style', name: '风格', type: 'select', default: 'nature', options: [
+      { value: 'nature', label: '自然' },
+      { value: 'city', label: '城市' },
+      { value: 'studio', label: '摄影棚' },
+      { value: 'fantasy', label: '梦幻' }
+    ]},
+    { id: 'intensity', name: '强度', type: 'slider', default: 80, min: 0, max: 100 }
   ]
 };

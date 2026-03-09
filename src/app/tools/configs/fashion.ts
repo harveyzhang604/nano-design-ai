@@ -3,18 +3,17 @@ import { ToolConfig } from '../types';
 export const fashionConfig: ToolConfig = {
   id: 'fashion',
   presets: [
-    { id: 'casual', name: '休闲时尚', description: '日常休闲风格', params: { style: 'casual', intensity: 70 } },
-    { id: 'formal', name: '正装时尚', description: '商务正装风格', params: { style: 'formal', intensity: 80 } },
-    { id: 'trendy', name: '潮流时尚', description: '潮流前沿风格', params: { style: 'trendy', intensity: 85 } },
-    { id: 'elegant', name: '优雅时尚', description: '优雅高贵风格', params: { style: 'elegant', intensity: 90 } }
+    { id: 'casual', name: '休闲装', description: '日常休闲', params: { outfit: '休闲装', style: 'casual', intensity: 80 } },
+    { id: 'formal', name: '正装', description: '商务正装', params: { outfit: '商务正装', style: 'formal', intensity: 85 } },
+    { id: 'evening', name: '晚礼服', description: '晚宴礼服', params: { outfit: '晚礼服', style: 'evening', intensity: 90 } }
   ],
   params: [
+    { id: 'outfit', name: '服装描述', type: 'text', default: '休闲装', placeholder: '描述服装风格...' },
     { id: 'style', name: '风格', type: 'select', default: 'casual', options: [
       { value: 'casual', label: '休闲' },
       { value: 'formal', label: '正装' },
-      { value: 'trendy', label: '潮流' },
-      { value: 'elegant', label: '优雅' }
+      { value: 'evening', label: '晚礼服' }
     ]},
-    { id: 'intensity', name: '强度', type: 'slider', default: 75, min: 0, max: 100 }
+    { id: 'intensity', name: '强度', type: 'slider', default: 80, min: 0, max: 100 }
   ]
 };

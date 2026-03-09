@@ -3,22 +3,17 @@ import { ToolConfig } from '../types';
 export const yearbookConfig: ToolConfig = {
   id: 'yearbook',
   presets: [
-    { id: '80s', name: '80年代年鉴照', description: '1980年代复古风格', params: { decade: '80s' } },
-    { id: '90s', name: '90年代年鉴照', description: '1990年代复古风格', params: { decade: '90s' } },
-    { id: '00s', name: '00年代年鉴照', description: '2000年代复古风格', params: { decade: '00s' } },
-    { id: '70s', name: '70年代年鉴照', description: '1970年代复古风格', params: { decade: '70s' } }
+    { id: '1980s', name: '80年代', description: '80年代风格', params: { year: '1980', style: '1980s', intensity: 85 } },
+    { id: '1990s', name: '90年代', description: '90年代风格', params: { year: '1990', style: '1990s', intensity: 80 } },
+    { id: '2000s', name: '00年代', description: '00年代风格', params: { year: '2000', style: '2000s', intensity: 75 } }
   ],
   params: [
-    { id: 'decade', name: '年代', type: 'select', default: '90s', options: [
-      { value: '70s', label: '70年代' },
-      { value: '80s', label: '80年代' },
-      { value: '90s', label: '90年代' },
-      { value: '00s', label: '00年代' }
+    { id: 'year', name: '年份', type: 'text', default: '1990', placeholder: '输入年份（如1990）...' },
+    { id: 'style', name: '风格', type: 'select', default: '1990s', options: [
+      { value: '1980s', label: '80年代' },
+      { value: '1990s', label: '90年代' },
+      { value: '2000s', label: '00年代' }
     ]},
-    { id: 'gender', name: '性别', type: 'select', default: 'auto', options: [
-      { value: 'auto', label: '自动识别' },
-      { value: 'male', label: '男性' },
-      { value: 'female', label: '女性' }
-    ]}
+    { id: 'intensity', name: '强度', type: 'slider', default: 80, min: 0, max: 100 }
   ]
 };
