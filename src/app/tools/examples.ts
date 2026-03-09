@@ -146,5 +146,25 @@ export const toolExamples = {
     before: 'https://img.talkphoto.app/examples/pet-cartoon-before.jpg',
     after: 'https://img.talkphoto.app/examples/pet-cartoon-after.jpg',
     description: '宠物卡通化'
+  },
+  'outfit-change': {
+    before: 'https://img.talkphoto.app/examples/outfit-change-before.jpg',
+    after: 'https://img.talkphoto.app/examples/outfit-change-after.jpg',
+    description: 'AI换装，虚拟试穿'
+  },
+  'object-remove': {
+    before: 'https://img.talkphoto.app/examples/object-remove-before.jpg',
+    after: 'https://img.talkphoto.app/examples/object-remove-after.jpg',
+    description: '智能移除物体'
+  },
+  'beauty-enhance': {
+    before: 'https://img.talkphoto.app/examples/beauty-enhance-before.jpg',
+    after: 'https://img.talkphoto.app/examples/beauty-enhance-after.jpg',
+    description: '自然美颜增强'
+  },
+  'style-transfer-pro': {
+    before: 'https://img.talkphoto.app/examples/style-transfer-pro-before.jpg',
+    after: 'https://img.talkphoto.app/examples/style-transfer-pro-after.jpg',
+    description: '艺术风格迁移'
   }
 };
