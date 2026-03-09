@@ -34,5 +34,18 @@ export {
   Monitor,
   Smartphone,
   Camera,
-  Map
+  Map,
+  Copy,
+  ExternalLink,
+  Building2,
+  Package,
+  Award,
+  Box,
+  FileText,
+  BookOpen,
+  Coffee,
+  TrendingUp,
+  ArrowLeft,
+  Check,
+  Search
 } from 'lucide-react';
