@@ -12,7 +12,7 @@ export interface ToolPreset {
 export interface ToolParam {
   id: string;
   name: string;
-  type: 'slider' | 'select' | 'toggle';
+  type: 'slider' | 'select' | 'toggle' | 'text';
   min?: number;
   max?: number;
   step?: number;
@@ -20,6 +20,7 @@ export interface ToolParam {
   options?: { value: any; label: string }[];
   tooltip?: string; // 参数说明tooltip
   description?: string; // 详细说明
+  placeholder?: string; // 文本输入框占位符
 }
 
 export interface ToolConfig {

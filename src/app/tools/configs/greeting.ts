@@ -9,6 +9,7 @@ export const greetingConfig: ToolConfig = {
     { id: 'thank-you', name: '感谢祝福', description: '感谢卡主题', params: { style: 'thank-you', intensity: 70 } }
   ],
   params: [
+    { id: 'message', name: '祝福语', type: 'text', default: '生日快乐！', placeholder: '输入祝福语...' },
     { id: 'style', name: '风格', type: 'select', default: 'birthday', options: [
       { value: 'birthday', label: '生日' },
       { value: 'holiday', label: '节日' },

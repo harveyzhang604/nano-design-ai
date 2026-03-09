@@ -99,6 +99,16 @@ export default function ToolParams({ toolId, onParamsChange }: ToolParamsProps) 
             </div>
           )}
 
+          {param.type === 'text' && (
+            <input
+              type="text"
+              value={customParams[param.id] || param.default || ''}
+              onChange={(e) => handleParamChange(param.id, e.target.value)}
+              placeholder={param.placeholder || ''}
+              className="w-full px-3 py-2 bg-neutral-800 border border-neutral-700 rounded-lg text-neutral-100 focus:outline-none focus:ring-2 focus:ring-amber-500"
+            />
+          )}
+
           {param.type === 'toggle' && (
             <button
               onClick={() => handleParamChange(param.id, !customParams[param.id])}
