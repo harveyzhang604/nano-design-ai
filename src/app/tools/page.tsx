@@ -55,8 +55,8 @@ const tools = [
 ];
 
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
-  // 使用工具配置中的示例图片，如果没有则使用默认图片
-  const exampleImage = tool.exampleImage || toolExamples[tool.id]?.before || `/${tool.id}-example.webp`;
+  // 使用本地示例图片
+  const exampleImage = `/${tool.id}-example.webp`;
   
   return (
     <button
