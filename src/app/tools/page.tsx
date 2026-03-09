@@ -490,7 +490,17 @@ export default function ToolsPage() {
                 <div className="mt-6 p-4 bg-neutral-800/50 rounded-2xl">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-sm font-medium text-neutral-300">处理结果</span>
-                    <button className="text-amber-400 text-sm flex items-center gap-1 hover:text-amber-300">
+                    <button 
+                      onClick={() => {
+                        const link = document.createElement('a');
+                        link.href = resultImage;
+                        link.download = `${selectedTool}-${Date.now()}.png`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                      }}
+                      className="text-amber-400 text-sm flex items-center gap-1 hover:text-amber-300"
+                    >
                       <Download className="w-4 h-4" />
                       下载图片
                     </button>
