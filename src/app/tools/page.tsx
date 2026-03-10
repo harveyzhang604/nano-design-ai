@@ -41,14 +41,14 @@ const tools = [
   { id: 'interior', name: '室内设计', icon: Home, color: 'from-amber-500 to-yellow-500', desc: '房间装修效果图', category: 'P1' },
   { id: 'age', name: '年龄模拟', icon: Baby, color: 'from-teal-500 to-cyan-500', desc: '预测年轻/老年容貌', category: 'P1' },
   { id: 'face-age', name: '脸龄生成', icon: Contrast, color: 'from-rose-400 to-pink-600', desc: '童年未来长相', category: 'P1' },
-  { id: 'age-evolution', name: '年龄进化', icon: Baby, color: 'from-indigo-500 to-purple-500', desc: '1-90岁全年龄段', category: 'P1' },
-  { id: 'vintage-film', name: '复古胶片', icon: Camera, color: 'from-amber-500 to-orange-500', desc: '6种经典胶片风格', category: 'P1' },
-  { id: 'ghibli', name: 'Ghibli风格', icon: Paintbrush, color: 'from-green-500 to-emerald-500', desc: '宫崎骏动画风格', category: 'P1' },
+  { id: 'age-evolution', name: '年龄进化', icon: Baby, color: 'from-indigo-500 to-purple-500', desc: '1-90岁全年龄段', category: 'P1', disabled: true },
+  { id: 'vintage-film', name: '复古胶片', icon: Camera, color: 'from-amber-500 to-orange-500', desc: '6种经典胶片风格', category: 'P1', disabled: true },
+  { id: 'ghibli', name: 'Ghibli风格', icon: Paintbrush, color: 'from-green-500 to-emerald-500', desc: '宫崎骏动画风格', category: 'P1', disabled: true },
   
   // P2 - 有趣功能
-  { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
-  { id: 'chibi', name: 'Chibi卡通', icon: Smile, color: 'from-pink-500 to-rose-500', desc: '超萌Q版卡通', category: 'P2' },
-  { id: 'pet-humanize', name: '宠物拟人化', icon: Heart, color: 'from-purple-500 to-fuchsia-500', desc: '宠物变人类', category: 'P2' },
+  { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2', disabled: true },
+  { id: 'chibi', name: 'Chibi卡通', icon: Smile, color: 'from-pink-500 to-rose-500', desc: '超萌Q版卡通', category: 'P2', disabled: true },
+  { id: 'pet-humanize', name: '宠物拟人化', icon: Heart, color: 'from-purple-500 to-fuchsia-500', desc: '宠物变人类', category: 'P2', disabled: true },
   { id: 'meme', name: '表情包', icon: Calculator, color: 'from-yellow-400 to-amber-600', desc: '文字生成表情包', category: 'P2' },
   { id: 'greeting', name: '生日贺卡', icon: Heart, color: 'from-pink-400 to-rose-500', desc: 'AI定制贺卡', category: 'P2' },
   { id: 'pet-cartoon', name: '宠物卡通化', icon: Heart, color: 'from-pink-500 to-rose-500', desc: '宠物变卡通+拟人化', category: 'P2' },
@@ -63,11 +63,17 @@ const tools = [
 function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => void }) {
   // 使用本地示例图片
   const exampleImage = `/${tool.id}-example.webp`;
+  const isDisabled = (tool as any).disabled;
   
   return (
     <button
-      onClick={onClick}
-      className="group bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-2xl overflow-hidden text-left transition-all duration-300 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1"
+      onClick={isDisabled ? undefined : onClick}
+      disabled={isDisabled}
+      className={`group bg-neutral-900/60 border border-neutral-800 rounded-2xl overflow-hidden text-left transition-all duration-300 ${
+        isDisabled 
+          ? 'opacity-60 cursor-not-allowed' 
+          : 'hover:border-neutral-700 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1'
+      }`}
     >
       {/* 示例图片 - Nano Banana Pro 生成的真实对比图 */}
       <div className="relative h-32 bg-neutral-800 overflow-hidden">
@@ -82,6 +88,13 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
             if (img.src.endsWith('.webp')) img.src = `/${tool.id}-example.png`;
           }}
         />
+        {isDisabled && (
+          <div className="absolute inset-0 bg-black/60 flex items-center justify-center">
+            <span className="text-amber-400 text-sm font-bold px-3 py-1 bg-neutral-900/80 rounded-full border border-amber-500/30">
+              维护中
+            </span>
+          </div>
+        )}
       </div>
       
       {/* 工具信息 - 图标和文字同一行 */}
