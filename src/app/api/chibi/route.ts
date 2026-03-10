@@ -95,71 +95,7 @@ export async function POST(req: Request) {
       'transparent': 'transparent background (PNG with alpha channel)'
     };
 
-    const prompt = `PHILOSOPHY: Chibi art is about pure cuteness and joy - exaggerated proportions that make everything adorable while keeping the person recognizable.
-
-Transform this person into ${styleDescriptions[style]}.
-
-CRITICAL CHIBI PROPORTIONS:
-1. HEAD SIZE (${proportionLevel}):
-   - Head should be MUCH larger than body
-   - Round, soft head shape
-   - Simplified but recognizable facial features
-   - Keep the person's unique characteristics
-
-2. BODY PROPORTIONS:
-   - Very small, simplified body
-   - Short, stubby limbs
-   - Tiny hands and feet
-   - Cute, rounded shapes throughout
-   - Body should be 1-2 head heights tall maximum
-
-3. FACIAL FEATURES (${eyeSizeLevel}):
-   - HUGE, sparkling eyes with highlights
-   - Small, simple nose (just a dot or tiny line)
-   - Small, cute mouth
-   - Rosy cheeks (optional blush marks)
-   - Simplified but expressive eyebrows
-
-4. STYLE EXECUTION:
-   - Clean, smooth lines
-   - Vibrant, saturated colors
-   - Soft shading and highlights
-   - Glossy, polished finish
-   - Anime/manga art style
-
-5. EXPRESSION & PERSONALITY:
-   - Keep the person's natural expression
-   - Make it extra cute and endearing
-   - Add sparkles or shine effects
-   - Maintain their unique personality
-
-6. BACKGROUND:
-   - ${backgroundDescriptions[background]}
-   - Should enhance the cute aesthetic
-   - Not distract from the character
-
-PRESERVE IDENTITY:
-- Hair color and style (simplified but recognizable)
-- Eye color and shape (enlarged but same color)
-- Skin tone (same as original)
-- Clothing style (simplified but similar)
-- Key identifying features
-
-FORBIDDEN:
-- Do NOT make it look realistic
-- Do NOT keep normal proportions
-- Do NOT add elements that weren't there
-- Do NOT change the person's identity
-- Do NOT make it look creepy or uncanny
-
-CHIBI MAGIC:
-- Everything should be ADORABLE
-- Proportions should be exaggerated
-- Features should be simplified
-- Colors should be vibrant
-- Overall feeling should be pure cuteness
-
-GOAL: Create an irresistibly cute chibi version that captures the person's essence in the most adorable way possible.`;
+    const prompt = `Turn this portrait into a cute chibi illustration. Keep the same identity, hair color, outfit colors, and facial expression, but use a very large head, tiny body, soft rounded shapes, big sparkling eyes, and a playful polished cartoon finish. Use ${backgroundDescriptions[background]}. Keep it adorable and family-friendly.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,

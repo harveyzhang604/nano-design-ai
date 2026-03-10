@@ -91,50 +91,7 @@ export async function POST(req: Request) {
                           intensity >= 75 ? 'naturally expressive' : 
                           'subtle and refined';
 
-    const prompt = `PHILOSOPHY: Capture the authentic Italian spirit - passionate, expressive, warm, and full of life. This is about cultural celebration, not caricature.
-
-Transform this person to be making ${gestureDescriptions[gesture]}.
-
-CRITICAL REQUIREMENTS:
-1. PRESERVE IDENTITY:
-   - Keep exact facial features, skin tone, hair
-   - Maintain the person's unique characteristics
-   - Do NOT change their ethnicity or appearance
-   - Keep their natural expression (just add the gesture)
-
-2. GESTURE EXECUTION (${intensityLevel}):
-   - Hand position must be anatomically correct
-   - Fingers positioned exactly as described
-   - Natural arm and shoulder positioning
-   - Body language should feel authentic and comfortable
-   - Gesture should look spontaneous, not posed
-
-3. ITALIAN ATMOSPHERE:
-   - ${background === 'original' ? 'Keep the original background' : `Place in ${backgroundDescriptions[background]}`}
-   - Warm, golden Mediterranean lighting
-   - Vibrant but natural colors
-   - Sense of warmth and passion
-
-4. EMOTIONAL AUTHENTICITY:
-   - Facial expression matches the gesture's meaning
-   - Eyes should be engaged and expressive
-   - Natural smile or appropriate emotion
-   - Body language feels genuine and relaxed
-
-5. CULTURAL RESPECT:
-   - Celebrate Italian expressiveness
-   - Avoid stereotypes or mockery
-   - Capture the joy and passion of Italian culture
-   - Make it feel authentic, not comedic
-
-FORBIDDEN:
-- Do NOT make it look like a costume or caricature
-- Do NOT exaggerate facial features
-- Do NOT add fake mustaches or stereotypical elements
-- Do NOT make the gesture look stiff or unnatural
-- Do NOT change the person's core identity
-
-GOAL: Create a warm, authentic moment of Italian expressiveness that celebrates the culture's passionate communication style while respecting the person's identity.`;
+    const prompt = `Edit this portrait so the same person is making ${gestureDescriptions[gesture]}. Keep identity, face, outfit, and overall look consistent. Make the hand pose natural, clear, and anatomically correct. Use warm natural lighting and ${background === 'original' ? 'keep the original background' : backgroundDescriptions[background]}. Keep it realistic and respectful.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,

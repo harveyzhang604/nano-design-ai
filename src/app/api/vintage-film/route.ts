@@ -182,75 +182,7 @@ TECHNICAL CHARACTERISTICS:
       'strong': 'prominent light leaks with dramatic color washes (heavily used camera)'
     };
 
-    const prompt = `PHILOSOPHY: Film photography is about SOUL, NOSTALGIA, and IMPERFECTION. Digital is perfect - film is ALIVE.
-
-Transform this image to look like it was shot on ${filmCharacteristics[filmType]}.
-
-CRITICAL FILM SIMULATION:
-
-1. COLOR SCIENCE:
-   - Apply authentic film color palette
-   - Respect the film's unique color response
-   - Show characteristic color shifts
-   - Maintain organic, analog color feel
-   - No digital perfection - embrace film character
-
-2. GRAIN STRUCTURE (${grainLevel}):
-   - Authentic film grain pattern
-   - Organic, random grain distribution
-   - Grain should feel like silver halide crystals
-   - More visible in shadows and midtones
-   - Natural, not artificial noise
-
-3. TONAL RESPONSE:
-   - Film-like contrast curve (S-curve)
-   - Soft highlight rolloff
-   - Rich shadow detail
-   - Organic tonal transitions
-   - No harsh digital clipping
-
-4. OPTICAL CHARACTERISTICS:
-   - Slight softness (not digital sharp)
-   - Natural vignetting
-   - Organic lens characteristics
-   - Film-like depth and dimension
-   - Analog warmth and character
-
-5. IMPERFECTIONS (${lightLeakDescriptions[lightLeak]}):
-   - Authentic film artifacts
-   - Organic imperfections
-   - Chemical processing variations
-   - Real camera and film character
-   - Nostalgic, lived-in feel
-
-6. ATMOSPHERE & MOOD:
-   - Nostalgic, timeless quality
-   - Emotional warmth and soul
-   - Analog authenticity
-   - Memory-like quality
-   - Film's unique personality
-
-PRESERVE CONTENT:
-- Keep all subjects and composition
-- Maintain image clarity and detail
-- Preserve facial features and expressions
-- Keep the story and emotion
-
-FORBIDDEN:
-- Do NOT make it look like a digital filter
-- Do NOT add fake Instagram effects
-- Do NOT over-process or make it look artificial
-- Do NOT lose image quality or detail
-- Do NOT make it look like a preset
-
-FILM MAGIC:
-- Should feel like a real photograph from the film era
-- Organic, authentic, soulful
-- Nostalgic but not fake
-- Imperfect but beautiful
-- Timeless quality
-
-GOAL: Make it look like this was ACTUALLY shot on ${filmType} film - authentic, organic, with soul. Not a filter, but real film photography.`;
+    const prompt = `Edit this image to look like a scanned vintage film photograph. Apply ${filmType} inspired color grading, natural film grain, subtle analog contrast, gentle highlight rolloff, and optional ${lightLeakDescriptions[lightLeak]}. Keep the subject, composition, and realism intact. Avoid artificial filter artifacts.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
