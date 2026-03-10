@@ -239,6 +239,125 @@ PRESERVE ESSENCE:
 - Maintain emotional connection
 
 GOAL: Like a treasured old photograph - nostalgic, warm, timeless. Photo that feels like MEMORY.`,
+      
+      'impressionism': `Transform this image into IMPRESSIONIST PAINTING - capture LIGHT and MOMENT.
+
+ARTISTIC PHILOSOPHY: Impressionism is about capturing fleeting moments, light, and atmosphere - like Monet's water lilies.
+
+IMPRESSIONIST TECHNIQUE:
+- Visible, broken brush strokes (dabs and dashes of color)
+- Emphasis on light and its changing qualities
+- Soft, blurred edges (capturing movement and atmosphere)
+- Vibrant, unmixed colors placed side by side
+- Outdoor light quality (plein air feeling)
+- Sense of spontaneity and immediacy
+- Dreamy, atmospheric quality
+
+COLOR PALETTE:
+- Bright, pure colors
+- Avoid black - use color for shadows
+- Complementary colors side by side
+- Light-filled and luminous
+
+PRESERVE ESSENCE:
+- Keep subject recognizable but soft
+- Capture the feeling of the moment
+- Show light and atmosphere
+- Maintain emotional warmth
+
+GOAL: Like a Monet masterpiece - light-filled, atmospheric, capturing a fleeting moment. Art that feels like SUNLIGHT.`,
+      
+      'cyberpunk': `Transform this image into CYBERPUNK style - capture NEON FUTURE and ATMOSPHERE.
+
+ARTISTIC PHILOSOPHY: Cyberpunk is about high-tech dystopia, neon dreams, and human soul in a digital world.
+
+CYBERPUNK AESTHETIC:
+- Neon colors (hot pink, electric blue, purple, cyan glow)
+- Dark, moody atmosphere with dramatic lighting
+- Futuristic, sci-fi elements (holographic effects, digital glitches)
+- Rain-slicked streets and reflections
+- Blade Runner / Ghost in the Shell inspired
+- High contrast between dark and neon
+- Urban dystopia feeling
+- Digital artifacts and scan lines
+
+LIGHTING:
+- Neon signs and holographic projections
+- Dramatic rim lighting
+- Colored fog and atmosphere
+- Reflective wet surfaces
+- Moody shadows with neon highlights
+
+PRESERVE ESSENCE:
+- Keep subject recognizable
+- Show personality in the neon glow
+- Maintain human emotion in tech world
+- Keep warmth despite cold future
+
+GOAL: Like a scene from Blade Runner 2049 - moody, atmospheric, neon-soaked. Sci-fi with SOUL and STYLE.`,
+      
+      'ukiyo-e': `Transform this image into UKIYO-E (Japanese Woodblock Print) style - capture ELEGANCE and TRADITION.
+
+ARTISTIC PHILOSOPHY: Ukiyo-e is about elegant simplicity, bold composition, and timeless Japanese aesthetics.
+
+UKIYO-E TECHNIQUE:
+- Bold, clean outlines (black ink lines)
+- Flat, solid color areas (no gradients)
+- Limited color palette (traditional pigments)
+- Simplified, stylized forms
+- Elegant composition and negative space
+- Traditional Japanese patterns and motifs
+- Woodblock print texture and grain
+- Asymmetrical balance
+
+VISUAL ELEMENTS:
+- Traditional Japanese color harmony
+- Decorative patterns (waves, clouds, flowers)
+- Elegant line work
+- Flat perspective (no Western depth)
+- Stylized natural elements
+
+PRESERVE ESSENCE:
+- Keep subject recognizable in Japanese style
+- Show elegance and grace
+- Maintain character and personality
+- Capture timeless beauty
+
+GOAL: Like a Hokusai or Hiroshige masterpiece - elegant, timeless, beautifully composed. Art that feels like JAPANESE TRADITION.`,
+      
+      'van-gogh': `Transform this image into VAN GOGH style - capture EMOTION and SWIRLING ENERGY.
+
+ARTISTIC PHILOSOPHY: Van Gogh painted with raw emotion - every brush stroke shows feeling, passion, and inner turmoil.
+
+VAN GOGH TECHNIQUE:
+- Thick, swirling brush strokes (impasto texture)
+- Visible, energetic paint application
+- Swirling, flowing patterns (especially in sky and background)
+- Bold, expressive colors (yellows, blues, greens)
+- Emotional intensity in every stroke
+- Post-impressionist style
+- Starry Night inspired movement
+- Raw, honest, passionate
+
+COLOR PALETTE:
+- Vibrant yellows and blues (signature Van Gogh)
+- Bold, contrasting colors
+- Emotional color choices
+- Thick paint texture visible
+
+BRUSH WORK:
+- Swirling, circular strokes
+- Thick, textured paint
+- Energetic, passionate application
+- Visible artist's emotion
+
+PRESERVE ESSENCE:
+- Keep subject recognizable
+- Show emotional depth
+- Capture inner feeling
+- Maintain human connection
+
+GOAL: Like Starry Night or Sunflowers - passionate, emotional, swirling with energy. Art that shows RAW FEELING and SOUL.`,
     };
     
     const prompt = stylePrompts[style] || stylePrompts['oil-painting'];

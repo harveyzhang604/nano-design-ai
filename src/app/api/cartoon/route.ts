@@ -159,7 +159,51 @@ ALLOWED CHANGES:
 - Simplification of details
 - Cuter expression
 
-GOAL: Adorable chibi version while maintaining character identity.`
+GOAL: Adorable chibi version while maintaining character identity.`,
+
+      'chatgpt': `Convert this photo to ChatGPT official avatar style - the iconic minimalist geometric portrait style.
+
+CHATGPT STYLE CHARACTERISTICS:
+- Geometric, simplified shapes
+- Flat, solid colors with minimal gradients
+- Clean, modern vector art aesthetic
+- Circular composition (portrait in a circle)
+- Limited color palette (2-4 main colors)
+- Abstract but recognizable features
+- Professional, friendly, approachable feel
+- Minimalist line work
+- Smooth, rounded shapes
+- No texture or noise - pure flat design
+
+PRESERVE IDENTITY:
+- Basic facial structure and proportions
+- Hair style and color (simplified)
+- Key identifying features
+- Overall character essence
+- Facial expression and mood
+
+STYLE EXECUTION:
+- Use geometric shapes (circles, ovals, curves)
+- Simplify features to essential elements
+- Flat color blocks with subtle gradients
+- Clean edges and smooth curves
+- Modern, tech-friendly aesthetic
+- Professional illustration quality
+
+COLOR PALETTE:
+- Use 2-4 harmonious colors
+- Prefer soft, modern colors
+- Avoid overly bright or neon colors
+- Create visual balance and harmony
+
+FORBIDDEN:
+- Do NOT add realistic details or textures
+- Do NOT use complex shading
+- Do NOT make it look hand-drawn or sketchy
+- Do NOT lose the person's core identity
+- Do NOT make it too abstract to recognize
+
+GOAL: Create a clean, modern, geometric portrait in the style of ChatGPT's official avatar design - minimalist, professional, and instantly recognizable.`
     };
     
     const prompt = stylePrompts[style] || stylePrompts['anime'];

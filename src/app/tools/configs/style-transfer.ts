@@ -47,6 +47,42 @@ export const styleTransferConfig: ToolConfig = {
         style: 'pop-art',
         intensity: 85
       }
+    },
+    {
+      id: 'impressionism',
+      name: '印象派 🎨',
+      description: '莫奈风格印象派，光影流动',
+      params: { 
+        style: 'impressionism',
+        intensity: 75
+      }
+    },
+    {
+      id: 'cyberpunk',
+      name: '赛博朋克 🌃',
+      description: '未来科幻霓虹风格',
+      params: { 
+        style: 'cyberpunk',
+        intensity: 80
+      }
+    },
+    {
+      id: 'ukiyo-e',
+      name: '浮世绘 🗾',
+      description: '日本传统浮世绘风格',
+      params: { 
+        style: 'ukiyo-e',
+        intensity: 70
+      }
+    },
+    {
+      id: 'van-gogh',
+      name: '梵高风格 🌻',
+      description: '梵高标志性的旋转笔触',
+      params: { 
+        style: 'van-gogh',
+        intensity: 85
+      }
     }
   ],
   params: [
@@ -60,7 +96,11 @@ export const styleTransferConfig: ToolConfig = {
         { value: 'watercolor', label: '水彩' },
         { value: 'anime', label: '动漫' },
         { value: 'sketch', label: '素描' },
-        { value: 'pop-art', label: '波普' }
+        { value: 'pop-art', label: '波普' },
+        { value: 'impressionism', label: '印象派 🎨' },
+        { value: 'cyberpunk', label: '赛博朋克 🌃' },
+        { value: 'ukiyo-e', label: '浮世绘 🗾' },
+        { value: 'van-gogh', label: '梵高风格 🌻' }
       ]
     },
     {
