@@ -202,7 +202,7 @@ GOAL: Create a completely natural and believable representation of this person a
           contents: [{
             parts: [
               { text: prompt },
-              { inline_data: { mime_type: 'image/png', data: imageBase64.split(',')[1] } }
+              { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
             ]
           }],
           generationConfig: {
@@ -210,8 +210,7 @@ GOAL: Create a completely natural and believable representation of this person a
             topK: 32,
             topP: 0.9,
             maxOutputTokens: 8192,
-            responseMimeType: 'image/png'
-          }
+                      }
         })
       }
     );
@@ -226,13 +225,15 @@ GOAL: Create a completely natural and believable representation of this person a
 
     const data = await response.json();
     
-    if (!data.candidates?.[0]?.content?.parts?.[0]?.inline_data?.data) {
+    if (!(() => { const parts = data.candidates?.[0]?.content?.parts || []; const imagePart = parts.find((p: any) => p.inlineData); return imagePart?.inlineData?.data; })()) {
       return NextResponse.json({ 
         error: 'No image data in response' 
       }, { status: 500 });
     }
 
-    const generatedImageBase64 = data.candidates[0].content.parts[0].inline_data.data;
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const imagePart = parts.find((p: any) => p.inlineData);
+    const generatedImageBase64 = imagePart?.inlineData?.data;
     const generatedImageDataUrl = `data:image/png;base64,${generatedImageBase64}`;
     
     const r2Url = await uploadToR2(generatedImageDataUrl, 'age-evolution');

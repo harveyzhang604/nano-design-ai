@@ -71,7 +71,7 @@ export async function POST(req: Request) {
     
     // Ghibli 作品风格特征
     const ghibliStyles: Record<string, string> = {
-      'spirited-away': `SPIRITED AWAY (千と千尋の神隠し) - Magical bathhouse and spirit world
+      'spirited-away': `WHIMSICAL SPIRIT-WORLD ANIMATION (千と千尋の神隠し) - Magical bathhouse and spirit world
 VISUAL CHARACTERISTICS:
 - Rich, detailed backgrounds with intricate architecture
 - Warm, glowing lantern light and magical atmosphere
@@ -82,7 +82,7 @@ VISUAL CHARACTERISTICS:
 - Steam, mist, and atmospheric effects
 - Red lanterns and traditional decorations`,
 
-      'totoro': `MY NEIGHBOR TOTORO (となりのトトロ) - Peaceful countryside and forest spirits
+      'totoro': `PEACEFUL COUNTRYSIDE FANTASY ANIMATION (となりのトトロ) - Peaceful countryside and forest spirits
 VISUAL CHARACTERISTICS:
 - Lush, detailed nature and countryside
 - Soft, warm sunlight filtering through trees
@@ -93,7 +93,7 @@ VISUAL CHARACTERISTICS:
 - Soft shadows and dappled light
 - Rural Japanese landscape`,
 
-      'howls-castle': `HOWL'S MOVING CASTLE (ハウルの動く城) - Romantic steampunk fantasy
+      'howls-castle': `ROMANTIC EUROPEAN FANTASY ANIMATION (ハウルの動く城) - Romantic steampunk fantasy
 VISUAL CHARACTERISTICS:
 - Intricate mechanical and architectural details
 - Romantic, dreamy atmosphere
@@ -104,7 +104,7 @@ VISUAL CHARACTERISTICS:
 - Soft focus and dreamy quality
 - European-inspired fantasy settings`,
 
-      'ponyo': `PONYO (崖の上のポニョ) - Vibrant ocean and coastal life
+      'ponyo': `VIBRANT OCEAN FANTASY ANIMATION (崖の上のポニョ) - Vibrant ocean and coastal life
 VISUAL CHARACTERISTICS:
 - Bright, saturated colors
 - Dynamic water and ocean effects
@@ -115,7 +115,7 @@ VISUAL CHARACTERISTICS:
 - Rich blues and warm tones
 - Expressive, fluid animation style`,
 
-      'mononoke': `PRINCESS MONONOKE (もののけ姫) - Epic nature and ancient spirits
+      'mononoke': `EPIC FOREST SPIRIT ANIMATION (もののけ姫) - Epic nature and ancient spirits
 VISUAL CHARACTERISTICS:
 - Majestic, detailed forest landscapes
 - Epic, dramatic lighting
@@ -126,7 +126,7 @@ VISUAL CHARACTERISTICS:
 - Dramatic shadows and highlights
 - Primordial forest beauty`,
 
-      'kiki': `KIKI'S DELIVERY SERVICE (魔女の宅急便) - Charming European town
+      'kiki': `CHARMING EUROPEAN TOWN FANTASY ANIMATION (魔女の宅急便) - Charming European town
 VISUAL CHARACTERISTICS:
 - Detailed European architecture
 - Warm, sunny atmosphere
@@ -160,7 +160,7 @@ VISUAL CHARACTERISTICS:
       'muted': 'soft, pastel tones with gentle, understated colors'
     };
 
-    const prompt = `PHILOSOPHY: Studio Ghibli films are about BEAUTY, EMOTION, and WONDER. Every frame is a painting, every scene tells a story, every detail has soul.
+    const prompt = `PHILOSOPHY: hand-painted whimsical animation films are about BEAUTY, EMOTION, and WONDER. Every frame is a painting, every scene tells a story, every detail has soul.
 
 Transform this image into the style of ${ghibliStyles[style]}.
 
@@ -235,7 +235,7 @@ GHIBLI MAGIC:
 - Sense of wonder and magic
 - Timeless, painterly aesthetic
 
-GOAL: Transform this into a scene that could exist in a Studio Ghibli film - beautiful, emotional, hand-crafted, with soul. Not just anime style, but specifically GHIBLI's unique magic.`;
+GOAL: Transform this into a scene that could exist in a hand-painted whimsical animation film - beautiful, emotional, hand-crafted, with soul. Not just anime style, but a warm whimsical hand-painted animation aesthetic.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -246,7 +246,7 @@ GOAL: Transform this into a scene that could exist in a Studio Ghibli film - bea
           contents: [{
             parts: [
               { text: prompt },
-              { inline_data: { mime_type: 'image/png', data: imageBase64.split(',')[1] } }
+              { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
             ]
           }],
           generationConfig: {
@@ -254,8 +254,7 @@ GOAL: Transform this into a scene that could exist in a Studio Ghibli film - bea
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,
-            responseMimeType: 'image/png'
-          }
+                      }
         })
       }
     );
@@ -270,13 +269,15 @@ GOAL: Transform this into a scene that could exist in a Studio Ghibli film - bea
 
     const data = await response.json();
     
-    if (!data.candidates?.[0]?.content?.parts?.[0]?.inline_data?.data) {
+    if (!(() => { const parts = data.candidates?.[0]?.content?.parts || []; const imagePart = parts.find((p: any) => p.inlineData); return imagePart?.inlineData?.data; })()) {
       return NextResponse.json({ 
         error: 'No image data in response' 
       }, { status: 500 });
     }
 
-    const generatedImageBase64 = data.candidates[0].content.parts[0].inline_data.data;
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const imagePart = parts.find((p: any) => p.inlineData);
+    const generatedImageBase64 = imagePart?.inlineData?.data;
     const generatedImageDataUrl = `data:image/png;base64,${generatedImageBase64}`;
     
     const r2Url = await uploadToR2(generatedImageDataUrl, 'ghibli');

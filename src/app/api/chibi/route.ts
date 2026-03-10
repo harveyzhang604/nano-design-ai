@@ -170,7 +170,7 @@ GOAL: Create an irresistibly cute chibi version that captures the person's essen
           contents: [{
             parts: [
               { text: prompt },
-              { inline_data: { mime_type: 'image/png', data: imageBase64.split(',')[1] } }
+              { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
             ]
           }],
           generationConfig: {
@@ -178,8 +178,7 @@ GOAL: Create an irresistibly cute chibi version that captures the person's essen
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,
-            responseMimeType: 'image/png'
-          }
+                      }
         })
       }
     );
@@ -194,13 +193,15 @@ GOAL: Create an irresistibly cute chibi version that captures the person's essen
 
     const data = await response.json();
     
-    if (!data.candidates?.[0]?.content?.parts?.[0]?.inline_data?.data) {
+    if (!(() => { const parts = data.candidates?.[0]?.content?.parts || []; const imagePart = parts.find((p: any) => p.inlineData); return imagePart?.inlineData?.data; })()) {
       return NextResponse.json({ 
         error: 'No image data in response' 
       }, { status: 500 });
     }
 
-    const generatedImageBase64 = data.candidates[0].content.parts[0].inline_data.data;
+    const parts = data.candidates?.[0]?.content?.parts || [];
+    const imagePart = parts.find((p: any) => p.inlineData);
+    const generatedImageBase64 = imagePart?.inlineData?.data;
     const generatedImageDataUrl = `data:image/png;base64,${generatedImageBase64}`;
     
     const r2Url = await uploadToR2(generatedImageDataUrl, 'chibi');
