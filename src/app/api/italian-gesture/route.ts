@@ -1,146 +1,48 @@
 import { NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { generateGeminiImage, imageUrlToBase64 } from '@/lib/gemini-image';
+import { uploadBase64ImageToR2 } from '@/lib/r2-upload';
 
 export const runtime = 'edge';
 
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-images';
-
-const r2Client = new S3Client({
-  region: 'auto',
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
-
-async function uploadToR2(base64Data: string, prefix: string = 'italian-gesture'): Promise<string | null> {
-  try {
-    const base64Content = base64Data.replace(/^data:image\/\w+;base64,/, '');
-    const imageBuffer = Buffer.from(base64Content, 'base64');
-    const filename = `${prefix}-${Date.now()}.png`;
-    const key = `images/${filename}`;
-    const command = new PutObjectCommand({
-      Bucket: R2_BUCKET_NAME,
-      Key: key,
-      Body: imageBuffer,
-      ContentType: 'image/png',
-    });
-    await r2Client.send(command);
-    return `https://img.talkphoto.app/${key}`;
-  } catch (error) {
-    console.error('R2 upload error:', error);
-    return null;
-  }
-}
-
-function imageToBase64(url: string): Promise<string> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const base64 = buffer.toString('base64');
-      const mimeType = response.headers.get('content-type') || 'image/png';
-      resolve(`data:${mimeType};base64,${base64}`);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
 export async function POST(req: Request) {
   try {
-    const { imageUrl, gesture = 'ma-che-vuoi', intensity = 85, background = 'italian-street' } = await req.json();
-    
+    const { imageUrl, gesture = 'ma-che-vuoi' } = await req.json();
+
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
     }
-    
+
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return NextResponse.json({ 
-        error: 'System Error: GEMINI_API_KEY not configured.' 
-      }, { status: 500 });
+      return NextResponse.json({ error: 'System Error: GEMINI_API_KEY not configured.' }, { status: 500 });
     }
 
-    const imageBase64 = await imageToBase64(imageUrl);
-    
-    // 意大利手势的详细描述
-    const gestureDescriptions: Record<string, string> = {
-      'chef-kiss': `the classic Italian "chef's kiss" gesture (fingertips pinched together, brought to lips and then opened outward in a kissing motion) - expressing perfection and deliciousness`,
-      'ma-che-vuoi': `the iconic Italian "Ma che vuoi?" gesture (fingers pinched together pointing upward, hand moving up and down) - the most famous Italian hand gesture meaning "what do you want?"`,
-      'perfetto': `the Italian "perfetto" gesture (thumb and index finger forming an OK sign, other fingers extended) - expressing perfection`,
-      'mamma-mia': `the Italian "Mamma Mia!" gesture (both hands raised with palms facing forward, fingers spread) - expressing amazement or disbelief`,
-      'non-mi-rompere': `the Italian "Non mi rompere" gesture (one hand raised with palm facing forward in a stop motion) - meaning "don't bother me"`,
-      'basta': `the Italian "Basta!" gesture (one hand raised with palm facing forward, fingers together) - meaning "enough!"`
-    };
-
-    // 背景描述
-    const backgroundDescriptions: Record<string, string> = {
-      'italian-street': 'a charming Italian street with colorful buildings, cobblestones, and warm Mediterranean lighting',
-      'restaurant': 'a cozy Italian restaurant interior with checkered tablecloths, wine bottles, and warm ambient lighting',
-      'kitchen': 'a rustic Italian kitchen with hanging herbs, copper pots, and marble countertops',
-      'original': 'the original background'
-    };
-
-    const intensityLevel = intensity >= 90 ? 'very expressive and animated' : 
-                          intensity >= 75 ? 'naturally expressive' : 
-                          'subtle and refined';
+    const imageBase64 = await imageUrlToBase64(imageUrl);
 
     const prompt = `Edit this portrait so the same person is making ${gestureDescriptions[gesture]}. Keep identity, face, outfit, and overall look consistent. Make the hand pose natural, clear, and anatomically correct. Use warm natural lighting and ${background === 'original' ? 'keep the original background' : backgroundDescriptions[background]}. Keep it realistic and respectful.`;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
-            ]
-          }],
-          generationConfig: {
-            temperature: 0.4,
-            topK: 32,
-            topP: 1,
-            maxOutputTokens: 8192,
-                      }
-        })
-      }
-    );
+    const result = await generateGeminiImage({
+      apiKey,
+      prompt,
+      imageBase64,
+      temperature: 0.4,
+      topK: 32,
+      topP: 0.9,
+    });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Gemini API error:', errorText);
-      return NextResponse.json({ 
-        error: `Gemini API error: ${response.status}` 
-      }, { status: response.status });
+    if (!result.ok) {
+      return NextResponse.json({ error: result.error, raw: result.raw }, { status: result.status });
     }
 
-    const data = await response.json();
-    
-    if (!(() => { const parts = data.candidates?.[0]?.content?.parts || []; const imagePart = parts.find((p: any) => p.inlineData); return imagePart?.inlineData?.data; })()) {
-      return NextResponse.json({ 
-        error: 'No image data in response' 
-      }, { status: 500 });
-    }
+    const fullBase64 = `data:image/png;base64,${result.base64Data}`;
+    const r2Url = await uploadBase64ImageToR2(fullBase64, 'italian-gesture');
 
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    const imagePart = parts.find((p: any) => p.inlineData);
-    const generatedImageBase64 = imagePart?.inlineData?.data;
-    const generatedImageDataUrl = `data:image/png;base64,${generatedImageBase64}`;
-    
-    const r2Url = await uploadToR2(generatedImageDataUrl, 'italian-gesture');
-    
-    return NextResponse.json({ 
+    return NextResponse.json({
       success: true,
-      imageUrl: r2Url || generatedImageDataUrl
+      imageUrl: r2Url || fullBase64,
+      isR2: !!r2Url,
+      mode: 'italian-gesture',
+      gesture
     });
 
   } catch (error) {
