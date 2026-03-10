@@ -102,75 +102,7 @@ export async function POST(req: Request) {
       'nature': 'beautiful natural landscape that complements the character'
     };
 
-    const prompt = `PHILOSOPHY: Pet humanization is about celebrating the unique personality and charm of the pet while creating a believable human character. Keep their soul, transform their form.
-
-Transform this pet into ${styleDescriptions[style]}.
-
-CRITICAL REQUIREMENTS:
-
-1. PRESERVE PET'S ESSENCE (${featureLevel}):
-   - Keep the pet's eye color and expression
-   - Incorporate fur/feather patterns into hair or clothing
-   - Maintain the pet's unique facial features in human form
-   - Preserve the pet's personality and character
-   - Keep distinctive markings or colors
-
-2. HUMAN TRANSFORMATION:
-   - Create a fully human character (not furry/anthro)
-   - Natural human proportions and anatomy
-   - Believable human facial features
-   - Realistic skin texture and tone
-   - Human hands and body structure
-
-3. FEATURE INTEGRATION:
-   - Pet's fur color → human hair color
-   - Pet's eye color → human eye color
-   - Pet's markings → clothing patterns or hair highlights
-   - Pet's personality → facial expression and pose
-   - Pet's breed characteristics → subtle facial features
-
-4. CLOTHING & STYLE:
-   - ${clothingDescriptions[clothing]}
-   - Colors should complement the pet's original colors
-   - Style should match the pet's personality
-   - High-quality, detailed clothing design
-   - Appropriate for the chosen style
-
-5. ARTISTIC QUALITY:
-   - Professional character design
-   - Clean, polished artwork
-   - Proper lighting and shading
-   - Detailed facial features
-   - High-resolution quality
-
-6. BACKGROUND:
-   - ${backgroundDescriptions[background]}
-   - Should enhance the character
-   - Professional composition
-   - Appropriate depth and atmosphere
-
-PRESERVE FROM PET:
-- Eye color and shape
-- Fur/feather color palette
-- Distinctive markings or patterns
-- Facial expression and personality
-- Overall "vibe" and character
-
-FORBIDDEN:
-- Do NOT create furry/anthro characters (no animal ears, tails, or fur)
-- Do NOT make it look like a costume
-- Do NOT lose the pet's personality
-- Do NOT create generic human without pet's essence
-- Do NOT make it look uncanny or creepy
-
-HUMANIZATION MAGIC:
-- The human should feel like "if this pet were human"
-- Viewers should recognize the pet's personality
-- Natural and believable human character
-- Artistic and appealing design
-- Captures the pet's unique charm
-
-GOAL: Create a beautiful human character that embodies the pet's spirit, personality, and distinctive features in a natural and artistic way.`;
+    const prompt = `Create a human portrait inspired by this pet. Keep the pet's personality, color palette, mood, and distinctive visual traits, but render a normal human character with no animal ears, fur, tail, or costume elements. Use ${clothingDescriptions[clothing]} and ${backgroundDescriptions[background]}. Make it polished, believable, and appealing.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
