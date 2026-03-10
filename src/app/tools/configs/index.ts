@@ -31,6 +31,10 @@ import { outfitChangeConfig } from './outfit-change';
 import { objectRemoveConfig } from './object-remove';
 import { beautyEnhanceConfig } from './beauty-enhance';
 import { styleTransferProConfig } from './style-transfer-pro';
+import { italianGestureConfig } from './italian-gesture';
+import { chibiConfig } from './chibi';
+import { petHumanizeConfig } from './pet-humanize';
+import { ageEvolutionConfig } from './age-evolution';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -65,6 +69,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'object-remove': objectRemoveConfig,
   'beauty-enhance': beautyEnhanceConfig,
   'style-transfer-pro': styleTransferProConfig,
+  'italian-gesture': italianGestureConfig,
+  'chibi': chibiConfig,
+  'pet-humanize': petHumanizeConfig,
+  'age-evolution': ageEvolutionConfig,
 };
 
 export * from './enhance';
@@ -99,3 +107,7 @@ export * from './outfit-change';
 export * from './object-remove';
 export * from './beauty-enhance';
 export * from './style-transfer-pro';
+export * from './italian-gesture';
+export * from './chibi';
+export * from './pet-humanize';
+export * from './age-evolution';
