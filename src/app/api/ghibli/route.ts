@@ -238,7 +238,7 @@ GHIBLI MAGIC:
 GOAL: Transform this into a scene that could exist in a Studio Ghibli film - beautiful, emotional, hand-crafted, with soul. Not just anime style, but specifically GHIBLI's unique magic.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

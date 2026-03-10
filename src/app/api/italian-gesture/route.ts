@@ -137,7 +137,7 @@ FORBIDDEN:
 GOAL: Create a warm, authentic moment of Italian expressiveness that celebrates the culture's passionate communication style while respecting the person's identity.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

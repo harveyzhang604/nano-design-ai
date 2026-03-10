@@ -253,7 +253,7 @@ FILM MAGIC:
 GOAL: Make it look like this was ACTUALLY shot on ${filmType} film - authentic, organic, with soul. Not a filter, but real film photography.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

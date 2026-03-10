@@ -173,7 +173,7 @@ HUMANIZATION MAGIC:
 GOAL: Create a beautiful human character that embodies the pet's spirit, personality, and distinctive features in a natural and artistic way.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${apiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
