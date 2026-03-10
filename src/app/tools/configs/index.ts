@@ -35,6 +35,8 @@ import { italianGestureConfig } from './italian-gesture';
 import { chibiConfig } from './chibi';
 import { petHumanizeConfig } from './pet-humanize';
 import { ageEvolutionConfig } from './age-evolution';
+import { vintageFilmConfig } from './vintage-film';
+import { ghibliConfig } from './ghibli';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -73,6 +75,8 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'chibi': chibiConfig,
   'pet-humanize': petHumanizeConfig,
   'age-evolution': ageEvolutionConfig,
+  'vintage-film': vintageFilmConfig,
+  'ghibli': ghibliConfig,
 };
 
 export * from './enhance';
@@ -111,3 +115,5 @@ export * from './italian-gesture';
 export * from './chibi';
 export * from './pet-humanize';
 export * from './age-evolution';
+export * from './vintage-film';
+export * from './ghibli';
