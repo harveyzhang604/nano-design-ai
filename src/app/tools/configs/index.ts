@@ -40,6 +40,7 @@ import { ghibliConfig } from './ghibli';
 import { authenticityConfig } from './authenticity';
 import { characterLibraryConfig } from './character-library';
 import { styleMixConfig } from './style-mix';
+import { pseudoAnimationConfig } from './pseudo-animation';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -83,6 +84,7 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'authenticity': authenticityConfig,
   'character-library': characterLibraryConfig,
   'style-mix': styleMixConfig,
+  'pseudo-animation': pseudoAnimationConfig,
 };
 
 export * from './enhance';
@@ -126,3 +128,4 @@ export * from './ghibli';
 export * from './authenticity';
 export * from './character-library';
 export * from './style-mix';
+export * from './pseudo-animation';

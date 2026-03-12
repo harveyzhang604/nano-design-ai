@@ -47,6 +47,7 @@ const tools = [
   { id: 'authenticity', name: '真实感滑块', icon: Contrast, color: 'from-slate-500 to-gray-500', desc: '控制AI美化程度', category: 'P1' },
   { id: 'character-library', name: '角色库', icon: User, color: 'from-violet-500 to-purple-500', desc: '保存角色生成多场景', category: 'P1' },
   { id: 'style-mix', name: '风格混搭', icon: Layers, color: 'from-fuchsia-500 to-pink-500', desc: '2-3种风格混合', category: 'P1' },
+  { id: 'pseudo-animation', name: '伪动画', icon: RotateCw, color: 'from-cyan-500 to-blue-500', desc: '3-5帧关键帧动画', category: 'P1' },
   
   // P2 - 有趣功能
   { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
@@ -224,6 +225,7 @@ export default function ToolsPage() {
       'authenticity': '/api/authenticity',
       'character-library': '/api/character-library',
       'style-mix': '/api/style-mix',
+      'pseudo-animation': '/api/pseudo-animation',
     };
     return endpoints[toolId] || '/api/generate';
   };
