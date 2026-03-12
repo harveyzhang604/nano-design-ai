@@ -54,11 +54,16 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { 
+    let { 
       petImages = [],
       scene = 'family-portrait',
       style = 'realistic'
     } = await req.json();
+    
+    // 支持字符串输入（逗号分隔的 URL）
+    if (typeof petImages === 'string') {
+      petImages = petImages.split(',').map((url: string) => url.trim()).filter((url: string) => url);
+    }
     
     if (!petImages || petImages.length === 0) {
       return NextResponse.json({ 

@@ -72,10 +72,15 @@ const styleDefinitions: Record<string, string> = {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, styles = [], blendMode = 'balanced' } = await req.json();
+    let { imageUrl, styles = [], blendMode = 'balanced' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
+    }
+    
+    // 支持字符串输入（逗号分隔）
+    if (typeof styles === 'string') {
+      styles = styles.split(',').map((s: string) => s.trim()).filter((s: string) => s);
     }
     
     if (!styles || styles.length === 0) {
