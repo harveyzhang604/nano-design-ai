@@ -39,6 +39,7 @@ const tools = [
   { id: 'beauty-enhance', name: '人像美化', icon: Sparkles, color: 'from-pink-500 to-rose-500', desc: '自然美颜可调节', category: 'P1' },
   { id: 'object-remove', name: '物体移除Pro', icon: Eraser, color: 'from-red-500 to-orange-500', desc: '智能填充边缘羽化', category: 'P1' },
   { id: 'interior', name: '室内设计', icon: Home, color: 'from-amber-500 to-yellow-500', desc: '房间装修效果图', category: 'P1' },
+  { id: 'partial-redesign', name: '局部改造', icon: Home, color: 'from-yellow-500 to-amber-500', desc: '只改沙发/墙面/地板', category: 'P1' },
   { id: 'age', name: '年龄模拟', icon: Baby, color: 'from-teal-500 to-cyan-500', desc: '预测年轻/老年容貌', category: 'P1' },
   { id: 'face-age', name: '脸龄生成', icon: Contrast, color: 'from-rose-400 to-pink-600', desc: '童年未来长相', category: 'P1' },
   { id: 'age-evolution', name: '年龄进化', icon: Baby, color: 'from-indigo-500 to-purple-500', desc: '1-90岁全年龄段', category: 'P1' },
@@ -228,6 +229,7 @@ export default function ToolsPage() {
       'style-mix': '/api/style-mix',
       'pseudo-animation': '/api/pseudo-animation',
       'pet-family': '/api/pet-family',
+      'partial-redesign': '/api/partial-redesign',
     };
     return endpoints[toolId] || '/api/generate';
   };

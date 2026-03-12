@@ -42,6 +42,7 @@ import { characterLibraryConfig } from './character-library';
 import { styleMixConfig } from './style-mix';
 import { pseudoAnimationConfig } from './pseudo-animation';
 import { petFamilyConfig } from './pet-family';
+import { partialRedesignConfig } from './partial-redesign';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -87,6 +88,7 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'style-mix': styleMixConfig,
   'pseudo-animation': pseudoAnimationConfig,
   'pet-family': petFamilyConfig,
+  'partial-redesign': partialRedesignConfig,
 };
 
 export * from './enhance';
@@ -132,3 +134,4 @@ export * from './character-library';
 export * from './style-mix';
 export * from './pseudo-animation';
 export * from './pet-family';
+export * from './partial-redesign';
