@@ -201,7 +201,7 @@ GOAL: Dramatic mood shift through natural lighting changes.`;
       
       while (retries > 0 && !base64Data) {
         try {
-          const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent`, {
+          const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:generateContent`, {
             method: "POST",
             headers: { 
               "Content-Type": "application/json",
