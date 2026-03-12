@@ -195,45 +195,73 @@ CRITICAL CONSISTENCY:
 GOAL: Dramatic mood shift through natural lighting changes.`;
       }
       
-      // 生成每一帧
-      const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: framePrompt },
-              { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
-            ]
-          }],
-          generationConfig: {
-            temperature: 0.3,
-            topK: 20,
-            topP: 0.85
+      // 生成每一帧（带重试机制）
+      let base64Data = null;
+      let retries = 3;
+      
+      while (retries > 0 && !base64Data) {
+        try {
+          const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent`, {
+            method: "POST",
+            headers: { 
+              "Content-Type": "application/json",
+              "x-goog-api-key": apiKey
+            },
+            body: JSON.stringify({
+              contents: [{
+                parts: [
+                  { text: framePrompt },
+                  { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
+                ]
+              }],
+              generationConfig: {
+                temperature: 0.4,
+                topK: 32,
+                topP: 0.9
+              }
+            })
+          });
+
+          const data = await apiResponse.json();
+          
+          if (!apiResponse.ok) {
+            console.error(`Frame ${i + 1} attempt ${4 - retries} - API error:`, data);
+            retries--;
+            if (retries > 0) {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              continue;
+            }
+            return NextResponse.json({ 
+              error: `Frame ${i + 1} failed after 3 retries: ${data.error?.message || 'Gemini API Error'}` 
+            }, { status: apiResponse.status });
           }
-        })
-      });
 
-      const data = await apiResponse.json();
-      
-      if (!apiResponse.ok) {
-        console.error(`Frame ${i + 1} - Gemini API error:`, data);
-        return NextResponse.json({ 
-          error: `Frame ${i + 1} failed: ${data.error?.message || 'Gemini API Error'}` 
-        }, { status: apiResponse.status });
-      }
-
-      const parts = data.candidates?.[0]?.content?.parts || [];
-      const imagePart = parts.find((p: any) => p.inlineData);
-      const base64Data = imagePart?.inlineData?.data;
-      
-      if (!base64Data) {
-        return NextResponse.json({ 
-          error: `Frame ${i + 1}: No image data returned` 
-        }, { status: 500 });
+          const parts = data.candidates?.[0]?.content?.parts || [];
+          const imagePart = parts.find((p: any) => p.inlineData);
+          base64Data = imagePart?.inlineData?.data;
+          
+          if (!base64Data) {
+            console.error(`Frame ${i + 1} attempt ${4 - retries} - No image data`);
+            retries--;
+            if (retries > 0) {
+              await new Promise(resolve => setTimeout(resolve, 2000));
+              continue;
+            }
+            return NextResponse.json({ 
+              error: `Frame ${i + 1}: No image data after 3 retries` 
+            }, { status: 500 });
+          }
+        } catch (error: any) {
+          console.error(`Frame ${i + 1} attempt ${4 - retries} - Exception:`, error);
+          retries--;
+          if (retries > 0) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            continue;
+          }
+          return NextResponse.json({ 
+            error: `Frame ${i + 1} exception: ${error.message}` 
+          }, { status: 500 });
+        }
       }
 
       const fullBase64 = `data:image/png;base64,${base64Data}`;
