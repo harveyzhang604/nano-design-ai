@@ -45,7 +45,11 @@ async function uploadToR2(base64Data: string, prefix: string = 'faceswap'): Prom
 
 export async function POST(req: Request) {
   try {
-    const { sourceImageUrl, targetImageUrl } = await req.json();
+    const { 
+      sourceImageUrl, 
+      targetImageUrl,
+      preserveExpression = true
+    } = await req.json();
     
     if (!sourceImageUrl || !targetImageUrl) {
       return NextResponse.json({ error: 'Both source and target images are required' }, { status: 400 });
@@ -59,7 +63,24 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 换脸功能 - 2026-03-07 Week 4 优化：情感化、真实感
+    // 换脸功能 - 2026-03-12 优化：增加情绪保留选项
+    const expressionInstruction = preserveExpression 
+      ? `
+CRITICAL - PRESERVE ORIGINAL EXPRESSION:
+- Keep the EXACT facial expression from the source face
+- If source is smiling, keep that exact smile (mouth curve, teeth visibility)
+- If source is serious, keep that exact serious expression
+- Preserve eye expression (wide open, squinting, etc.)
+- Maintain eyebrow position and shape
+- Keep the emotional state identical
+- This is the person's authentic expression - preserve it 100%`
+      : `
+ADAPT TO TARGET EXPRESSION:
+- Adopt the expression from the target image's pose
+- Match the mood and emotion of the target scene
+- Natural expression that fits the target context
+- Blend the new face naturally with target's expression`;
+
     const prompt = `Swap faces between these two images - make it look SEAMLESS and NATURAL.
 
 PHILOSOPHY: Great face swaps look real, not fake or creepy.
@@ -71,6 +92,8 @@ FACE SWAP PROCESS:
 - Match lighting and shadows (same lighting as target)
 - Seamless blending at edges (no visible seams)
 - Natural, realistic result
+
+${expressionInstruction}
 
 PRESERVE TARGET:
 - Keep target's pose exactly (body position, angle)
@@ -92,6 +115,7 @@ FORBIDDEN:
 - DO NOT mismatch skin tones
 - DO NOT ignore lighting differences
 - DO NOT make it look creepy or uncanny
+${preserveExpression ? '- DO NOT change the facial expression from source' : ''}
 
 GOAL: Like a real photo - seamless, natural, looks like they were always in that scene.`;
 
@@ -137,14 +161,16 @@ GOAL: Like a real photo - seamless, natural, looks like they were always in that
     if (r2Url) {
       return NextResponse.json({ 
         imageUrl: r2Url, 
-        isR2: true
+        isR2: true,
+        preserveExpression
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
     } else {
       return NextResponse.json({ 
         imageUrl: fullBase64, 
-        isR2: false
+        isR2: false,
+        preserveExpression
       }, {
         headers: { 'Cache-Control': 'no-store, max-age=0' }
       });
