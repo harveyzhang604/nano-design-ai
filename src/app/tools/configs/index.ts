@@ -38,6 +38,8 @@ import { ageEvolutionConfig } from './age-evolution';
 import { vintageFilmConfig } from './vintage-film';
 import { ghibliConfig } from './ghibli';
 import { authenticityConfig } from './authenticity';
+import { characterLibraryConfig } from './character-library';
+import { styleMixConfig } from './style-mix';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -79,6 +81,8 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'vintage-film': vintageFilmConfig,
   'ghibli': ghibliConfig,
   'authenticity': authenticityConfig,
+  'character-library': characterLibraryConfig,
+  'style-mix': styleMixConfig,
 };
 
 export * from './enhance';
@@ -120,3 +124,5 @@ export * from './age-evolution';
 export * from './vintage-film';
 export * from './ghibli';
 export * from './authenticity';
+export * from './character-library';
+export * from './style-mix';

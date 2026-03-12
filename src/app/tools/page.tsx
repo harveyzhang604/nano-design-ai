@@ -45,6 +45,8 @@ const tools = [
   { id: 'vintage-film', name: '复古胶片', icon: Camera, color: 'from-amber-500 to-orange-500', desc: '6种经典胶片风格', category: 'P1' },
   { id: 'ghibli', name: 'Ghibli风格', icon: Paintbrush, color: 'from-green-500 to-emerald-500', desc: '宫崎骏动画风格', category: 'P1' },
   { id: 'authenticity', name: '真实感滑块', icon: Contrast, color: 'from-slate-500 to-gray-500', desc: '控制AI美化程度', category: 'P1' },
+  { id: 'character-library', name: '角色库', icon: User, color: 'from-violet-500 to-purple-500', desc: '保存角色生成多场景', category: 'P1' },
+  { id: 'style-mix', name: '风格混搭', icon: Layers, color: 'from-fuchsia-500 to-pink-500', desc: '2-3种风格混合', category: 'P1' },
   
   // P2 - 有趣功能
   { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
@@ -220,6 +222,8 @@ export default function ToolsPage() {
       'baby-prediction': '/api/baby-prediction',
       'compose': '/api/compose',
       'authenticity': '/api/authenticity',
+      'character-library': '/api/character-library',
+      'style-mix': '/api/style-mix',
     };
     return endpoints[toolId] || '/api/generate';
   };
