@@ -43,14 +43,6 @@ import { styleMixConfig } from './style-mix';
 import { pseudoAnimationConfig } from './pseudo-animation';
 import { petFamilyConfig } from './pet-family';
 import { partialRedesignConfig } from './partial-redesign';
-import { babyPredictionConfig } from './baby-prediction';
-import { filterConfig } from './filter';
-import { genderSwapConfig } from './gender-swap';
-import { hairstyleConfig } from './hairstyle';
-import { makeupConfig } from './makeup';
-import { tattooConfig } from './tattoo';
-import { petCartoonConfig } from './pet-cartoon';
-import { ageTransformConfig } from './age-transform';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -59,23 +51,24 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'colorize': colorizeConfig,
   'portrait': portraitConfig,
   'upscale': upscaleConfig,
-  'sketch-to-image': sketchToPhotoConfig,
+  'sketch-to-photo': sketchToPhotoConfig,
   'style-transfer': styleTransferConfig,
   'cartoon': cartoonConfig,
-  'age-transform': ageConfig,
-  'interior-design': interiorConfig,
-  'product-photo': productConfig,
+  'age': ageConfig,
+  'face-age': faceAgeConfig,
+  'interior': interiorConfig,
+  'product': productConfig,
   'photoshoot': photoshootConfig,
   'meme': memeConfig,
   'map-gen': mapGenConfig,
-  'fashion-model': fashionConfig,
+  'fashion': fashionConfig,
   'compose': composeConfig,
   'erase': eraseConfig,
   'change-bg': changeBgConfig,
   'avatar': avatarConfig,
   'face-swap': faceSwapConfig,
   'try-on': tryOnConfig,
-  'greeting-card': greetingConfig,
+  'greeting': greetingConfig,
   'cosplay': cosplayConfig,
   'real-estate': realEstateConfig,
   'caricature': caricatureConfig,
@@ -96,13 +89,6 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'pseudo-animation': pseudoAnimationConfig,
   'pet-family': petFamilyConfig,
   'partial-redesign': partialRedesignConfig,
-  'baby-prediction': babyPredictionConfig,
-  'filter': filterConfig,
-  'gender-swap': genderSwapConfig,
-  'hairstyle': hairstyleConfig,
-  'makeup': makeupConfig,
-  'tattoo': tattooConfig,
-  'pet-cartoon': petCartoonConfig,
 };
 
 export * from './enhance';
@@ -115,7 +101,7 @@ export * from './sketch-to-photo';
 export * from './style-transfer';
 export * from './cartoon';
 export * from './age';
-export * from './age-transform';
+export * from './face-age';
 export * from './interior';
 export * from './product';
 export * from './photoshoot';
@@ -149,10 +135,3 @@ export * from './style-mix';
 export * from './pseudo-animation';
 export * from './pet-family';
 export * from './partial-redesign';
-export * from './baby-prediction';
-export * from './filter';
-export * from './gender-swap';
-export * from './hairstyle';
-export * from './makeup';
-export * from './tattoo';
-export * from './pet-cartoon';
