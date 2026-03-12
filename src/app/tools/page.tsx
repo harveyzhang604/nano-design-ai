@@ -44,6 +44,7 @@ const tools = [
   { id: 'age-evolution', name: '年龄进化', icon: Baby, color: 'from-indigo-500 to-purple-500', desc: '1-90岁全年龄段', category: 'P1' },
   { id: 'vintage-film', name: '复古胶片', icon: Camera, color: 'from-amber-500 to-orange-500', desc: '6种经典胶片风格', category: 'P1' },
   { id: 'ghibli', name: 'Ghibli风格', icon: Paintbrush, color: 'from-green-500 to-emerald-500', desc: '宫崎骏动画风格', category: 'P1' },
+  { id: 'authenticity', name: '真实感滑块', icon: Contrast, color: 'from-slate-500 to-gray-500', desc: '控制AI美化程度', category: 'P1' },
   
   // P2 - 有趣功能
   { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
@@ -218,6 +219,7 @@ export default function ToolsPage() {
       'filter': '/api/filter',
       'baby-prediction': '/api/baby-prediction',
       'compose': '/api/compose',
+      'authenticity': '/api/authenticity',
     };
     return endpoints[toolId] || '/api/generate';
   };

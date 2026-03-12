@@ -37,6 +37,7 @@ import { petHumanizeConfig } from './pet-humanize';
 import { ageEvolutionConfig } from './age-evolution';
 import { vintageFilmConfig } from './vintage-film';
 import { ghibliConfig } from './ghibli';
+import { authenticityConfig } from './authenticity';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -77,6 +78,7 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'age-evolution': ageEvolutionConfig,
   'vintage-film': vintageFilmConfig,
   'ghibli': ghibliConfig,
+  'authenticity': authenticityConfig,
 };
 
 export * from './enhance';
@@ -117,3 +119,4 @@ export * from './pet-humanize';
 export * from './age-evolution';
 export * from './vintage-film';
 export * from './ghibli';
+export * from './authenticity';

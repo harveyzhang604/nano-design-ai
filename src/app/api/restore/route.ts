@@ -81,70 +81,98 @@ export async function POST(req: Request) {
     // 根据修复强度调整prompt - 2026-03-07 优化：强调保守修复，不改变表情
     const prompts: Record<string, string> = {
       'conservative': `Restore this old or damaged photo with ULTRA-CONSERVATIVE approach. 
-ABSOLUTE RULES - NEVER VIOLATE:
-1. PRESERVE EXACTLY: facial expressions, eye direction, mouth shape, wrinkles, skin texture
-2. PRESERVE EXACTLY: poses, body positions, hand gestures, head angles
-3. PRESERVE EXACTLY: clothing details, patterns, colors, accessories
-4. PRESERVE EXACTLY: background elements, lighting, composition
+CRITICAL: This is DAMAGE REPAIR ONLY, NOT photo enhancement or beautification.
 
-ONLY REPAIR PHYSICAL DAMAGE:
-- Remove scratches, tears, cracks, stains
-- Fix fading and discoloration
-- Reduce noise ONLY in damaged areas
-- Fix blur ONLY where clearly damaged
+ABSOLUTE PRESERVATION RULES - NEVER VIOLATE:
+1. FACIAL EXPRESSIONS: Keep EXACT same smile/frown/neutral expression, mouth curve, eye shape, gaze direction
+2. EMOTIONAL STATE: Preserve the EXACT mood and feeling (happy/sad/serious/playful)
+3. FACIAL FEATURES: Keep EXACT wrinkles, laugh lines, skin texture, age marks, freckles, moles
+4. BODY LANGUAGE: Keep EXACT poses, hand positions, head tilt, body angle
+5. CLOTHING & ACCESSORIES: Keep EXACT patterns, colors, styles, jewelry, glasses
+6. COMPOSITION: Keep EXACT framing, background, lighting, shadows
 
-FORBIDDEN ACTIONS:
-- DO NOT change any facial features or expressions
-- DO NOT "improve" or "beautify" faces
-- DO NOT add missing details - leave them as is
+ONLY REPAIR PHYSICAL DAMAGE (nothing else):
+- Remove scratches, tears, cracks, water stains, fold marks
+- Fix color fading and yellowing
+- Reduce noise ONLY in obviously damaged areas
+- Fix blur ONLY where clearly damaged by time/handling
+
+STRICTLY FORBIDDEN:
+- DO NOT change facial expressions even slightly (no smile adjustment, no eye opening)
+- DO NOT "improve" or "beautify" faces (no smoothing, no brightening eyes)
+- DO NOT add missing details (if blurry, keep it blurry after damage repair)
 - DO NOT change emotions or moods
-- DO NOT modernize or stylize
+- DO NOT modernize hairstyles, clothing, or makeup
+- DO NOT alter the person's character or personality
 
-GOAL: Make it look like the photo was never damaged, but keep EVERYTHING else identical to the original.`,
+VERIFICATION: After restoration, the person should look EXACTLY the same, just without physical damage.
+GOAL: Remove damage marks, preserve everything else 100%.`,
       
       'standard': `Restore this old or damaged photo with CONSERVATIVE-BALANCED approach.
-ABSOLUTE RULES - NEVER VIOLATE:
-1. PRESERVE EXACTLY: facial expressions, emotions, eye contact
-2. PRESERVE EXACTLY: poses, positions, gestures
-3. PRESERVE EXACTLY: original character and authenticity
+CRITICAL: This is DAMAGE REPAIR with minimal enhancement, NOT a beauty filter.
 
-REPAIR DAMAGE:
-- Remove scratches, tears, cracks, stains, fading
+ABSOLUTE PRESERVATION RULES - NEVER VIOLATE:
+1. FACIAL EXPRESSIONS: Keep EXACT same expression - if serious, stay serious; if smiling, keep same smile intensity
+2. EMOTIONAL STATE: Preserve the EXACT mood (happy/sad/serious/contemplative)
+3. FACIAL FEATURES: Keep EXACT wrinkles, age lines, skin texture, natural imperfections
+4. BODY & POSE: Keep EXACT positions, gestures, angles
+5. ORIGINAL CHARACTER: Preserve the person's authentic look and personality
+
+REPAIR DAMAGE (primary goal):
+- Remove scratches, tears, cracks, water stains, fold marks
+- Fix color fading, yellowing, and discoloration
 - Reduce noise and grain moderately
 - Fix blur and improve clarity in damaged areas
 - Restore colors where faded
 
-FORBIDDEN ACTIONS:
-- DO NOT change facial expressions or emotions
-- DO NOT add details that weren't there
-- DO NOT "enhance" beyond damage repair
-- DO NOT change the mood or feeling of the photo
+MINIMAL ENHANCEMENT (only if needed):
+- Slight clarity improvement in undamaged areas
+- Gentle contrast adjustment for better visibility
+- Color balance correction if severely off
 
-GOAL: Repair damage while keeping the soul of the original photo intact.`,
+STRICTLY FORBIDDEN:
+- DO NOT change facial expressions or emotions (no smile adjustment, no eye widening)
+- DO NOT "beautify" faces (no skin smoothing, no wrinkle removal, no eye brightening)
+- DO NOT add details that weren't visible in the original
+- DO NOT change the mood or feeling
+- DO NOT modernize the look
+
+VERIFICATION: The person's expression and character should feel IDENTICAL to the original.
+GOAL: Repair damage and restore clarity, preserve authenticity 100%.`,
       
       'deep': `Restore this old or damaged photo with THOROUGH approach.
-ABSOLUTE RULES - NEVER VIOLATE:
-1. PRESERVE: facial expressions, core emotions, personality
-2. PRESERVE: poses, main composition, key elements
+CRITICAL: Maximum quality restoration while preserving the person's authentic character.
 
-THOROUGH REPAIR:
-- Remove all damage: scratches, tears, cracks, stains, discoloration
+ABSOLUTE PRESERVATION RULES - NEVER VIOLATE:
+1. FACIAL EXPRESSIONS: Keep EXACT same expression and emotional state
+2. PERSONALITY: Preserve the person's authentic character and vibe
+3. CORE FEATURES: Keep facial structure, eye shape, nose, mouth proportions
+4. NATURAL AGING: Keep age-appropriate features (wrinkles, gray hair, etc.)
+
+THOROUGH REPAIR (primary goal):
+- Remove ALL damage: scratches, tears, cracks, stains, discoloration, water marks
 - Significantly reduce noise and grain
-- Fix blur and maximize clarity
-- Enhance overall quality and sharpness
-- Restore colors and contrast
+- Fix blur and maximize clarity and sharpness
+- Restore colors and contrast to natural levels
+- Enhance overall technical quality
 
-ALLOWED ENHANCEMENTS:
-- Improve technical quality (sharpness, clarity, color)
-- Reduce noise and artifacts
-- Fix lighting and exposure
+QUALITY ENHANCEMENTS (allowed):
+- Improve sharpness and detail clarity
+- Restore natural color balance
+- Fix exposure and lighting issues
+- Reduce artifacts and compression damage
+- Enhance texture definition
 
-FORBIDDEN ACTIONS:
-- DO NOT change facial expressions or core emotions
-- DO NOT change poses or main composition
-- DO NOT add elements that weren't there
+STRICTLY FORBIDDEN:
+- DO NOT change facial expressions or emotions (keep original mood)
+- DO NOT alter core facial features or proportions
+- DO NOT "beautify" or apply beauty filters
+- DO NOT add elements that weren't in the original
+- DO NOT change the person's age appearance
+- DO NOT modernize hairstyles or clothing
 
-GOAL: Maximum quality restoration while preserving the essence and character of the original.`
+VERIFICATION: The person should look like a high-quality version of themselves, not a different person.
+GOAL: Maximum technical quality while preserving 100% authenticity and character.`,
     };
     
     const prompt = prompts[restoreLevel] || prompts['standard'];
