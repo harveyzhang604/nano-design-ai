@@ -53,6 +53,7 @@ const tools = [
   { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
   { id: 'chibi', name: 'Chibi卡通', icon: Smile, color: 'from-pink-500 to-rose-500', desc: '超萌Q版卡通', category: 'P2' },
   { id: 'pet-humanize', name: '宠物拟人化', icon: Heart, color: 'from-purple-500 to-fuchsia-500', desc: '宠物变人类', category: 'P2' },
+  { id: 'pet-family', name: '宠物家族', icon: Heart, color: 'from-rose-500 to-pink-500', desc: '多只宠物拟人合影', category: 'P2' },
   { id: 'meme', name: '表情包', icon: Calculator, color: 'from-yellow-400 to-amber-600', desc: '文字生成表情包', category: 'P2' },
   { id: 'greeting', name: '生日贺卡', icon: Heart, color: 'from-pink-400 to-rose-500', desc: 'AI定制贺卡', category: 'P2' },
   { id: 'pet-cartoon', name: '宠物卡通化', icon: Heart, color: 'from-pink-500 to-rose-500', desc: '宠物变卡通+拟人化', category: 'P2' },
@@ -226,6 +227,7 @@ export default function ToolsPage() {
       'character-library': '/api/character-library',
       'style-mix': '/api/style-mix',
       'pseudo-animation': '/api/pseudo-animation',
+      'pet-family': '/api/pet-family',
     };
     return endpoints[toolId] || '/api/generate';
   };
