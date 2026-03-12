@@ -151,6 +151,20 @@ GOAL: Like a real toddler photo - adorable, playful, makes you excited for the f
     
     const prompt = `${agePrompts[babyAge] || agePrompts['newborn']} Analyze the facial features, skin tone, eye color, and other characteristics from both parent images to create a realistic prediction.`;
 
+    // 获取父母照片
+    const [parent1Response, parent2Response] = await Promise.all([
+      fetch(parent1Url),
+      fetch(parent2Url)
+    ]);
+
+    const [parent1Buffer, parent2Buffer] = await Promise.all([
+      parent1Response.arrayBuffer(),
+      parent2Response.arrayBuffer()
+    ]);
+
+    const parent1Base64 = Buffer.from(parent1Buffer).toString('base64');
+    const parent2Base64 = Buffer.from(parent2Buffer).toString('base64');
+
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
       headers: { 
@@ -159,7 +173,13 @@ GOAL: Like a real toddler photo - adorable, playful, makes you excited for the f
       },
       body: JSON.stringify({
         contents: [{
-          parts: [{ text: prompt }]
+          parts: [
+            { text: "Parent 1:" },
+            { inlineData: { mimeType: "image/jpeg", data: parent1Base64 } },
+            { text: "Parent 2:" },
+            { inlineData: { mimeType: "image/jpeg", data: parent2Base64 } },
+            { text: prompt }
+          ]
         }],
         generationConfig: {
           temperature: 0.5,
