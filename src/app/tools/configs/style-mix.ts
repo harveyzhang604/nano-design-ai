@@ -8,7 +8,7 @@ export const styleMixConfig: ToolConfig = {
       name: '霓虹吉卜力',
       description: '80s霓虹 + 宫崎骏手绘',
       params: { 
-        styles: ['80s-neon', 'ghibli'],
+        styles: '80s-neon,ghibli',
         blendMode: 'balanced'
       }
     },
@@ -17,7 +17,7 @@ export const styleMixConfig: ToolConfig = {
       name: '赛博水彩',
       description: '赛博朋克 + 水彩画',
       params: { 
-        styles: ['cyberpunk', 'watercolor'],
+        styles: 'cyberpunk,watercolor',
         blendMode: 'balanced'
       }
     },
@@ -26,7 +26,7 @@ export const styleMixConfig: ToolConfig = {
       name: '复古波普',
       description: '70s复古 + 波普艺术',
       params: { 
-        styles: ['vintage-70s', 'pop-art'],
+        styles: 'vintage-70s,pop-art',
         blendMode: 'balanced'
       }
     },
@@ -35,7 +35,7 @@ export const styleMixConfig: ToolConfig = {
       name: '黑色印象派',
       description: '黑色电影 + 印象派',
       params: { 
-        styles: ['film-noir', 'impressionist'],
+        styles: 'film-noir,impressionist',
         blendMode: 'balanced'
       }
     },
@@ -44,7 +44,7 @@ export const styleMixConfig: ToolConfig = {
       name: '三重融合',
       description: 'Ghibli + 水彩 + 极简',
       params: { 
-        styles: ['ghibli', 'watercolor', 'minimalist'],
+        styles: 'ghibli,watercolor,minimalist',
         blendMode: 'balanced'
       }
     }
