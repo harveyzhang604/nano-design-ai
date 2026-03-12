@@ -7,25 +7,37 @@ export const chibiConfig: ToolConfig = {
       id: 'cute', 
       name: '超萌 Chibi 🥺', 
       description: '大头小身，超级可爱', 
-      params: { style: 'cute', headSize: 90 } 
+      params: { style: 'cute', headSize: 90, profession: 'none' } 
     },
     { 
       id: 'kawaii', 
       name: 'Kawaii 风格 ✨', 
       description: '日系可爱风格', 
-      params: { style: 'kawaii', headSize: 85 } 
+      params: { style: 'kawaii', headSize: 85, profession: 'none' } 
     },
     { 
-      id: 'sd', 
-      name: 'SD 娃娃 🎀', 
-      description: 'Super Deformed 风格', 
-      params: { style: 'sd', headSize: 95 } 
+      id: 'doctor', 
+      name: 'Q版医生 👨‍⚕️', 
+      description: '超萌医生装', 
+      params: { style: 'cute', headSize: 90, profession: 'doctor' } 
     },
     { 
-      id: 'anime-chibi', 
-      name: '动漫 Chibi 🌸', 
-      description: '动漫风格的 Q 版', 
-      params: { style: 'anime-chibi', headSize: 88 } 
+      id: 'programmer', 
+      name: 'Q版程序员 👨‍💻', 
+      description: '超萌程序员装', 
+      params: { style: 'cute', headSize: 90, profession: 'programmer' } 
+    },
+    { 
+      id: 'chef', 
+      name: 'Q版厨师 👨‍🍳', 
+      description: '超萌厨师装', 
+      params: { style: 'cute', headSize: 90, profession: 'chef' } 
+    },
+    { 
+      id: 'astronaut', 
+      name: 'Q版宇航员 👨‍🚀', 
+      description: '超萌宇航服', 
+      params: { style: 'cute', headSize: 90, profession: 'astronaut' } 
     }
   ],
   params: [
@@ -69,6 +81,27 @@ export const chibiConfig: ToolConfig = {
         { value: 'sparkle', label: '闪亮星星背景' },
         { value: 'simple', label: '简洁纯色' },
         { value: 'transparent', label: '透明背景' }
+      ]
+    },
+    {
+      id: 'profession',
+      name: '职业装',
+      type: 'select',
+      default: 'none',
+      options: [
+        { value: 'none', label: '无职业装' },
+        { value: 'doctor', label: '医生 👨‍⚕️' },
+        { value: 'nurse', label: '护士 👩‍⚕️' },
+        { value: 'programmer', label: '程序员 👨‍💻' },
+        { value: 'chef', label: '厨师 👨‍🍳' },
+        { value: 'teacher', label: '教师 👨‍🏫' },
+        { value: 'astronaut', label: '宇航员 👨‍🚀' },
+        { value: 'police', label: '警察 👮' },
+        { value: 'firefighter', label: '消防员 👨‍🚒' },
+        { value: 'pilot', label: '飞行员 👨‍✈️' },
+        { value: 'scientist', label: '科学家 👨‍🔬' },
+        { value: 'artist', label: '艺术家 👨‍🎨' },
+        { value: 'musician', label: '音乐家 👨‍🎤' }
       ]
     }
   ]

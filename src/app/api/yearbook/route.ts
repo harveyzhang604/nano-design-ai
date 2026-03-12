@@ -80,6 +80,54 @@ export async function POST(req: Request) {
     
     // 年代风格映射
     const decadePrompts: Record<string, string> = {
+      '60s': `Transform this photo into an authentic 1960s HIGH SCHOOL YEARBOOK portrait.
+
+PHOTOGRAPHY STYLE:
+- Classic 1960s school photography aesthetic
+- Black and white or slightly sepia-toned
+- Studio lighting with simple backdrop
+- Film grain typical of 60s photos
+- Professional yearbook portrait composition
+
+STYLING (1960s):
+- 60s hairstyles: bouffant, beehive, clean-cut, or Beatles-inspired
+- Natural makeup (if applicable): subtle, classic
+- 60s fashion: Peter Pan collars, cardigans, clean-cut preppy
+- Accessories: pearls, simple jewelry, classic frames
+- Genuine smile, formal yearbook pose
+
+TECHNICAL:
+- Black and white or sepia tone
+- Film photography quality
+- Authentic 1960s yearbook aesthetic
+- Classic, timeless feel
+
+IMPORTANT: Make it look like a real 1960s yearbook photo!`,
+      
+      '70s': `Transform this photo into an authentic 1970s HIGH SCHOOL YEARBOOK portrait.
+
+PHOTOGRAPHY STYLE:
+- Classic 1970s school photography aesthetic
+- Warm, slightly orange-tinted colors
+- Studio lighting with simple backdrop
+- Film grain and color shift typical of 70s photos
+- Professional yearbook portrait composition
+
+STYLING (1970s):
+- 70s hairstyles: long, flowing hair, afros, or feathered styles
+- Natural makeup (if applicable): earthy tones
+- 70s fashion: wide collars, earth tones, patterns
+- Accessories: headbands, natural jewelry
+- Genuine smile, classic yearbook pose
+
+TECHNICAL:
+- Warm, faded colors (aged photo feel)
+- Film photography quality
+- Authentic 1970s yearbook aesthetic
+- Retro nostalgia
+
+IMPORTANT: Make it look like a real 1970s yearbook photo!`,
+      
       '80s': `Transform this photo into an authentic 1980s HIGH SCHOOL YEARBOOK portrait.
 
 PHOTOGRAPHY STYLE:
@@ -151,6 +199,30 @@ TECHNICAL:
 - Y2K nostalgia feel
 
 IMPORTANT: Make it look like a real 2000s yearbook photo!`,
+      
+      '10s': `Transform this photo into an authentic 2010s HIGH SCHOOL YEARBOOK portrait.
+
+PHOTOGRAPHY STYLE:
+- Modern high-resolution digital photography
+- Sharp, clear focus with professional quality
+- Professional studio lighting (soft, even)
+- Clean, modern backdrop (gray, blue, or gradient)
+- Contemporary yearbook portrait composition
+
+STYLING (2010s):
+- 2010s hairstyles: natural waves, ombre, side-swept, modern cuts
+- Makeup (if applicable): natural contour, Instagram-inspired, defined brows
+- 2010s fashion: casual modern, simple tops, minimal accessories
+- Accessories: minimal jewelry, modern glasses, natural look
+- Natural, confident smile, relaxed modern pose
+
+TECHNICAL:
+- High-resolution digital quality
+- Natural, accurate colors
+- Modern photography aesthetic
+- Contemporary, social media influenced
+
+IMPORTANT: Make it look like a real 2010s yearbook photo!`,
       
       '70s': `Transform this photo into an authentic 1970s HIGH SCHOOL YEARBOOK portrait.
 

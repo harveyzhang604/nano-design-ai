@@ -54,7 +54,14 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, style = 'cute', headSize = 90, eyeSize = 85, background = 'pastel' } = await req.json();
+    const { 
+      imageUrl, 
+      style = 'cute', 
+      headSize = 90, 
+      eyeSize = 85, 
+      background = 'pastel',
+      profession = 'none'
+    } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -94,8 +101,65 @@ export async function POST(req: Request) {
       'simple': 'clean, simple solid color background that complements the character',
       'transparent': 'transparent background (PNG with alpha channel)'
     };
+    
+    // 职业装描述
+    const professionOutfits: Record<string, string> = {
+      'none': '',
+      'doctor': 'wearing cute doctor outfit: white coat, stethoscope, medical cap',
+      'nurse': 'wearing cute nurse outfit: nurse cap with red cross, white uniform',
+      'programmer': 'wearing cute programmer outfit: hoodie, glasses, laptop or keyboard accessory',
+      'chef': 'wearing cute chef outfit: tall chef hat, white chef coat, holding tiny cooking utensil',
+      'teacher': 'wearing cute teacher outfit: professional attire, holding tiny book or pointer',
+      'astronaut': 'wearing cute astronaut outfit: space suit, helmet, NASA patch',
+      'police': 'wearing cute police outfit: police cap, badge, uniform',
+      'firefighter': 'wearing cute firefighter outfit: firefighter helmet, protective gear',
+      'pilot': 'wearing cute pilot outfit: pilot cap, aviator sunglasses, uniform',
+      'scientist': 'wearing cute scientist outfit: lab coat, safety goggles, holding beaker',
+      'artist': 'wearing cute artist outfit: beret, paint palette, brush',
+      'musician': 'wearing cute musician outfit: holding tiny instrument, music notes around'
+    };
 
-    const prompt = `Turn this portrait into a cute chibi illustration. Keep the same identity, hair color, outfit colors, and facial expression, but use a very large head, tiny body, soft rounded shapes, big sparkling eyes, and a playful polished cartoon finish. Use ${backgroundDescriptions[background]}. Keep it adorable and family-friendly.`;
+    const professionText = profession !== 'none' ? `\n\nPROFESSION OUTFIT:\n${professionOutfits[profession]}` : '';
+
+    const prompt = `Transform this person into an ADORABLE CHIBI character - SUPER CUTE and EXPRESSIVE!
+
+CHIBI PHILOSOPHY: Chibi is about maximum cuteness, exaggerated proportions, and pure joy.
+
+CHIBI PROPORTIONS:
+- ${proportionLevel} (head is HUGE compared to body)
+- Tiny, cute body (short arms and legs)
+- ${eyeSizeLevel}
+- Small nose and mouth (simple, cute)
+- Round, soft shapes everywhere (no sharp angles)
+
+CHIBI FEATURES:
+- Huge, sparkling eyes with highlights (anime-style)
+- Rosy cheeks (cute blush)
+- Simple, expressive facial features
+- Soft, rounded body shapes
+- Tiny hands and feet (adorable)
+- ${styleDescriptions[style]}${professionText}
+
+CHARACTER CONSISTENCY:
+- Keep the person's hair color and style (chibi version)
+- Maintain their distinctive features (in cute form)
+- Preserve their personality and expression
+- Keep them recognizable but SUPER CUTE
+
+VISUAL STYLE:
+- Clean, polished illustration
+- Vibrant, appealing colors
+- Soft shading and highlights
+- Professional chibi art quality
+- ${backgroundDescriptions[background]}
+
+MOOD:
+- Adorable and joyful
+- Expressive and lively
+- Pure cuteness overload
+- Makes you go "awww!"
+
+GOAL: Create an irresistibly cute chibi character that captures the person's essence in the most adorable way possible!`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -114,7 +178,7 @@ export async function POST(req: Request) {
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,
-                      }
+          }
         })
       }
     );
@@ -144,7 +208,8 @@ export async function POST(req: Request) {
     
     return NextResponse.json({ 
       success: true,
-      imageUrl: r2Url || generatedImageDataUrl
+      imageUrl: r2Url || generatedImageDataUrl,
+      profession
     });
 
   } catch (error) {
