@@ -53,21 +53,10 @@ export const styleMixConfig: ToolConfig = {
     {
       id: 'styles',
       name: '风格组合',
-      type: 'multiselect',
-      default: [],
-      options: [
-        { value: 'ghibli', label: 'Ghibli 吉卜力' },
-        { value: '80s-neon', label: '80s 霓虹' },
-        { value: 'film-noir', label: '黑色电影' },
-        { value: 'watercolor', label: '水彩画' },
-        { value: 'cyberpunk', label: '赛博朋克' },
-        { value: 'vintage-70s', label: '70s 复古' },
-        { value: 'minimalist', label: '极简主义' },
-        { value: 'baroque', label: '巴洛克' },
-        { value: 'pop-art', label: '波普艺术' },
-        { value: 'impressionist', label: '印象派' }
-      ],
-      description: '选择2-3种风格混合（最多3种）'
+      type: 'text',
+      default: 'ghibli,watercolor',
+      description: '输入2-3种风格（用逗号分隔）',
+      placeholder: 'ghibli,watercolor,minimalist'
     },
     {
       id: 'blendMode',

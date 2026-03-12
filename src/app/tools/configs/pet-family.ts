@@ -52,10 +52,11 @@ export const petFamilyConfig: ToolConfig = {
   params: [
     {
       id: 'petImages',
-      name: '宠物图片',
-      type: 'multiimage',
-      default: [],
-      description: '上传2-5张宠物照片'
+      name: '宠物图片URL',
+      type: 'text',
+      default: '',
+      description: '输入宠物图片URL（多张用逗号分隔）',
+      placeholder: 'https://example.com/pet1.jpg, https://example.com/pet2.jpg'
     },
     {
       id: 'scene',
