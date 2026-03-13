@@ -6,7 +6,7 @@ import {
   Scissors, RefreshCw, Smile, Baby, Filter, Layers,
   Shirt, Home, MapPin, Calculator, PartyPopper,
   Heart, Wand, SunMedium, Contrast, Crop, RotateCw,
-  FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map
+  FlipHorizontal, Type, Grid, Monitor, Smartphone, Camera, Map, Box
 } from '@/components/icons';
 import ToolParams from './components/ToolParams';
 import { toolConfigs } from './configs';
@@ -55,7 +55,13 @@ const tools = [
   { id: 'style-mix', name: '风格混搭', icon: Layers, color: 'from-fuchsia-500 to-pink-500', desc: '2-3种风格混合', category: 'P1' },
   { id: 'pseudo-animation', name: '伪动画', icon: RotateCw, color: 'from-cyan-500 to-blue-500', desc: '3-5帧关键帧动画', category: 'P1' },
   
+  // P1 - 重要功能
+  { id: 'claymation', name: '黏土动画', icon: Paintbrush, color: 'from-orange-500 to-amber-500', desc: 'Wallace & Gromit风格', category: 'P1' },
+  { id: 'action-figure', name: '可动手办', icon: Box, color: 'from-red-500 to-rose-500', desc: 'Hot Toys风格', category: 'P1' },
+  { id: 'pixel-art', name: '像素艺术', icon: Grid, color: 'from-green-500 to-emerald-500', desc: '8-bit/16-bit/32-bit', category: 'P1' },
+  
   // P2 - 有趣功能
+  { id: 'blythe-doll', name: 'Blythe娃娃', icon: Smile, color: 'from-pink-500 to-rose-500', desc: 'Blythe娃娃风格', category: 'P2' },
   { id: 'italian-gesture', name: '意大利手势', icon: Wand, color: 'from-red-500 to-orange-500', desc: '6种经典意式手势', category: 'P2' },
   { id: 'chibi', name: 'Chibi卡通', icon: Smile, color: 'from-pink-500 to-rose-500', desc: '超萌Q版卡通', category: 'P2' },
   { id: 'pet-humanize', name: '宠物拟人化', icon: Heart, color: 'from-purple-500 to-fuchsia-500', desc: '宠物变人类', category: 'P2' },
