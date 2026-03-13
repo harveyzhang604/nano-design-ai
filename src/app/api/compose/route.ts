@@ -134,7 +134,8 @@ Requirements:
           generationConfig: {
             temperature: 0.4,
             topK: 32,
-            topP: 0.9
+            topP: 0.9,
+            maxOutputTokens: 8192
           }
         })
       }
