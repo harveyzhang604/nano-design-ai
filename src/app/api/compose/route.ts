@@ -71,9 +71,14 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    // 转换所有图片为 base64
+    // 处理图片：如果是 data URL 直接用，否则下载
     const imageBase64Array = await Promise.all(
-      imageUrls.map(url => imageToBase64(url))
+      imageUrls.map(async (url: string) => {
+        if (url.startsWith('data:')) {
+          return url;
+        }
+        return await imageToBase64(url);
+      })
     );
     
     // 根据混合模式调整 prompt
