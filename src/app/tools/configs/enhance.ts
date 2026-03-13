@@ -4,12 +4,52 @@ export const enhanceConfig: ToolConfig = {
   id: 'enhance',
   presets: [
     {
+      id: 'light',
+      name: '轻度增强',
+      description: '轻微优化，保留原图风格',
+      params: { 
+        mode: 'smart',
+        strength: 30,
+        denoise: true
+      }
+    },
+    {
+      id: 'moderate',
+      name: '中度增强',
+      description: '适中优化，效果明显但不夸张',
+      params: { 
+        mode: 'smart',
+        strength: 50,
+        denoise: true
+      }
+    },
+    {
       id: 'smart',
       name: '智能增强',
       description: 'AI自动优化，适合大部分照片',
       params: { 
         mode: 'smart',
         strength: 70,
+        denoise: true
+      }
+    },
+    {
+      id: 'strong',
+      name: '强力增强',
+      description: '显著增强，效果明显',
+      params: { 
+        mode: 'smart',
+        strength: 85,
+        denoise: true
+      }
+    },
+    {
+      id: 'maximum',
+      name: ' максимал增强',
+      description: '最大程度增强，适合老照片或低质量图片',
+      params: { 
+        mode: 'smart',
+        strength: 100,
         denoise: true
       }
     },
@@ -74,7 +114,8 @@ export const enhanceConfig: ToolConfig = {
       type: 'slider',
       default: 70,
       min: 0,
-      max: 100
+      max: 100,
+      description: '0=原图，100=最大增强'
     },
     {
       id: 'denoise',

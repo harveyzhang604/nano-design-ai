@@ -46,12 +46,13 @@ async function uploadToR2(base64Data: string, prefix: string = 'faceswap'): Prom
 export async function POST(req: Request) {
   try {
     const { 
-      sourceImageUrl, 
+      imageUrl, 
       targetImageUrl,
-      preserveExpression = true
+      preserveExpression = true,
+      intensity = 85
     } = await req.json();
     
-    if (!sourceImageUrl || !targetImageUrl) {
+    if (!imageUrl || !targetImageUrl) {
       return NextResponse.json({ error: 'Both source and target images are required' }, { status: 400 });
     }
     
@@ -62,6 +63,17 @@ export async function POST(req: Request) {
         error: 'System Error: GEMINI_API_KEY not configured.'
       }, { status: 500 });
     }
+
+    // 下载图片并转换为 base64
+    const fetchImage = async (url: string) => {
+      const response = await fetch(url);
+      const arrayBuffer = await response.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      return buffer.toString('base64');
+    };
+
+    const sourceBase64 = await fetchImage(imageUrl);
+    const targetBase64 = await fetchImage(targetImageUrl);
 
     // 换脸功能 - 2026-03-12 优化：增加情绪保留选项
     const expressionInstruction = preserveExpression 
@@ -81,14 +93,19 @@ ADAPT TO TARGET EXPRESSION:
 - Natural expression that fits the target context
 - Blend the new face naturally with target's expression`;
 
-    const prompt = `Swap faces between these two images - make it look SEAMLESS and NATURAL.
+    const prompt = `Swap the face from the FIRST image onto the person in the SECOND image - make it look SEAMLESS and NATURAL.
 
-PHILOSOPHY: Great face swaps look real, not fake or creepy.
+CRITICAL: You must use BOTH images provided - the source face from the first image and the target body/scene from the second image.
+
+SOURCE IMAGE (first): This is the face you will swap FROM - use this person's face
+TARGET IMAGE (second): This is the person/scene you will swap TO - this is the body/scene that will receive the new face
+
+PHILOSOPHY: Great face swaps look real, not fake or creepy. The result should look like a genuine photograph.
 
 FACE SWAP PROCESS:
-- Take the face from source image
-- Place it on target image's body
-- Match skin tone perfectly (natural color matching)
+- Take the face from SOURCE image (first)
+- Replace the face on TARGET image (second)
+- Match skin tone perfectly (seamless color blending)
 - Match lighting and shadows (same lighting as target)
 - Seamless blending at edges (no visible seams)
 - Natural, realistic result
@@ -108,16 +125,32 @@ NATURAL INTEGRATION:
 - Adjust face size to fit naturally
 - Match lighting direction and intensity
 - Seamless, invisible transitions
+- Color grade to match target's overall look
+
+${preserveExpression ? `
+EXPRESSION PRESERVATION (STRICT):
+- KEEP the exact facial expression from SOURCE image
+- If source is smiling, keep THAT exact smile (width, curve, teeth)
+- If source is serious, keep THAT exact serious expression
+- If source has any unique expression, preserve it exactly
+- Match eye expression, eyebrow position, mouth shape
+- This expression defines the person - preserve it 100%` : `
+EXPRESSION ADAPTATION:
+- Adapt the source face to fit target's expression context
+- Natural expression that matches the scene mood
+- Subtle blending of source features with target mood`}
 
 FORBIDDEN:
 - DO NOT make it look fake or artificial
 - DO NOT create visible seams or edges
-- DO NOT mismatch skin tones
+- DO NOT mismatch skin tones (must blend perfectly)
 - DO NOT ignore lighting differences
-- DO NOT make it look creepy or uncanny
-${preserveExpression ? '- DO NOT change the facial expression from source' : ''}
+- DO NOT make it look creepy or uncanny valley
+- DO NOT change the expression if preserveExpression is true
 
-GOAL: Like a real photo - seamless, natural, looks like they were always in that scene.`;
+GOAL: Professional quality face swap that looks like a real photo - seamless, natural, and indistinguishable from reality.
+
+Quality: High resolution, photorealistic, cinematic lighting.`;
 
     const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
       method: "POST",
@@ -127,10 +160,14 @@ GOAL: Like a real photo - seamless, natural, looks like they were always in that
       },
       body: JSON.stringify({
         contents: [{
-          parts: [{ text: prompt }]
+          parts: [
+            { text: prompt },
+            { inlineData: { mimeType: "image/png", data: sourceBase64 } },
+            { inlineData: { mimeType: "image/png", data: targetBase64 } }
+          ]
         }],
         generationConfig: {
-          temperature: 0.4,
+          temperature: 0.3,
           topK: 40,
           topP: 0.95
         }

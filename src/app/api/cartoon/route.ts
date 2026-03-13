@@ -66,6 +66,52 @@ FORBIDDEN:
 
 GOAL: Western cartoon style while maintaining recognizability.`,
 
+      'pixar': `Convert this photo to PIXAR 3D ANIMATION STYLE - professional quality CGI animation character.
+
+PIXAR-STYLE CHARACTERISTICS:
+- Realistic yet stylized human/cartoon features
+- Incredibly detailed 3D rendering with photorealistic textures
+- Soft, warm lighting with subtle shadows
+- Expressive, large eyes with realistic reflections
+- Smooth, organic body forms and shapes
+- Detailed fabric/hair simulation
+- Professional CGI movie quality
+- Warm, inviting color palette
+- Epic, cinematic composition
+- Heartwarming, emotional quality
+
+PRESERVE EXACTLY:
+- Exact facial features and bone structure
+- Natural facial expressions (smile, gaze direction)
+- Body proportions and pose
+- Hair style and color
+- Clothing and accessories
+- Character personality and essence
+
+PIXAR RENDERING TECHNIQUES:
+- Subsurface scattering for skin (realistic skin tones)
+- Detailed eye rendering with iris reflections
+- Soft ambient occlusion and contact shadows
+- Volumetric lighting effects
+- Hair/fur simulation with individual strands
+- Cloth physics and wrinkle details
+- Film-quality post-processing
+
+EMOTIONAL QUALITY:
+- Capture warmth and personality
+- Expressive, soulful eyes
+- Relatable, endearing character
+- Cinematic storytelling feel
+
+FORBIDDEN:
+- Do NOT change facial expressions
+- Do NOT alter the character's identity
+- Do NOT add elements not in original
+- Do NOT make it look like other studios
+- Do NOT lose the heartwarming quality
+
+GOAL: Professional Pixar-quality 3D animation character that's instantly recognizable as premium CGI animation.`,
+
       '3d': `Convert this photo to 3D animated character style (Pixar/Disney).
 PRESERVE EXACTLY:
 - Facial features and expressions
