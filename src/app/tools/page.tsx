@@ -86,12 +86,12 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
           : 'hover:border-neutral-700 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-1'
       }`}
     >
-      {/* 示例图片 - Nano Banana Pro 生成的真实对比图 */}
+      {/* 示例图片 - 处理后的效果图 */}
       <div className="relative h-32 bg-neutral-800 overflow-hidden">
         <img 
           src={exampleImage}
-          alt={`${tool.name} 效果对比`}
-          className="w-full h-full object-contain"
+          alt={`${tool.name} 效果`}
+          className="w-full h-full object-cover"
           loading="lazy"
           decoding="async"
           onError={(e) => {
