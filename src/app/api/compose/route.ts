@@ -162,25 +162,15 @@ Requirements:
     }
 
     const fullBase64 = `data:image/png;base64,${base64Data}`;
-    const r2Url = await uploadToR2(fullBase64, 'compose');
     
-    if (r2Url) {
-      return NextResponse.json({ 
-        imageUrl: r2Url, 
-        isR2: true,
-        mode: 'compose'
-      }, {
-        headers: { 'Cache-Control': 'no-store, max-age=0' }
-      });
-    } else {
-      return NextResponse.json({ 
-        imageUrl: fullBase64, 
-        isR2: false,
-        mode: 'compose'
-      }, {
-        headers: { 'Cache-Control': 'no-store, max-age=0' }
-      });
-    }
+    // 直接返回 base64，不上传 R2（避免超时问题）
+    return NextResponse.json({ 
+      imageUrl: fullBase64, 
+      isR2: false,
+      mode: 'compose'
+    }, {
+      headers: { 'Cache-Control': 'no-store, max-age=0' }
+    });
   } catch (error: any) {
     console.error('Compose error:', error);
     return NextResponse.json({ 
