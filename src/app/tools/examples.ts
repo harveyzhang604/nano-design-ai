@@ -161,5 +161,21 @@ export const toolExamples: Record<string, { image: string; description: string }
   'outfit-change': {
     image: '/outfit-change-example.png',
     description: 'AI换装，虚拟试穿'
+  },
+  'claymation': {
+    image: '/claymation-example.png',
+    description: '黏土动画风格'
+  },
+  'action-figure': {
+    image: '/action-figure-example.png',
+    description: '可动手办风格'
+  },
+  'pixel-art': {
+    image: '/pixel-art-example.png',
+    description: '像素艺术风格'
+  },
+  'blythe-doll': {
+    image: '/blythe-doll-example.png',
+    description: 'Blythe 娃娃风格'
   }
 };

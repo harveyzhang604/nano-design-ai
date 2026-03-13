@@ -51,6 +51,10 @@ import { makeupConfig } from './makeup';
 import { tattooConfig } from './tattoo';
 import { petCartoonConfig } from './pet-cartoon';
 import { ageTransformConfig } from './age-transform';
+import { claymationConfig } from './claymation';
+import { actionFigureConfig } from './action-figure';
+import { pixelArtConfig } from './pixel-art';
+import { blytheConfig } from './blythe-doll';
 
 export const toolConfigs: Record<string, ToolConfig> = {
   'enhance': enhanceConfig,
@@ -103,6 +107,10 @@ export const toolConfigs: Record<string, ToolConfig> = {
   'makeup': makeupConfig,
   'tattoo': tattooConfig,
   'pet-cartoon': petCartoonConfig,
+  'claymation': claymationConfig,
+  'action-figure': actionFigureConfig,
+  'pixel-art': pixelArtConfig,
+  'blythe-doll': blytheConfig,
 };
 
 export * from './enhance';
@@ -156,3 +164,7 @@ export * from './hairstyle';
 export * from './makeup';
 export * from './tattoo';
 export * from './pet-cartoon';
+export * from './claymation';
+export * from './action-figure';
+export * from './pixel-art';
+export * from './blythe-doll';

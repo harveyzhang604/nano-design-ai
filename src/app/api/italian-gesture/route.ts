@@ -113,7 +113,17 @@ export async function POST(req: Request) {
 - Natural, expressive execution`;
     }
 
-    const prompt = `Transform this person into making an AUTHENTIC ITALIAN HAND GESTURE - capture PASSION and EXPRESSION!
+    const prompt = `Transform this person into making an AUTHENTIC ITALIAN HAND GESTURE with BAROQUE PAINTING AESTHETIC!
+
+BAROQUE PAINTING STYLE:
+- Rich, dramatic chiaroscuro lighting (strong light/shadow contrast)
+- Warm, golden Renaissance color palette
+- Painterly texture with visible brushstrokes
+- Classical Italian Renaissance/Baroque composition
+- Theatrical, dramatic atmosphere
+- Oil painting quality with rich colors
+- Caravaggio-inspired dramatic lighting
+- Titian-style warm golden tones
 
 ITALIAN GESTURE PHILOSOPHY: Italian gestures are about emotion, communication, and cultural expression. They're not just hand movements - they're a language of passion!
 
@@ -123,33 +133,37 @@ EXPRESSION INTENSITY: ${intensityLevel}
 
 GESTURE EXECUTION:
 - Hand position must be CLEAR and RECOGNIZABLE
-- Anatomically correct fingers and hand shape
+- Anatomically correct fingers and hand shape (Renaissance accuracy)
 - Natural arm position and body language
 - Facial expression matches the gesture emotion
 - Intensity level: ${intensity}% (${intensity >= 90 ? 'very theatrical' : intensity >= 75 ? 'naturally passionate' : 'subtle and refined'})
 
 CHARACTER CONSISTENCY:
 - Keep the SAME person (identical face, features, identity)
-- Maintain their clothing and style
+- Maintain their clothing and style (but with Baroque painting texture)
 - Preserve their personality
-- Only add the gesture and expression
+- Only add the gesture, expression, and Baroque painting style
 
-ITALIAN ATMOSPHERE:
-- Background: ${background === 'original' ? 'keep original background' : backgroundDescriptions[background]}
-- Warm, Mediterranean lighting
-- Authentic Italian vibe
-- Passionate, expressive mood
+BAROQUE VISUAL TREATMENT:
+- Background: ${background === 'original' ? 'keep original background but add Baroque painting texture' : backgroundDescriptions[background] + ' rendered as a Baroque painting'}
+- Dramatic chiaroscuro lighting (Caravaggio style)
+- Warm golden tones and rich colors
+- Painterly texture throughout
+- Classical Italian Renaissance/Baroque aesthetic
+- Theatrical, dramatic mood
 
 VISUAL QUALITY:
-- Professional photography quality
-- Natural, believable execution
+- Oil painting texture and quality
+- Rich, saturated colors with warm tones
+- Dramatic lighting with deep shadows
 - Clear gesture visibility
-- Warm, inviting atmosphere
+- Authentic Baroque painting atmosphere
 
-GOAL: Create an authentic, expressive Italian gesture photo that captures passion, emotion, and cultural character!
+GOAL: Create an authentic Italian gesture photo that looks like a dramatic Baroque painting - combining passionate expression with classical Italian art aesthetics!
 
 Gesture: ${gesture}${combo && secondGesture ? ` + ${secondGesture}` : ''}
-Intensity: ${intensity}%`;
+Intensity: ${intensity}%
+Style: Baroque painting with dramatic chiaroscuro`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -164,9 +178,9 @@ Intensity: ${intensity}%`;
             ]
           }],
           generationConfig: {
-            temperature: 0.4 + (intensity / 500), // 强度越高，temperature 越高
-            topK: 32,
-            topP: 1,
+            temperature: 0.6 + (intensity / 400), // 强度越高，temperature 越高
+            topK: 40,
+            topP: 0.95,
             maxOutputTokens: 8192,
           }
         })
