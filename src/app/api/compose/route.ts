@@ -1,8 +1,8 @@
 import { NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
-// 使用 Node.js runtime 以避免 Edge 的超时限制
-export const dynamic = 'force-dynamic';
+// Cloudflare Pages 要求所有 API 统一使用 edge runtime
+export const runtime = 'edge';
 
 // R2 配置
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
@@ -163,7 +163,23 @@ Requirements:
 
     const fullBase64 = `data:image/png;base64,${base64Data}`;
     
-    // 直接返回 base64，不上传 R2（避免超时问题）
+    // 尝试上传 R2，如果超时则直接返回 base64
+    try {
+      const r2Url = await uploadToR2(fullBase64, 'compose');
+      if (r2Url) {
+        return NextResponse.json({ 
+          imageUrl: r2Url, 
+          isR2: true,
+          mode: 'compose'
+        }, {
+          headers: { 'Cache-Control': 'no-store, max-age=0' }
+        });
+      }
+    } catch (r2Error) {
+      console.error('R2 upload error:', r2Error);
+    }
+    
+    // 如果 R2 上传失败，直接返回 base64
     return NextResponse.json({ 
       imageUrl: fullBase64, 
       isR2: false,
