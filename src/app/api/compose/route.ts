@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
-export const runtime = 'edge';
+// 使用 Node.js runtime 以避免 Edge 的超时限制
+export const dynamic = 'force-dynamic';
 
 // R2 配置
 const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
