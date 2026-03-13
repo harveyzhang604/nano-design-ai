@@ -82,16 +82,20 @@ export async function POST(req: Request) {
       })
     );
     
-    // 根据混合模式调整 prompt
+    // 根据合成模式调整 prompt
     const blendPrompts: Record<string, string> = {
-      'natural': `Seamlessly blend these ${imageUrls.length} images into one cohesive composition. 
+      'guided': `Create ONE final merged image by following the user's instruction precisely.
+The uploaded images are ordered as Image 1, Image 2, Image 3, Image 4.
+When the user says “图1 / 图2 / 图3”, they mean Image 1 / Image 2 / Image 3.
+Respect source mapping exactly and combine only the requested elements.
+Make the result look natural, coherent, and realistic unless the user asks for another style.`,
+      'blend': `Seamlessly blend these ${imageUrls.length} images into one cohesive composition.
 Requirements:
 - Natural transitions between images
 - Consistent lighting and color tone
 - Clean edges without visible seams
 - Harmonious overall composition
 - Maintain subject clarity and detail`,
-      
       'artistic': `Create an artistic composition by blending these ${imageUrls.length} images.
 Requirements:
 - Creative and artistic fusion
@@ -99,7 +103,6 @@ Requirements:
 - Balanced composition
 - Unique artistic style
 - Maintain recognizable elements`,
-      
       'collage': `Create a modern collage from these ${imageUrls.length} images.
 Requirements:
 - Clear separation between images
@@ -108,8 +111,16 @@ Requirements:
 - Professional presentation
 - Balanced visual weight`
     };
-    
-    const finalPrompt = prompt || blendPrompts[blendMode] || blendPrompts['natural'];
+
+    const sourceGuide = imageUrls
+      .map((_: string, index: number) => `Image ${index + 1} = 图${index + 1}`)
+      .join('\n');
+
+    const userInstruction = prompt?.trim()
+      ? `User instruction:\n${prompt.trim()}`
+      : 'No extra instruction provided. Use the selected mode to compose the final image.';
+
+    const finalPrompt = `${blendPrompts[blendMode] || blendPrompts['guided']}\n\n${sourceGuide}\n\n${userInstruction}\n\nOutput rules:\n- Return exactly one final composed image\n- Follow the requested source mapping strictly\n- Keep identity/features from the referenced source image\n- If clothing/accessories are referenced, transfer only those items\n- Preserve clean edges and consistent perspective/lighting`;
 
     // 构建 API 请求的 parts
     const parts = [

@@ -278,7 +278,7 @@ export default function ToolsPage() {
       // 构建请求体，包含用户选择的参数
       const requestBody: any = activeTool === 'compose'
         ? {
-            prompt: `请把这 ${uploadedImages.length} 张图片做自然无缝合成，主体边缘干净，光影一致，结果真实。`,
+            prompt: toolParams.compositionPrompt?.trim() || `请把这 ${uploadedImages.length} 张图片做自然无缝合成，主体边缘干净，光影一致，结果真实。`,
             imageUrls: uploadedImages,
             ...toolParams
           }

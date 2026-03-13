@@ -12,7 +12,7 @@ export interface ToolPreset {
 export interface ToolParam {
   id: string;
   name: string;
-  type: 'slider' | 'select' | 'toggle' | 'text';
+  type: 'slider' | 'select' | 'toggle' | 'text' | 'textarea';
   min?: number;
   max?: number;
   step?: number;
