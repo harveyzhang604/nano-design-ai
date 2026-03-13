@@ -10,7 +10,7 @@ import json
 import os
 import time
 
-GEMINI_API_KEY = os.getenv('GEMINI_API_KEY', 'AIzaSyC0G0iyQGwlYfvqr6nMffIZfd2XooUNcMk')
+GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 OUTPUT_DIR = "public"
 
 # 16个新功能配置
