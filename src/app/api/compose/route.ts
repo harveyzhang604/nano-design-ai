@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { postGeminiWithFallback } from '@/lib/gemini-fallback';
 
 // Cloudflare Pages 要求所有 API 统一使用 edge runtime
 export const runtime = 'edge';
@@ -65,10 +66,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'At least 2 images required' }, { status: 400 });
     }
     
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (!process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY2) {
       return NextResponse.json({ 
-        error: 'System Error: GEMINI_API_KEY not configured.'
+        error: '系统错误：未配置 GEMINI_API_KEY / GEMINI_API_KEY2。'
       }, { status: 500 });
     }
 
@@ -133,27 +133,21 @@ Requirements:
       }))
     ];
 
-    const apiResponse = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`,
-      {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-        body: JSON.stringify({
-          contents: [{ parts }],
-          generationConfig: {
-            temperature: 0.4,
-            topK: 32,
-            topP: 0.9,
-            maxOutputTokens: 8192
-          }
-        })
+    const geminiResult = await postGeminiWithFallback({
+      model: 'gemini-3.1-flash-image-preview',
+      body: {
+        contents: [{ parts }],
+        generationConfig: {
+          temperature: 0.4,
+          topK: 32,
+          topP: 0.9,
+          maxOutputTokens: 8192
+        }
       }
-    );
+    });
 
-    const data = await apiResponse.json();
+    const apiResponse = geminiResult.response;
+    const data = geminiResult.data;
     
     if (!apiResponse.ok) {
       console.error('Gemini API error:', data);

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { postGeminiWithFallback } from '@/lib/gemini-fallback';
 
 export const runtime = 'edge';
 
@@ -60,10 +61,9 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
     }
     
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (!process.env.GEMINI_API_KEY && !process.env.GEMINI_API_KEY2) {
       return NextResponse.json({ 
-        error: 'System Error: GEMINI_API_KEY not configured.' 
+        error: '系统错误：未配置 GEMINI_API_KEY / GEMINI_API_KEY2。' 
       }, { status: 500 });
     }
 
@@ -215,37 +215,32 @@ TECHNICAL CHARACTERISTICS:
 输出要求：
 返回与输入图内容一致、仅增加真实复古胶片质感的最终图片。`;
 
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
-            ]
-          }],
-          generationConfig: {
-            temperature: 0.5,
-            topK: 40,
-            topP: 0.95,
-            maxOutputTokens: 8192,
-                      }
-        })
+    const geminiResult = await postGeminiWithFallback({
+      model: 'gemini-3.1-flash-image-preview',
+      body: {
+        contents: [{
+          parts: [
+            { text: prompt },
+            { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } }
+          ]
+        }],
+        generationConfig: {
+          temperature: 0.5,
+          topK: 40,
+          topP: 0.95,
+          maxOutputTokens: 8192,
+        }
       }
-    );
+    });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error('Gemini API error:', errorText);
+    if (!geminiResult.response.ok) {
+      console.error('Gemini API error:', geminiResult.data);
       return NextResponse.json({ 
-        error: `Gemini API error: ${response.status}` 
-      }, { status: response.status });
+        error: geminiResult.data?.error?.message || `Gemini API error: ${geminiResult.response.status}` 
+      }, { status: geminiResult.response.status });
     }
 
-    const data = await response.json();
+    const data = geminiResult.data;
     
     if (!(() => { const parts = data.candidates?.[0]?.content?.parts || []; const imagePart = parts.find((p: any) => p.inlineData); return imagePart?.inlineData?.data; })()) {
       return NextResponse.json({ 

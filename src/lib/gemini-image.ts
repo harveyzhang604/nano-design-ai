@@ -1,3 +1,5 @@
+import { postGeminiWithFallback } from './gemini-fallback';
+
 export type GeminiImageResult = {
   ok: true;
   base64Data: string;
@@ -39,31 +41,25 @@ export async function generateGeminiImage(params: {
     topP = 0.9,
   } = params;
 
-  const apiResponse = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-    {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
+  const result = await postGeminiWithFallback({
+    model,
+    body: {
+      contents: [{
+        parts: [
+          { text: prompt },
+          { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } },
+        ],
+      }],
+      generationConfig: {
+        temperature,
+        topK,
+        topP,
       },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            { text: prompt },
-            { inlineData: { mimeType: 'image/png', data: imageBase64.split(',')[1] } },
-          ],
-        }],
-        generationConfig: {
-          temperature,
-          topK,
-          topP,
-        },
-      }),
-    }
-  );
+    },
+  });
 
-  const data = await apiResponse.json();
+  const apiResponse = result.response;
+  const data = result.data;
 
   if (!apiResponse.ok) {
     return {
