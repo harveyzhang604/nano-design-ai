@@ -69,17 +69,20 @@ export async function POST(req: Request) {
 
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 年龄阶段描述
+    // 年龄阶段描述 - 更精确的年龄段划分
     const getAgeDescription = (age: number): string => {
-      if (age <= 2) return 'baby (0-2 years old) with soft baby features, chubby cheeks, and innocent eyes';
-      if (age <= 5) return 'toddler (3-5 years old) with childlike features, round face, and playful expression';
-      if (age <= 12) return 'child (6-12 years old) with youthful features, growing face structure, and bright eyes';
-      if (age <= 17) return 'teenager (13-17 years old) with developing adult features, clearer face structure, and youthful skin';
-      if (age <= 30) return 'young adult (18-30 years old) with mature features, defined face structure, and vibrant appearance';
-      if (age <= 45) return 'adult (31-45 years old) with fully mature features, some early aging signs, and confident appearance';
-      if (age <= 60) return 'middle-aged (46-60 years old) with visible aging signs, some wrinkles, and distinguished appearance';
-      if (age <= 75) return 'senior (61-75 years old) with clear aging signs, wrinkles, gray hair, and wise appearance';
-      return 'elderly (76+ years old) with advanced aging signs, deep wrinkles, white hair, and dignified appearance';
+      if (age <= 2) return 'baby (0-2 years old) with soft baby features, chubby cheeks, large innocent eyes, and delicate skin';
+      if (age <= 5) return 'toddler (3-5 years old) with childlike features, round face, button nose, and playful expression';
+      if (age <= 10) return 'young child (6-10 years old) with youthful features, growing face structure, bright eyes, and smooth skin';
+      if (age <= 14) return 'preteen (11-14 years old) with developing features, elongating face, clearer bone structure, and fresh skin';
+      if (age <= 19) return 'teenager (15-19 years old) with maturing features, defined face structure, youthful skin, and emerging adult characteristics';
+      if (age <= 25) return 'young adult (20-25 years old) with fully developed features, peak skin condition, vibrant appearance, and youthful energy';
+      if (age <= 35) return 'adult (26-35 years old) with mature features, stable face structure, healthy skin, and confident appearance';
+      if (age <= 45) return 'middle-aged adult (36-45 years old) with fully mature features, first subtle aging signs (fine lines), and distinguished appearance';
+      if (age <= 55) return 'mature adult (46-55 years old) with visible aging signs (wrinkles, some gray hair), refined features, and experienced look';
+      if (age <= 65) return 'senior adult (56-65 years old) with clear aging signs (deeper wrinkles, gray/white hair), softer skin, and wise appearance';
+      if (age <= 75) return 'elderly (66-75 years old) with advanced aging signs (deep wrinkles, white hair, age spots), thinner skin, and dignified appearance';
+      return 'very elderly (76+ years old) with pronounced aging signs (very deep wrinkles, white/thinning hair, age spots, sagging skin), and venerable appearance';
     };
 
     // 风格描述
@@ -96,7 +99,53 @@ export async function POST(req: Request) {
 
     const ageDesc = getAgeDescription(targetAge);
 
-    const prompt = `Edit this portrait to show the same person at about ${targetAge} years old. Keep identity, face shape, hairstyle direction, expression, and overall composition consistent. Apply subtle, natural age changes only. Use ${styleDescriptions[style]}. Keep the result realistic, clean, and high quality.`;
+    const prompt = `Transform this portrait to show the same person at ${targetAge} years old (${ageDesc}).
+
+CRITICAL IDENTITY PRESERVATION:
+- Keep EXACT same face shape, bone structure, and facial proportions
+- Preserve unique facial features (nose shape, eye shape, mouth shape, ears)
+- Maintain the same expression and emotional state
+- Keep the same hairstyle direction and general style
+- Preserve the overall composition and framing
+
+AGE-APPROPRIATE CHANGES (apply naturally):
+${targetAge <= 12 ? `
+- Softer, rounder facial features
+- Larger eyes relative to face size
+- Smoother, flawless skin
+- Fuller cheeks and baby fat
+- Smaller nose and mouth proportions
+- Bright, clear eyes with no aging signs
+` : targetAge <= 19 ? `
+- Developing facial structure
+- Clear, youthful skin with no wrinkles
+- Bright, energetic eyes
+- Defined but youthful features
+- Fresh, vibrant appearance
+` : targetAge <= 35 ? `
+- Fully developed adult features
+- Smooth, healthy skin
+- Clear, confident eyes
+- Mature but youthful appearance
+- Peak physical condition
+` : targetAge <= 55 ? `
+- Subtle aging signs: fine lines around eyes and mouth
+- Slight skin texture changes
+- Possible early gray hair (natural amount)
+- Mature, experienced appearance
+- Maintained facial structure
+` : `
+- Clear aging signs: wrinkles, age lines, crow's feet
+- Gray or white hair (age-appropriate amount)
+- Softer skin texture with age spots
+- Deeper facial lines and folds
+- Wise, dignified appearance
+`}
+
+STYLE: ${styleDescriptions[style]}
+FEATURE PRESERVATION: ${featureLevel}
+
+GOAL: Natural age transformation while keeping the person recognizable and authentic.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -111,11 +160,11 @@ export async function POST(req: Request) {
             ]
           }],
           generationConfig: {
-            temperature: 0.3,
+            temperature: 0.4,
             topK: 32,
             topP: 0.9,
             maxOutputTokens: 8192,
-                      }
+          }
         })
       }
     );

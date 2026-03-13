@@ -160,7 +160,43 @@ VISUAL CHARACTERISTICS:
       'muted': 'soft, pastel tones with gentle, understated colors'
     };
 
-    const prompt = `Transform this image into a warm hand-painted animation illustration. Use soft organic lines, watercolor-like shading, detailed whimsical backgrounds, gentle atmospheric lighting, and a cozy magical mood. Preserve the subject, composition, and emotional tone. Use ${colorDescriptions[colorPalette]} and ${atmosphereDescriptions[atmosphere]}. Keep it painterly, cinematic, and family-friendly.`;
+    const prompt = `Transform this image into a Studio Ghibli-style hand-painted animation illustration with WATERCOLOR TEXTURE.
+
+CRITICAL WATERCOLOR CHARACTERISTICS:
+- Soft, flowing watercolor brush strokes with visible texture
+- Gentle color bleeding and blending at edges
+- Translucent layers with subtle color variations
+- Paper texture visible through the paint
+- Organic, hand-painted feel (NOT digital/smooth)
+- Delicate color gradients with natural transitions
+- Soft edges and dreamy atmosphere
+
+GHIBLI VISUAL STYLE:
+- Warm, nostalgic hand-painted animation aesthetic
+- Detailed whimsical backgrounds with intricate elements
+- Soft organic lines and gentle character features
+- Atmospheric lighting with warm glows and soft shadows
+- Cozy, magical mood with family-friendly appeal
+- Rich environmental details (nature, architecture, objects)
+
+COLOR PALETTE: ${colorDescriptions[colorPalette]}
+ATMOSPHERE: ${atmosphereDescriptions[atmosphere]}
+
+COMPOSITION RULES:
+- Preserve the original subject and their pose/expression
+- Keep the emotional tone and mood of the original
+- Maintain the overall composition and framing
+- Add Ghibli-style background details and atmosphere
+
+TEXTURE EMPHASIS:
+- Use visible watercolor brush strokes
+- Show paint texture and paper grain
+- Create soft, organic edges (not sharp digital lines)
+- Layer translucent colors for depth
+- Add subtle color variations within each area
+
+STYLE: Painterly, cinematic, hand-crafted watercolor animation illustration.
+GOAL: Warm Ghibli magic with authentic watercolor texture.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -175,11 +211,11 @@ VISUAL CHARACTERISTICS:
             ]
           }],
           generationConfig: {
-            temperature: 0.6,
+            temperature: 0.7,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,
-                      }
+          }
         })
       }
     );

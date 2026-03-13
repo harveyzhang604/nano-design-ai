@@ -78,15 +78,19 @@ export async function POST(req: Request) {
     // 将图片转换为 base64
     const imageBase64 = await imageToBase64(imageUrl);
     
-    // 根据修复强度调整prompt - 2026-03-07 优化：强调保守修复，不改变表情
+    // 根据修复强度调整prompt - 2026-03-13 优化：强调不改变表情，只修复损坏
     const prompts: Record<string, string> = {
       'conservative': `Restore this old or damaged photo with ULTRA-CONSERVATIVE approach. 
 CRITICAL: This is DAMAGE REPAIR ONLY, NOT photo enhancement or beautification.
 
 ABSOLUTE PRESERVATION RULES - NEVER VIOLATE:
 1. FACIAL EXPRESSIONS: Keep EXACT same smile/frown/neutral expression, mouth curve, eye shape, gaze direction
-2. EMOTIONAL STATE: Preserve the EXACT mood and feeling (happy/sad/serious/playful)
-3. FACIAL FEATURES: Keep EXACT wrinkles, laugh lines, skin texture, age marks, freckles, moles
+   - If person is smiling, keep EXACT same smile (don't widen or reduce)
+   - If person is serious, keep EXACT same serious expression
+   - If person is sad, keep EXACT same sad expression
+   - DO NOT change expression intensity even 1%
+2. EMOTIONAL STATE: Preserve the EXACT mood and feeling (happy/sad/serious/playful/contemplative)
+3. FACIAL FEATURES: Keep EXACT wrinkles, laugh lines, skin texture, age marks, freckles, moles, scars
 4. BODY LANGUAGE: Keep EXACT poses, hand positions, head tilt, body angle
 5. CLOTHING & ACCESSORIES: Keep EXACT patterns, colors, styles, jewelry, glasses
 6. COMPOSITION: Keep EXACT framing, background, lighting, shadows
@@ -98,12 +102,14 @@ ONLY REPAIR PHYSICAL DAMAGE (nothing else):
 - Fix blur ONLY where clearly damaged by time/handling
 
 STRICTLY FORBIDDEN:
-- DO NOT change facial expressions even slightly (no smile adjustment, no eye opening)
-- DO NOT "improve" or "beautify" faces (no smoothing, no brightening eyes)
+- DO NOT change facial expressions even 0.1% (no smile adjustment, no eye opening, no mouth change)
+- DO NOT "improve" or "beautify" faces (no smoothing, no brightening eyes, no skin enhancement)
 - DO NOT add missing details (if blurry, keep it blurry after damage repair)
 - DO NOT change emotions or moods
 - DO NOT modernize hairstyles, clothing, or makeup
 - DO NOT alter the person's character or personality
+- DO NOT make eyes bigger or brighter
+- DO NOT make smile wider or happier
 
 VERIFICATION: After restoration, the person should look EXACTLY the same, just without physical damage.
 GOAL: Remove damage marks, preserve everything else 100%.`,
@@ -113,10 +119,13 @@ CRITICAL: This is DAMAGE REPAIR with minimal enhancement, NOT a beauty filter.
 
 ABSOLUTE PRESERVATION RULES - NEVER VIOLATE:
 1. FACIAL EXPRESSIONS: Keep EXACT same expression - if serious, stay serious; if smiling, keep same smile intensity
-2. EMOTIONAL STATE: Preserve the EXACT mood (happy/sad/serious/contemplative)
-3. FACIAL FEATURES: Keep EXACT wrinkles, age lines, skin texture, natural imperfections
-4. BODY & POSE: Keep EXACT positions, gestures, angles
-5. ORIGINAL CHARACTER: Preserve the person's authentic look and personality
+   - DO NOT change smile width, mouth curve, or lip position
+   - DO NOT change eye openness, gaze direction, or eye expression
+   - DO NOT alter eyebrow position or facial muscle tension
+2. EMOTIONAL STATE: Preserve the EXACT mood (happy/sad/serious/contemplative/neutral)
+3. FACIAL FEATURES: Keep EXACT wrinkles, age lines, skin texture, natural imperfections, moles, scars
+4. BODY & POSE: Keep EXACT positions, gestures, angles, head tilt
+5. ORIGINAL CHARACTER: Preserve the person's authentic look and personality 100%
 
 REPAIR DAMAGE (primary goal):
 - Remove scratches, tears, cracks, water stains, fold marks
@@ -131,11 +140,12 @@ MINIMAL ENHANCEMENT (only if needed):
 - Color balance correction if severely off
 
 STRICTLY FORBIDDEN:
-- DO NOT change facial expressions or emotions (no smile adjustment, no eye widening)
-- DO NOT "beautify" faces (no skin smoothing, no wrinkle removal, no eye brightening)
+- DO NOT change facial expressions or emotions even 0.1% (no smile adjustment, no eye widening, no expression change)
+- DO NOT "beautify" faces (no skin smoothing, no wrinkle removal, no eye brightening, no face reshaping)
 - DO NOT add details that weren't visible in the original
 - DO NOT change the mood or feeling
 - DO NOT modernize the look
+- DO NOT make person look happier, sadder, or different emotionally
 
 VERIFICATION: The person's expression and character should feel IDENTICAL to the original.
 GOAL: Repair damage and restore clarity, preserve authenticity 100%.`,
