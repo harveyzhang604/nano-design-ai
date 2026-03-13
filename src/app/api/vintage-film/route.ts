@@ -182,7 +182,38 @@ TECHNICAL CHARACTERISTICS:
       'strong': 'prominent light leaks with dramatic color washes (heavily used camera)'
     };
 
-    const prompt = `Edit this image to look like a scanned vintage film photograph. Apply ${filmType} inspired color grading, natural film grain, subtle analog contrast, gentle highlight rolloff, and optional ${lightLeakDescriptions[lightLeak]}. Keep the subject, composition, and realism intact. Avoid artificial filter artifacts.`;
+    const prompt = `这是一个“保留原图内容”的修图任务，不是重新生成新图片。
+
+核心规则：
+必须保留输入图中的同一个人、同一张脸、同一个姿势、同一套衣服、同一构图、同一背景关系。
+绝对不要替换人物，不要生成陌生人，不要改成别的场景，不要改变性别、发型、身材、服装、镜头角度。
+
+任务目标：
+把这张原图处理成 ${filmType} 风格的复古胶片扫描照片效果。
+
+只允许添加这些胶片效果：
+- ${filmCharacteristics[filmType] || filmCharacteristics['kodachrome']}
+- ${grainLevel}
+- ${lightLeakDescriptions[lightLeak]}
+- 胶片对比度
+- 高光柔和 rolloff
+- 轻微扫描质感
+
+必须严格保留：
+- 人脸身份完全一致
+- 头发、衣服、姿势、身材、构图保持一致
+- 原图主体必须清晰可辨认
+- 仍然是同一张照片，只是加了复古胶片质感
+
+绝对禁止：
+- 不要新生成一个人
+- 不要把场景改成办公室、工作台、建筑设计界面之类的新场景
+- 不要添加电脑、桌子、建筑、道具、其他人物
+- 不要改衣服款式
+- 不要把这张图变成另一张完全不同的照片
+
+输出要求：
+返回与输入图内容一致、仅增加真实复古胶片质感的最终图片。`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
