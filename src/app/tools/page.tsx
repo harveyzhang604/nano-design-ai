@@ -91,7 +91,7 @@ function ToolCard({ tool, onClick }: { tool: typeof tools[0], onClick: () => voi
         <img 
           src={exampleImage}
           alt={`${tool.name} 效果对比`}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
           loading="lazy"
           decoding="async"
           onError={(e) => {
