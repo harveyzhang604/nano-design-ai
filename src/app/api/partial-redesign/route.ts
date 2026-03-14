@@ -98,47 +98,54 @@ export async function POST(req: Request) {
 
     const customDesc = description ? `\nCustom requirement: ${description}` : '';
 
-    const prompt = `Redesign ONLY ${targetDescriptions[target]} in this room - keep EVERYTHING ELSE exactly the same!
+    const prompt = `PARTIAL REDESIGN: Modify ONLY ${targetDescriptions[target]} - keep EVERYTHING ELSE IDENTICAL to the original photo!
 
-PARTIAL REDESIGN PHILOSOPHY: Surgical precision - change only what's specified, preserve everything else perfectly.
+🚨 CRITICAL: This is NOT a full room redesign - it's a SURGICAL MODIFICATION 🚨
 
-CRITICAL RULES - ABSOLUTE PRESERVATION:
-1. ONLY redesign ${targetDescriptions[target]}
-2. Keep ALL other elements EXACTLY the same:
-   ${target !== 'sofa' ? '- Sofa/couch (same style, color, position)' : ''}
-   ${target !== 'wall' ? '- Walls (same color, texture, decorations)' : ''}
-   ${target !== 'floor' ? '- Floor (same material, color, pattern)' : ''}
-   ${target !== 'curtains' ? '- Curtains/windows (same style, color)' : ''}
-   ${target !== 'lighting' ? '- Lighting fixtures (same style, position)' : ''}
-   ${target !== 'furniture' ? '- Other furniture (same pieces, positions)' : ''}
-   ${target !== 'decor' ? '- Decorative items (same items, positions)' : ''}
-3. Maintain room layout, dimensions, and perspective
-4. Keep lighting and shadows consistent
-5. Preserve the overall room character
+ABSOLUTE PRESERVATION RULES:
+1. The output must look 99% identical to the input photo
+2. ONLY ${targetDescriptions[target]} should look different
+3. Everything else must be PIXEL-PERFECT identical:
+   - Same room layout and dimensions
+   - Same camera angle and perspective
+   - Same lighting and shadows
+   - Same colors for unchanged elements
+   - Same textures for unchanged elements
+   - Same positions for all other items
 
-REDESIGN TARGET (${target}):
+WHAT TO KEEP EXACTLY THE SAME:
+${target !== 'sofa' ? '- Sofa/couch: EXACT same style, color, fabric, position, angle' : ''}
+${target !== 'wall' ? '- Walls: EXACT same color, texture, artwork, decorations' : ''}
+${target !== 'floor' ? '- Floor: EXACT same material, color, pattern, finish' : ''}
+${target !== 'curtains' ? '- Curtains/windows: EXACT same style, color, fabric, position' : ''}
+${target !== 'lighting' ? '- Lighting: EXACT same fixtures, style, position, brightness' : ''}
+${target !== 'furniture' ? '- Other furniture: EXACT same pieces, styles, positions' : ''}
+${target !== 'decor' ? '- Decor items: EXACT same items, positions, colors' : ''}
+
+WHAT TO REDESIGN (${target} ONLY):
 - Apply ${styleDescriptions[style]}
-- Make it look natural and integrated
-- Match the room's lighting and atmosphere
-- Seamless integration with existing elements
-- Professional interior design quality${customDesc}
+- Make it blend naturally with the unchanged elements
+- Match the room's existing lighting
+- Keep proportions and scale appropriate
+- Professional quality${customDesc}
 
-NATURAL INTEGRATION:
-- New element fits perfectly with existing room
-- Colors and materials harmonize
-- Lighting matches the room
-- Proportions and scale are correct
-- Looks like it belongs there
+TECHNICAL REQUIREMENTS:
+- Maintain original photo's resolution and quality
+- Keep the same perspective and camera angle
+- Preserve original lighting conditions
+- Match color temperature of original photo
+- Seamless integration (no visible editing)
 
 FORBIDDEN:
-- DO NOT change elements other than ${target}
-- DO NOT alter room layout or dimensions
-- DO NOT change lighting or atmosphere
-- DO NOT make it look fake or composited
+- DO NOT redesign the entire room
+- DO NOT change camera angle or perspective
+- DO NOT alter lighting or atmosphere
+- DO NOT change any element except ${target}
+- DO NOT make it look AI-generated or fake
 
-GOAL: Like a professional interior designer changed just one element - natural, harmonious, looks like it was always meant to be there.
+GOAL: The result should look like someone physically replaced ONLY ${target} in the real room - everything else stays exactly the same.
 
-Target to redesign: ${target}
+Target: ${target}
 Style: ${style}`;
 
     const response = await fetch(
