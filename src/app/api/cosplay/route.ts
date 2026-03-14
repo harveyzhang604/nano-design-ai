@@ -157,8 +157,23 @@ GOAL: Professional cosplay photo with realistic costume and styling while mainta
       return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
     }
 
-    const imageUrl_result = await uploadToR2(`data:image/png;base64,${base64Data}`, 'cosplay');
+    const fullBase64 = `data:image/png;base64,${base64Data}`;
+    const imageUrl_result = await uploadToR2(fullBase64, 'cosplay');
+    
     if (!imageUrl_result) {
+      console.warn('R2 upload failed, returning base64 data');
+      return NextResponse.json({ imageUrl: fullBase64, isR2: false });
+    }
+
+    return NextResponse.json({ imageUrl: imageUrl_result, isR2: true });
+  } catch (error: any) {
+    console.error('Processing error:', error);
+    return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
+  }
+}
+
+// OLD CODE BELOW - REMOVE
+if (false) {
       return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
     }
 
