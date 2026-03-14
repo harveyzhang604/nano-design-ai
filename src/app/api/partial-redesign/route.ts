@@ -145,6 +145,12 @@ FORBIDDEN:
 
 GOAL: The result should look like someone physically replaced ONLY ${target} in the real room - everything else stays exactly the same.
 
+IMPORTANT FAILURE MODE TO AVOID:
+- Do NOT regenerate the whole room from scratch
+- Do NOT turn people into furniture or furniture into people
+- Do NOT merge unrelated objects together
+- If the image is not clearly a room/interior scene, preserve it and make only the smallest plausible change
+
 Target: ${target}
 Style: ${style}`;
 

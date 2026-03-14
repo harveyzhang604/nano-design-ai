@@ -212,6 +212,13 @@ PRESENTATION:
 - Neutral or themed background
 - Professional product photo quality
 
+FORBIDDEN ACCESSORIES / CHANGES:
+- Do NOT add sunglasses
+- Do NOT cover the eyes or face
+- Do NOT add hats or masks that hide identity
+- Do NOT replace the person with a generic random doll face
+- Do NOT change ethnicity or core facial structure
+
 GOAL: Transform THIS SPECIFIC PERSON into an authentic Blythe doll - clearly a collectible fashion doll, but RECOGNIZABLE as the same person!
 
 Style: ${style}

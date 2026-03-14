@@ -61,7 +61,7 @@ function imageToBase64(url: string): Promise<string> {
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, avatarStyle = 'cartoon' } = await req.json();
+    const { imageUrl, avatarStyle = 'professional' } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -199,9 +199,41 @@ PRESERVE IDENTITY:
 - Maintain their essence
 
 GOAL: Like a cyberpunk character - futuristic, edgy, captures their personality with attitude.`,
+
+      'professional': `Create a PROFESSIONAL REALISTIC HEADSHOT AVATAR from this specific person.
+
+CRITICAL GOAL:
+- This must remain the SAME PERSON, clearly recognizable
+- This is NOT a cartoon, NOT anime, NOT illustration
+- Create a clean professional profile/avatar photo suitable for LinkedIn, website profile, or business use
+
+PRESERVE IDENTITY EXACTLY:
+- Keep the exact face shape
+- Keep eye shape, nose, mouth, eyebrows recognizable
+- Keep hairstyle recognizable
+- Keep skin tone natural
+- Keep this person's unique facial characteristics
+
+PROFESSIONAL AVATAR STYLE:
+- Realistic photography look
+- Clean background or simple studio background
+- Professional lighting
+- Clear head-and-shoulders composition
+- Polished but natural appearance
+- Slight cleanup only, no heavy beautification
+- Sharp, trustworthy, premium profile-photo quality
+
+FORBIDDEN:
+- Do NOT turn into cartoon or illustration
+- Do NOT change identity
+- Do NOT over-stylize
+- Do NOT add sunglasses, hats, masks, or face-covering accessories
+- Do NOT make it look like a different person
+
+GOAL: A realistic professional avatar/headshot of the same person.`,
     };
     
-    const prompt = avatarStyles[avatarStyle] || avatarStyles['cartoon'];
+    const prompt = avatarStyles[avatarStyle] || avatarStyles['professional'];
 
     // 添加重试机制 - 最多重试 3 次
     let base64Data = null;
