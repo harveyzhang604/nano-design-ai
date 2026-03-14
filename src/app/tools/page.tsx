@@ -159,6 +159,10 @@ export default function ToolsPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const currentTool = tools.find(t => t.id === activeTool);
+  const p0Count = tools.filter(t => t.category === 'P0').length;
+  const p1Count = tools.filter(t => t.category === 'P1').length;
+  const p2Count = tools.filter(t => t.category === 'P2').length;
+  const totalCount = tools.length;
 
   const handleParamsChange = (params: Record<string, any>) => {
     setToolParams(params);
@@ -347,7 +351,7 @@ export default function ToolsPage() {
             🎨 <span className="bg-gradient-to-r from-amber-400 to-orange-400 bg-clip-text text-transparent">AI 图像工具箱</span>
           </h1>
           <p className="text-neutral-400 text-lg max-w-2xl mx-auto">
-            31 个强大 AI 功能，涵盖图像处理、创意生成、社交娱乐等场景
+            {totalCount} 个强大 AI 功能，涵盖图像处理、创意生成、社交娱乐等场景
           </p>
         </div>
 
@@ -358,7 +362,7 @@ export default function ToolsPage() {
             <h2 className="text-xl font-6-bold mb flex items-center gap-3">
               <span className="w-2 h-8 bg-red-500 rounded-full"></span>
               P0 - 热门功能
-              <span className="text-xs text-neutral-500 font-normal ml-2">8 个功能</span>
+              <span className="text-xs text-neutral-500 font-normal ml-2">{p0Count} 个功能</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.filter(t => t.category === 'P0').map(tool => (
@@ -376,7 +380,7 @@ export default function ToolsPage() {
             <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-amber-500 rounded-full"></span>
               P1 - 实用功能
-              <span className="text-xs text-neutral-500 font-normal ml-2">12 个功能</span>
+              <span className="text-xs text-neutral-500 font-normal ml-2">{p1Count} 个功能</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.filter(t => t.category === 'P1').map(tool => (
@@ -394,7 +398,7 @@ export default function ToolsPage() {
             <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
               <span className="w-2 h-8 bg-green-500 rounded-full"></span>
               P2 - 创意玩法
-              <span className="text-xs text-neutral-500 font-normal ml-2">11 个功能</span>
+              <span className="text-xs text-neutral-500 font-normal ml-2">{p2Count} 个功能</span>
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {tools.filter(t => t.category === 'P2').map(tool => (
