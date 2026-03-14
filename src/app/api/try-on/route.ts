@@ -66,7 +66,28 @@ export async function POST(req: Request) {
 
     const imageBase64 = await imageToBase64(imageUrl);
     
-    const prompt = `将照片中的人物进行虚拟试穿效果处理。试穿时尚的衣服款式，保持人物的原始姿势和面部特征。服装应该自然地穿在身上，光影效果逼真。确保衣服尺寸合适，边缘处理干净自然。`;
+    const prompt = `Transform this photo into a VIRTUAL TRY-ON effect with fashionable clothing.
+
+PRESERVE EXACTLY:
+- Original person's face and facial features
+- Body pose and position
+- Natural proportions
+- Background and lighting
+
+VIRTUAL TRY-ON EFFECT:
+- Add stylish, modern clothing that fits naturally
+- Clothing should drape realistically on the body
+- Proper shadows and lighting on the clothes
+- Clean edges and natural transitions
+- Clothing size should match body proportions
+- Realistic fabric textures and wrinkles
+
+FORBIDDEN:
+- Do NOT change facial features or expressions
+- Do NOT alter body proportions unnaturally
+- Do NOT add unrealistic elements
+
+GOAL: Realistic virtual try-on effect with natural-looking clothing.`;
 
     // 重试机制 - 最多3次
     let base64Data = null;

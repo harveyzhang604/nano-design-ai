@@ -66,7 +66,31 @@ export async function POST(req: Request) {
 
     const imageBase64 = await imageToBase64(imageUrl);
     
-    const prompt = `将这张室内照片进行专业的房产渲染效果处理。增强空间感和采光，展示出现代家居的美感。可以适当添加时尚的家具布置，色调统一，光线明亮自然。处理后应该看起来像房产广告中的专业效果图。`;
+    const prompt = `Transform this interior photo into a professional REAL ESTATE RENDERING.
+
+PRESERVE EXACTLY:
+- Room layout and architecture
+- Window and door positions
+- Overall space dimensions
+- Structural elements
+
+REAL ESTATE ENHANCEMENT:
+- Enhanced lighting and brightness
+- Modern, stylish furniture arrangement
+- Professional interior design aesthetic
+- Clean, organized space
+- Warm, inviting atmosphere
+- High-quality photography feel
+- Unified color scheme
+- Natural light enhancement
+- Professional staging quality
+
+FORBIDDEN:
+- Do NOT change room structure or layout
+- Do NOT add unrealistic elements
+- Do NOT over-process or make it look fake
+
+GOAL: Professional real estate photography with enhanced appeal and modern interior design.`;
 
     // 重试机制 - 最多3次
     let base64Data = null;

@@ -46,7 +46,31 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'System Error: GEMINI_API_KEY not configured.' }, { status: 500 });
     }
 
-    const fullPrompt = `根据以下描述生成一个精美的地图场景：${prompt}。生成的图像应该是一个真实感的地图或位置场景，包含道路、建筑、自然景观等元素。风格应该是清晰、专业且美观的。`;
+    const fullPrompt = `Generate a beautiful MAP SCENE based on this description: ${prompt}
+
+MAP REQUIREMENTS:
+- Realistic geographic representation
+- Clear roads and pathways
+- Buildings and structures
+- Natural landscape elements (trees, water, terrain)
+- Professional cartography style
+- Clean, readable design
+- Appropriate scale and detail
+- Accurate spatial relationships
+
+VISUAL STYLE:
+- Clear and professional appearance
+- Good contrast and readability
+- Aesthetic color scheme
+- Detailed but not cluttered
+- Modern map design principles
+
+FORBIDDEN:
+- Do NOT make it look fake or cartoonish
+- Do NOT add unrealistic elements
+- Do NOT make it too abstract
+
+GOAL: Professional, realistic map scene that accurately represents the described location.`;
 
     // 重试机制 - 最多3次
     let base64Data = null;

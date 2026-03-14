@@ -66,7 +66,29 @@ export async function POST(req: Request) {
 
     const imageBase64 = await imageToBase64(imageUrl);
     
-    const prompt = `将此照片中的人物转换为精美的Cosplay角色效果。保持人物的原始面容特征，应用角色扮演的服装和造型风格。可以添加相应的道具和装饰，使效果自然逼真。重要的是保持人物面部的真实感，不要过度失真。`;
+    const prompt = `Transform this photo into a beautiful COSPLAY character effect.
+
+PRESERVE EXACTLY:
+- Original person's facial features and identity
+- Natural facial expressions
+- Body pose and position
+- Recognizable as the same person
+
+COSPLAY TRANSFORMATION:
+- Add character costume and styling
+- Include appropriate props and accessories
+- Professional cosplay makeup and styling
+- Realistic costume materials and textures
+- Natural lighting and shadows
+- High-quality photography feel
+- Authentic character representation
+
+FORBIDDEN:
+- Do NOT distort facial features excessively
+- Do NOT make the person unrecognizable
+- Do NOT add unrealistic or cartoonish elements
+
+GOAL: Professional cosplay photo with realistic costume and styling while maintaining the person's identity.`;
 
     // 重试机制 - 最多3次
     let base64Data = null;
