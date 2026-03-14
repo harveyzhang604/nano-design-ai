@@ -68,29 +68,74 @@ export async function POST(req: Request) {
     
     const prompt = `将这张室内照片进行专业的房产渲染效果处理。增强空间感和采光，展示出现代家居的美感。可以适当添加时尚的家具布置，色调统一，光线明亮自然。处理后应该看起来像房产广告中的专业效果图。`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:predict?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prompt: prompt,
-        image: imageBase64,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Gemini API error:', error);
-      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
-    }
-
-    const result = await response.json();
-    const generatedImage = result.predicted_image || result.image;
+    // 重试机制 - 最多3次
+    let base64Data = null;
+    let lastError = null;
     
-    if (!generatedImage) {
-      return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: prompt },
+                { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
+              ]
+            }],
+            generationConfig: {
+              temperature: 0.6 + (attempt - 1) * 0.05,
+              topK: 40,
+              topP: 0.95
+            }
+          })
+        });
+
+        const data = await apiResponse.json();
+        
+        if (!apiResponse.ok) {
+          lastError = data.error?.message || 'Gemini API Error';
+          console.error(`Attempt ${attempt} - Gemini API error:`, data);
+          
+          if (lastError.includes('location') || lastError.includes('region')) {
+            return NextResponse.json({ 
+              error: 'This feature is not available in your region.' 
+            }, { status: 403 });
+          }
+          
+          if (attempt < 3) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+            continue;
+          }
+          return NextResponse.json({ error: lastError }, { status: apiResponse.status });
+        }
+
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        const imagePart = parts.find((p: any) => p.inlineData);
+        base64Data = imagePart?.inlineData?.data;
+        
+        if (base64Data) {
+          break;
+        }
+      } catch (error) {
+        lastError = (error as Error).message;
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          continue;
+        }
+        return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
+      }
     }
 
-    const imageUrl_result = await uploadToR2(generatedImage, 'realestate');
+    if (!base64Data) {
+      return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
+    }
+
+    const imageUrl_result = await uploadToR2(`data:image/png;base64,${base64Data}`, 'realestate');
     if (!imageUrl_result) {
       return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
     }

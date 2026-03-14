@@ -68,29 +68,74 @@ export async function POST(req: Request) {
     
     const prompt = `将此照片中的人物转换为精美的Cosplay角色效果。保持人物的原始面容特征，应用角色扮演的服装和造型风格。可以添加相应的道具和装饰，使效果自然逼真。重要的是保持人物面部的真实感，不要过度失真。`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:predict?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prompt: prompt,
-        image: imageBase64,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Gemini API error:', error);
-      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
-    }
-
-    const result = await response.json();
-    const generatedImage = result.predicted_image || result.image;
+    // 重试机制 - 最多3次
+    let base64Data = null;
+    let lastError = null;
     
-    if (!generatedImage) {
-      return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: prompt },
+                { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
+              ]
+            }],
+            generationConfig: {
+              temperature: 0.6 + (attempt - 1) * 0.05,
+              topK: 40,
+              topP: 0.95
+            }
+          })
+        });
+
+        const data = await apiResponse.json();
+        
+        if (!apiResponse.ok) {
+          lastError = data.error?.message || 'Gemini API Error';
+          console.error(`Attempt ${attempt} - Gemini API error:`, data);
+          
+          if (lastError.includes('location') || lastError.includes('region')) {
+            return NextResponse.json({ 
+              error: 'This feature is not available in your region.' 
+            }, { status: 403 });
+          }
+          
+          if (attempt < 3) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+            continue;
+          }
+          return NextResponse.json({ error: lastError }, { status: apiResponse.status });
+        }
+
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        const imagePart = parts.find((p: any) => p.inlineData);
+        base64Data = imagePart?.inlineData?.data;
+        
+        if (base64Data) {
+          break;
+        }
+      } catch (error) {
+        lastError = (error as Error).message;
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          continue;
+        }
+        return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
+      }
     }
 
-    const imageUrl_result = await uploadToR2(generatedImage, 'cosplay');
+    if (!base64Data) {
+      return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
+    }
+
+    const imageUrl_result = await uploadToR2(`data:image/png;base64,${base64Data}`, 'cosplay');
     if (!imageUrl_result) {
       return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
     }

@@ -48,28 +48,73 @@ export async function POST(req: Request) {
 
     const fullPrompt = `根据以下描述生成一个精美的地图场景：${prompt}。生成的图像应该是一个真实感的地图或位置场景，包含道路、建筑、自然景观等元素。风格应该是清晰、专业且美观的。`;
 
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp-image-generation:predict?key=${apiKey}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        prompt: fullPrompt,
-      }),
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      console.error('Gemini API error:', error);
-      return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
-    }
-
-    const result = await response.json();
-    const generatedImage = result.predicted_image || result.image;
+    // 重试机制 - 最多3次
+    let base64Data = null;
+    let lastError = null;
     
-    if (!generatedImage) {
-      return NextResponse.json({ error: 'No image generated' }, { status: 500 });
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [
+                { text: fullPrompt }
+              ]
+            }],
+            generationConfig: {
+              temperature: 0.6 + (attempt - 1) * 0.05,
+              topK: 40,
+              topP: 0.95
+            }
+          })
+        });
+
+        const data = await apiResponse.json();
+        
+        if (!apiResponse.ok) {
+          lastError = data.error?.message || 'Gemini API Error';
+          console.error(`Attempt ${attempt} - Gemini API error:`, data);
+          
+          if (lastError.includes('location') || lastError.includes('region')) {
+            return NextResponse.json({ 
+              error: 'This feature is not available in your region.' 
+            }, { status: 403 });
+          }
+          
+          if (attempt < 3) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+            continue;
+          }
+          return NextResponse.json({ error: lastError }, { status: apiResponse.status });
+        }
+
+        const parts = data.candidates?.[0]?.content?.parts || [];
+        const imagePart = parts.find((p: any) => p.inlineData);
+        base64Data = imagePart?.inlineData?.data;
+        
+        if (base64Data) {
+          break;
+        }
+      } catch (error) {
+        lastError = (error as Error).message;
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          continue;
+        }
+        return NextResponse.json({ error: 'Image generation failed' }, { status: 500 });
+      }
     }
 
-    const imageUrl_result = await uploadToR2(generatedImage, 'mapgen');
+    if (!base64Data) {
+      return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
+    }
+
+    const imageUrl_result = await uploadToR2(`data:image/png;base64,${base64Data}`, 'mapgen');
     if (!imageUrl_result) {
       return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
     }
