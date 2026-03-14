@@ -156,12 +156,12 @@ GOAL: Realistic virtual try-on effect with natural-looking clothing.`;
       return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
     }
 
-    const imageUrl = await uploadToR2(`data:image/png;base64,${base64Data}`, 'tryon');
-    if (!imageUrl) {
+    const resultImageUrl = await uploadToR2(`data:image/png;base64,${base64Data}`, 'tryon');
+    if (!resultImageUrl) {
       return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
     }
 
-    return NextResponse.json({ imageUrl });
+    return NextResponse.json({ imageUrl: resultImageUrl });
   } catch (error: any) {
     console.error('Processing error:', error);
     return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
