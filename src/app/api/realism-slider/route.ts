@@ -1,1 +1,2 @@
-export { POST, runtime } from '../authenticity/route';
+export const runtime = 'edge';
+export { POST } from '../authenticity/route';
