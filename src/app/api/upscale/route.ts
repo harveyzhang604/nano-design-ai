@@ -108,41 +108,55 @@ FORBIDDEN:
 
 GOAL: Print-ready quality - sharp, clear, detailed, but still REAL and natural. Like the photo was taken with a better camera.`;
 
-    const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
-      method: "POST",
-      headers: { 
-        "Content-Type": "application/json",
-        "x-goog-api-key": apiKey
-      },
-      body: JSON.stringify({
-        contents: [{
-          parts: [
-            { text: prompt },
-            { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
-          ]
-        }],
-        generationConfig: {
-          temperature: 0.3,
-          topK: 32,
-          topP: 0.9
+    let base64Data: string | null = null;
+    let lastError: string | null = null;
+
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
+        method: "POST",
+        headers: { 
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [
+              { text: prompt },
+              { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
+            ]
+          }],
+          generationConfig: {
+            temperature: 0.3 + (attempt - 1) * 0.05,
+            topK: 32,
+            topP: 0.9
+          }
+        })
+      });
+
+      const data = await apiResponse.json();
+      
+      if (!apiResponse.ok) {
+        lastError = data.error?.message || 'Gemini API Error';
+        console.error('Gemini API error:', data);
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+          continue;
         }
-      })
-    });
+        return NextResponse.json({ error: lastError }, { status: apiResponse.status });
+      }
 
-    const data = await apiResponse.json();
-    
-    if (!apiResponse.ok) {
-      console.error('Gemini API error:', data);
-      return NextResponse.json({ error: data.error?.message || 'Gemini API Error' }, { status: apiResponse.status });
+      const parts = data.candidates?.[0]?.content?.parts || [];
+      const imagePart = parts.find((p: any) => p.inlineData);
+      base64Data = imagePart?.inlineData?.data || null;
+      
+      if (base64Data) break;
+      if (attempt < 3) {
+        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      }
     }
-
-    // 从响应中提取图片
-    const parts = data.candidates?.[0]?.content?.parts || [];
-    const imagePart = parts.find((p: any) => p.inlineData);
-    const base64Data = imagePart?.inlineData?.data;
     
     if (!base64Data) {
-      return NextResponse.json({ error: 'No image data returned from AI.' }, { status: 500 });
+      return NextResponse.json({ error: lastError || 'No image data returned from AI.' }, { status: 500 });
     }
 
     const fullBase64 = `data:image/png;base64,${base64Data}`;
