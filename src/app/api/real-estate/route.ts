@@ -173,15 +173,3 @@ GOAL: Professional real estate photography with enhanced appeal and modern inter
     return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
   }
 }
-
-// OLD CODE BELOW - REMOVE
-if (false) {
-      return NextResponse.json({ error: 'Failed to upload image' }, { status: 500 });
-    }
-
-    return NextResponse.json({ imageUrl: imageUrl_result });
-  } catch (error: any) {
-    console.error('Processing error:', error);
-    return NextResponse.json({ error: error.message || 'Internal error' }, { status: 500 });
-  }
-}
