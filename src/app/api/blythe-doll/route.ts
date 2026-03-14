@@ -151,7 +151,13 @@ export async function POST(req: Request) {
       'bob': 'stylish bob cut with smooth finish'
     };
 
-    const prompt = `Transform this person into a BLYTHE DOLL - the iconic collectible fashion doll!
+    const prompt = `Transform this SPECIFIC PERSON into a BLYTHE DOLL - the iconic collectible fashion doll!
+
+🚨 CRITICAL: PRESERVE THE ORIGINAL PERSON'S IDENTITY 🚨
+- Keep the EXACT facial features of the person in the photo
+- Maintain their unique face shape, eyes, nose, mouth
+- Preserve their distinctive characteristics
+- This must be RECOGNIZABLE as the same person, just as a doll
 
 BLYTHE DOLL STYLE: ${blytheStyles[style]}
 
@@ -165,12 +171,19 @@ CRITICAL BLYTHE DOLL CHARACTERISTICS:
 - Visible doll joints at neck, shoulders, elbows, wrists, hips, knees
 - Plastic material quality throughout
 
+⚠️ IDENTITY PRESERVATION RULES:
+- The person's face must be CLEARLY RECOGNIZABLE
+- Keep their facial structure, proportions, and unique features
+- Only change: skin to plastic texture, eyes to doll eyes, add doll characteristics
+- DO NOT change: face shape, facial features, identity
+
 EYE DETAILS:
 - Large, round, glossy eyes with reflective surface
 - Visible eye mechanism aesthetic (pull-string or color-change look)
 - Bright, vibrant eye colors
 - Long, dramatic eyelashes
 - Innocent, wide-eyed expression
+- BUT: maintain the person's eye shape and placement
 
 SKIN & TEXTURE:
 - ${skinToneDescriptions[skinTone]}
@@ -178,6 +191,7 @@ SKIN & TEXTURE:
 - Matte finish with slight sheen
 - No human skin texture (pores, wrinkles, etc.)
 - Doll-like perfection
+- BUT: keep the person's face shape and features
 
 OUTFIT: ${outfitDescriptions[outfit]}
 
@@ -198,7 +212,7 @@ PRESENTATION:
 - Neutral or themed background
 - Professional product photo quality
 
-GOAL: Create an authentic Blythe doll transformation - clearly a collectible fashion doll, not a human!
+GOAL: Transform THIS SPECIFIC PERSON into an authentic Blythe doll - clearly a collectible fashion doll, but RECOGNIZABLE as the same person!
 
 Style: ${style}
 Eyes: ${eyeSize}
