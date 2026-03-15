@@ -1,67 +1,10 @@
 import { NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { generateGeminiImage, imageUrlToBase64 } from '@/lib/gemini-image';
+import { uploadBase64ImageToR2 } from '@/lib/r2-upload';
 
 export const runtime = 'edge';
 
-// R2 配置 - 从环境变量读取
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-images';
-
-// 创建 R2 客户端
-const r2Client = new S3Client({
-  region: 'auto',
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
-
-async function uploadToR2(base64Data: string, prefix: string = 'portrait'): Promise<string | null> {
-  try {
-    const base64Content = base64Data.replace(/^data:image\/\w+;base64,/, '');
-    const imageBuffer = Buffer.from(base64Content, 'base64');
-    
-    const filename = `${prefix}-${Date.now()}.png`;
-    const key = `images/${filename}`;
-    
-    const command = new PutObjectCommand({
-      Bucket: R2_BUCKET_NAME,
-      Key: key,
-      Body: imageBuffer,
-      ContentType: 'image/png',
-    });
-
-    await r2Client.send(command);
-    
-    return `https://img.talkphoto.app/${key}`;
-  } catch (error) {
-    console.error('R2 upload error:', error);
-    return null;
-  }
-}
-
-// 将图片转换为 base64
-function imageToBase64(url: string): Promise<string> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const base64 = buffer.toString('base64');
-      const mimeType = response.headers.get('content-type') || 'image/png';
-      resolve(`data:${mimeType};base64,${base64}`);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
-
-// 构建prompt的辅助函数
 function buildPrompt(beautyLevel: string, removeBlemishes: boolean, removeWrinkles: string): string {
-  // 瑕疵处理指令
   let blemishInstruction = '';
   if (removeBlemishes) {
     blemishInstruction = `
@@ -76,7 +19,6 @@ Other imperfections to remove:
 - 毛孔粗大 (large pores) - minimize
 
 FINAL RESULT: Perfectly clear skin with ZERO freckles or blemishes.`;
-
   } else {
     blemishInstruction = `
 KEEP (保留以下自然特征):
@@ -86,7 +28,6 @@ KEEP (保留以下自然特征):
 - 自然皮肤纹理 (natural skin texture)`;
   }
 
-  // 皱纹处理指令
   let wrinkleInstruction = '';
   if (removeWrinkles === 'remove') {
     wrinkleInstruction = `
@@ -196,93 +137,40 @@ export async function POST(req: Request) {
     }
     
     const apiKey = process.env.GEMINI_API_KEY;
-    
     if (!apiKey) {
       return NextResponse.json({ 
         error: 'System Error: GEMINI_API_KEY not configured.'
       }, { status: 500 });
     }
 
-    // 将图片转换为 base64
-    const imageBase64 = await imageToBase64(imageUrl);
-    
-    // 构建prompt
+    const imageBase64 = await imageUrlToBase64(imageUrl);
     const prompt = buildPrompt(beautyLevel, removeBlemishes, removeWrinkles);
 
-    let base64Data: string | null = null;
-    let lastError: string | null = null;
+    const result = await generateGeminiImage({
+      apiKey,
+      prompt,
+      imageBase64,
+      temperature: 0.4,
+      topK: 40,
+      topP: 0.95,
+    });
 
-    for (let attempt = 1; attempt <= 3; attempt++) {
-      const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
-        method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey
-        },
-        body: JSON.stringify({
-          contents: [{
-            parts: [
-              { text: prompt },
-              { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
-            ]
-          }],
-          generationConfig: {
-            temperature: 0.4 + (attempt - 1) * 0.05,
-            topK: 40,
-            topP: 0.95
-          }
-        })
-      });
-
-      const data = await apiResponse.json();
-      
-      if (!apiResponse.ok) {
-        lastError = data.error?.message || 'Gemini API Error';
-        console.error('Gemini API error:', data);
-        if (attempt < 3) {
-          await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
-          continue;
-        }
-        return NextResponse.json({ error: lastError }, { status: apiResponse.status });
-      }
-
-      const parts = data.candidates?.[0]?.content?.parts || [];
-      const imagePart = parts.find((p: any) => p.inlineData);
-      base64Data = imagePart?.inlineData?.data || null;
-      if (base64Data) break;
-      if (attempt < 3) {
-        await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
-      }
-    }
-    
-    if (!base64Data) {
-      return NextResponse.json({ error: lastError || 'No image data returned from AI.' }, { status: 500 });
+    if (!result.ok) {
+      return NextResponse.json({ error: result.error, raw: result.raw }, { status: result.status });
     }
 
-    const fullBase64 = `data:image/png;base64,${base64Data}`;
+    const fullBase64 = `data:image/png;base64,${result.base64Data}`;
+    const r2Url = await uploadBase64ImageToR2(fullBase64, 'portrait');
     
-    // 尝试上传到 R2
-    const r2Url = await uploadToR2(fullBase64, 'portrait');
-    
-    if (r2Url) {
-      return NextResponse.json({ 
-        imageUrl: r2Url, 
-        isR2: true,
-        mode: 'portrait'
-      }, {
-        headers: { 'Cache-Control': 'no-store, max-age=0' }
-      });
-    } else {
-      return NextResponse.json({ 
-        imageUrl: fullBase64, 
-        isR2: false,
-        mode: 'portrait'
-      }, {
-        headers: { 'Cache-Control': 'no-store, max-age=0' }
-      });
-    }
+    return NextResponse.json({ 
+      imageUrl: r2Url || fullBase64, 
+      isR2: !!r2Url,
+      mode: 'portrait'
+    }, {
+      headers: { 'Cache-Control': 'no-store, max-age=0' }
+    });
   } catch (error: any) {
-    console.error('Portrait enhance error:', error);
+    console.error('Portrait error:', error);
     return NextResponse.json({ error: `Server Exception: ${error.message}` }, { status: 500 });
   }
 }
