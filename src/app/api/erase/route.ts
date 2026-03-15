@@ -6,7 +6,7 @@ export const runtime = 'edge';
 
 export async function POST(req: Request) {
   try {
-    const { imageUrl, maskArea } = await req.json();
+    const { imageUrl, targetDescription } = await req.json();
     
     if (!imageUrl) {
       return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -21,13 +21,16 @@ export async function POST(req: Request) {
 
     const imageBase64 = await imageUrlToBase64(imageUrl);
     
-    const prompt = maskArea 
-      ? `Remove the object in the marked area - make it look like it was NEVER there.
+    const prompt = targetDescription 
+      ? `Remove from this image: ${targetDescription} - make it look like it was NEVER there.
 
 PHILOSOPHY: Perfect removal means invisible removal.
 
+TARGET TO REMOVE: ${targetDescription}
+
 OBJECT REMOVAL:
-- Remove the object in the marked area completely
+- Identify and remove: ${targetDescription}
+- Remove it completely from the image
 - Fill with natural, appropriate background
 - Match surrounding textures and patterns
 - Seamless blending (no visible edges)
@@ -52,7 +55,7 @@ FORBIDDEN:
 - DO NOT blur excessively
 - DO NOT make it look edited
 
-GOAL: Like the object was never there - seamless, natural, invisible removal.`
+GOAL: Like "${targetDescription}" was never there - seamless, natural, invisible removal.`
       : `Intelligently remove unwanted objects - clean up the photo NATURALLY.
 
 PHILOSOPHY: Great cleanup is invisible cleanup.
@@ -103,7 +106,8 @@ GOAL: Clean, natural photo - like the unwanted objects were never there.`;
     return NextResponse.json({ 
       imageUrl: r2Url || fullBase64, 
       isR2: !!r2Url,
-      mode: 'erase'
+      mode: 'erase',
+      targetDescription: targetDescription || 'auto'
     }, {
       headers: { 'Cache-Control': 'no-store, max-age=0' }
     });

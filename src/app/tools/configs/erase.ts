@@ -42,6 +42,13 @@ export const eraseConfig: ToolConfig = {
   ],
   params: [
     {
+      id: 'targetDescription',
+      name: '要删除的内容',
+      type: 'text',
+      default: '',
+      placeholder: '例如：删除照片中的路人、去掉水印、移除左边的垃圾桶'
+    },
+    {
       id: 'quality',
       name: '处理质量',
       type: 'select',
