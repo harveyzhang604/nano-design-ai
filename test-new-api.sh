@@ -1,6 +1,5 @@
 #!/bin/bash
 
-API_KEY="AIzaSyDGLt7r_Ry_Ov-Ov-Ov-Ov-Ov-Ov-Ov-Ov"
 TEST_IMAGE="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400"
 
 echo "=== 测试新增功能 ==="

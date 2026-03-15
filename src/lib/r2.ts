@@ -1,22 +1,31 @@
 // Cloudflare R2 存储配置
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
-// R2 配置（需要在环境变量中设置）
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID || '';
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID || '';
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY || '';
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-ai';
-const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL || '';
+// R2 配置（必须从环境变量读取，不允许 fallback）
+const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
+const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
+const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
+const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME;
+const R2_PUBLIC_URL = process.env.R2_PUBLIC_URL;
+
+function assertR2Env() {
+  if (!R2_ACCOUNT_ID || !R2_ACCESS_KEY_ID || !R2_SECRET_ACCESS_KEY || !R2_BUCKET_NAME || !R2_PUBLIC_URL) {
+    throw new Error('R2 env not configured: require R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET_NAME, R2_PUBLIC_URL');
+  }
+}
 
 // 创建 S3 客户端（R2 兼容 S3 API）
-const r2Client = new S3Client({
-  region: 'auto',
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
+function getR2Client() {
+  assertR2Env();
+  return new S3Client({
+    region: 'auto',
+    endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+    credentials: {
+      accessKeyId: R2_ACCESS_KEY_ID!,
+      secretAccessKey: R2_SECRET_ACCESS_KEY!,
+    },
+  });
+}
 
 /**
  * 从 URL 下载图片并上传到 R2
@@ -38,6 +47,7 @@ export async function saveImageToR2(imageUrl: string): Promise<string> {
     ContentType: 'image/png',
   });
 
+  const r2Client = getR2Client();
   await r2Client.send(command);
 
   // 返回公开访问 URL
