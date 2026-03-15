@@ -1,60 +1,8 @@
 import { NextResponse } from 'next/server';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { generateGeminiImage, imageUrlToBase64 } from '@/lib/gemini-image';
+import { uploadBase64ImageToR2 } from '@/lib/r2-upload';
 
 export const runtime = 'edge';
-
-// R2 配置
-const R2_ACCOUNT_ID = process.env.R2_ACCOUNT_ID;
-const R2_ACCESS_KEY_ID = process.env.R2_ACCESS_KEY_ID;
-const R2_SECRET_ACCESS_KEY = process.env.R2_SECRET_ACCESS_KEY;
-const R2_BUCKET_NAME = process.env.R2_BUCKET_NAME || 'nano-design-images';
-
-const r2Client = new S3Client({
-  region: 'auto',
-  endpoint: `https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
-  credentials: {
-    accessKeyId: R2_ACCESS_KEY_ID,
-    secretAccessKey: R2_SECRET_ACCESS_KEY,
-  },
-});
-
-async function uploadToR2(base64Data: string, prefix: string = 'pseudo-anim'): Promise<string | null> {
-  try {
-    const base64Content = base64Data.replace(/^data:image\/\w+;base64,/, '');
-    const imageBuffer = Buffer.from(base64Content, 'base64');
-    
-    const filename = `${prefix}-${Date.now()}.png`;
-    const key = `images/${filename}`;
-    
-    const command = new PutObjectCommand({
-      Bucket: R2_BUCKET_NAME,
-      Key: key,
-      Body: imageBuffer,
-      ContentType: 'image/png',
-    });
-
-    await r2Client.send(command);
-    return `https://img.talkphoto.app/${key}`;
-  } catch (error) {
-    console.error('R2 upload error:', error);
-    return null;
-  }
-}
-
-function imageToBase64(url: string): Promise<string> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      const response = await fetch(url);
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const base64 = buffer.toString('base64');
-      const mimeType = response.headers.get('content-type') || 'image/png';
-      resolve(`data:${mimeType};base64,${base64}`);
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
 
 export async function POST(req: Request) {
   try {
@@ -80,7 +28,7 @@ export async function POST(req: Request) {
       }, { status: 500 });
     }
 
-    const imageBase64 = await imageToBase64(imageUrl);
+    const imageBase64 = await imageUrlToBase64(imageUrl);
     
     // 生成关键帧序列
     const keyframes = [];
@@ -196,76 +144,45 @@ GOAL: Dramatic mood shift through natural lighting changes.`;
       }
       
       // 生成每一帧（带重试机制）
-      let base64Data = null;
-      let retries = 3;
-      
-      while (retries > 0 && !base64Data) {
+      let base64Data: string | null = null;
+      let lastError = 'Unknown error';
+
+      for (let attempt = 1; attempt <= 3 && !base64Data; attempt++) {
         try {
-          const apiResponse = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent`, {
-            method: "POST",
-            headers: { 
-              "Content-Type": "application/json",
-              "x-goog-api-key": apiKey
-            },
-            body: JSON.stringify({
-              contents: [{
-                parts: [
-                  { text: framePrompt },
-                  { inlineData: { mimeType: "image/png", data: imageBase64.split(',')[1] } }
-                ]
-              }],
-              generationConfig: {
-                temperature: 0.4,
-                topK: 32,
-                topP: 0.9
-              }
-            })
+          const result = await generateGeminiImage({
+            apiKey,
+            prompt: framePrompt,
+            imageBase64,
+            temperature: 0.4,
+            topK: 32,
+            topP: 0.9,
           });
 
-          const data = await apiResponse.json();
-          
-          if (!apiResponse.ok) {
-            console.error(`Frame ${i + 1} attempt ${4 - retries} - API error:`, data);
-            retries--;
-            if (retries > 0) {
-              await new Promise(resolve => setTimeout(resolve, 2000));
-              continue;
-            }
-            return NextResponse.json({ 
-              error: `Frame ${i + 1} failed after 3 retries: ${data.error?.message || 'Gemini API Error'}` 
-            }, { status: apiResponse.status });
+          if (result.ok) {
+            base64Data = result.base64Data;
+            break;
           }
 
-          const parts = data.candidates?.[0]?.content?.parts || [];
-          const imagePart = parts.find((p: any) => p.inlineData);
-          base64Data = imagePart?.inlineData?.data;
-          
-          if (!base64Data) {
-            console.error(`Frame ${i + 1} attempt ${4 - retries} - No image data`);
-            retries--;
-            if (retries > 0) {
-              await new Promise(resolve => setTimeout(resolve, 2000));
-              continue;
-            }
-            return NextResponse.json({ 
-              error: `Frame ${i + 1}: No image data after 3 retries` 
-            }, { status: 500 });
-          }
+          lastError = result.error;
+          console.error(`Frame ${i + 1} attempt ${attempt} failed:`, result.raw || result.error);
         } catch (error: any) {
-          console.error(`Frame ${i + 1} attempt ${4 - retries} - Exception:`, error);
-          retries--;
-          if (retries > 0) {
-            await new Promise(resolve => setTimeout(resolve, 2000));
-            continue;
-          }
-          return NextResponse.json({ 
-            error: `Frame ${i + 1} exception: ${error.message}` 
-          }, { status: 500 });
+          lastError = error?.message || 'Unknown exception';
+          console.error(`Frame ${i + 1} attempt ${attempt} exception:`, error);
+        }
+
+        if (attempt < 3) {
+          await new Promise(resolve => setTimeout(resolve, 2000));
         }
       }
 
+      if (!base64Data) {
+        return NextResponse.json({ 
+          error: `Frame ${i + 1} failed after 3 retries: ${lastError}` 
+        }, { status: 500 });
+      }
+
       const fullBase64 = `data:image/png;base64,${base64Data}`;
-      const r2Url = await uploadToR2(fullBase64, `pseudo-anim-frame${i + 1}`);
+      const r2Url = await uploadBase64ImageToR2(fullBase64, `pseudo-anim-frame${i + 1}`);
       
       keyframes.push({
         frame: i + 1,
