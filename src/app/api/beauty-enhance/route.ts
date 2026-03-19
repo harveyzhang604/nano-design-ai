@@ -166,36 +166,39 @@ GOAL: Professional beauty enhancement - polished and refined.`,
 
       'glamour': `Apply GLAMOUR beauty treatment to this portrait.
 
-PHILOSOPHY: Maximum enhancement for glamorous, editorial look.
+PHILOSOPHY: Maximum enhancement with AUTHENTIC skin texture — 2026 editorial beauty is radiant and real, NOT plastic or AI-looking.
 
 PRESERVE CORE IDENTITY:
-- Keep the person recognizable
-- Maintain basic facial structure
+- Keep the person FULLY recognizable
+- Maintain facial structure and unique features
+- Preserve freckles, beauty marks (enhance, don't erase)
+- Keep natural skin undertone
 
-GLAMOUR ENHANCEMENTS (Maximum):
-- Flawless skin (smooth, porcelain-like)
-- Remove all blemishes and imperfections
-- Dramatic eye enhancement (bright, defined)
-- Perfect skin tone and color
-- Eliminate under-eye issues completely
-- Enhanced lip color and fullness
-- Minimize wrinkles and lines
-- Sculpted facial contours
-- Radiant, glowing skin
-- Professional makeup look
+GLAMOUR ENHANCEMENTS (Maximum but authentic):
+- Luminous, glass-skin glow (Hailey Bieber / Korean glass skin aesthetic)
+- Smooth skin while KEEPING visible pore texture and natural grain
+- Dramatic, defined eye enhancement with depth and sparkle
+- Rich, editorial lip color with natural texture
+- Sculpted cheekbones with soft highlight and shadow
+- Radiant golden-hour skin warmth
+- Professional high-fashion makeup look (not overly filtered)
+- Healthy, dewy skin that looks TOUCHABLE not plastic
+
+FORBIDDEN (2026 anti-AI aesthetic rules):
+- Do NOT make skin look smooth like plastic or wax
+- Do NOT lose all skin texture — pores and natural grain MUST remain
+- Do NOT over-brighten to the point of losing dimension
+- Do NOT erase ALL imperfections — keep character
+- Do NOT change facial structure or features
+- Do NOT make it look like an obvious AI filter
 
 QUALITY STANDARDS:
-- Editorial/fashion magazine quality
-- High-end retouching
-- Glamorous appearance
-- Professional photography look
+- Vogue / Harper's Bazaar editorial quality
+- High-end beauty campaign retouching
+- Skin looks real and touchable, not digital
+- The "uncanny valley" must be avoided at all costs
 
-ALLOWED:
-- Significant enhancement
-- Dramatic improvements
-- Fashion-forward look
-
-GOAL: Glamorous transformation - red carpet ready.`
+GOAL: Glamorous red carpet look — stunning, radiant, unmistakably REAL.`
     };
     
     let prompt = intensityPrompts[intensity] || intensityPrompts['natural'];

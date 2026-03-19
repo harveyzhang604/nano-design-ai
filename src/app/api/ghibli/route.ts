@@ -211,7 +211,7 @@ GOAL: Warm Ghibli magic with authentic watercolor texture.`;
             ]
           }],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.55,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,

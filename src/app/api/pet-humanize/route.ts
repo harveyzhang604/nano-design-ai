@@ -102,7 +102,28 @@ export async function POST(req: Request) {
       'nature': 'beautiful natural landscape that complements the character'
     };
 
-    const prompt = `Create a human portrait inspired by this pet. Keep the pet's personality, color palette, mood, and distinctive visual traits, but render a normal human character with no animal ears, fur, tail, or costume elements. Use ${clothingDescriptions[clothing]} and ${backgroundDescriptions[background]}. Make it polished, believable, and appealing.`;
+    const prompt = `Create a human portrait inspired by this pet.
+
+PET IDENTITY PRESERVATION (most important):
+- Study the pet's EXACT fur/coat color pattern — replicate as hair color and skin tone on the human
+- Keep the pet's eye color EXACTLY (golden, blue, heterochromatic, etc.)
+- Preserve the pet's distinctive markings as subtle features (freckles, highlights, accessories)
+- Capture the pet's personality: playful, regal, lazy, mischievous — show it in the human's expression
+- If the pet has unique features (fluffy fur, folded ears, flat face), translate them creatively into human fashion/style
+
+HUMAN RENDERING:
+- Fully human — NO animal ears, fur patches, tail, whiskers, or costume elements
+- ${clothingDescriptions[clothing]}
+- ${backgroundDescriptions[background]}
+- Natural human skin with the pet's color palette as inspiration
+- The result should make the owner say "that's EXACTLY my pet's vibe!"
+
+QUALITY:
+- Editorial portrait photography quality
+- Natural lighting, believable and appealing
+- 4K resolution, professional retouching
+
+GOAL: A human who unmistakably "is" this pet in human form — same soul, same colors, same energy.\`;`
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -117,7 +138,7 @@ export async function POST(req: Request) {
             ]
           }],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.5,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,

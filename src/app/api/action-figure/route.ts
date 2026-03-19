@@ -169,8 +169,21 @@ PRESENTATION:
 - Sharp focus on figure details
 - Collector display aesthetic
 
-STYLE: Collectible action figure product photography.
-GOAL: Authentic toy collectible with visible articulation and premium presentation.`;
+PACKAGING ENHANCEMENT:
+- Clear plastic blister window with realistic reflections and glare
+- Cardboard backing with character artwork, logo, and series branding
+- \"Limited Edition\" or \"Collector Series\" label if premium packaging
+- Barcode, age rating, and manufacturer details on packaging
+- Authentic retail toy store shelf presentation
+
+IDENTITY PRESERVATION:
+- The figure MUST be recognizable as the person in the input image
+- Preserve facial features, hair color, and distinctive characteristics
+- Translate their clothing/outfit into accurate action figure costume
+- Maintain their core identity in sculpted form
+
+STYLE: Premium collectible action figure product photography with authentic retail packaging.
+GOAL: Authentic toy collectible — looks like it just came off a toy store shelf, with the person's likeness perfectly captured in plastic.`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
@@ -185,7 +198,7 @@ GOAL: Authentic toy collectible with visible articulation and premium presentati
             ]
           }],
           generationConfig: {
-            temperature: 0.6,
+            temperature: 0.5,
             topK: 40,
             topP: 0.9,
             maxOutputTokens: 8192,

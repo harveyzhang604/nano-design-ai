@@ -159,7 +159,14 @@ VISUAL QUALITY:
 - Clear gesture visibility
 - Authentic Baroque painting atmosphere
 
-GOAL: Create an authentic Italian gesture photo that looks like a dramatic Baroque painting - combining passionate expression with classical Italian art aesthetics!
+MEME VIRALITY (2026 Italian Brainrot trend):
+- The gesture must be IMMEDIATELY recognizable and shareable
+- Expression should be peak dramatic Italian energy — over the top, operatic
+- Think: "this belongs on a meme template" level of expressiveness
+- Facial expression must match the gesture perfectly — zero ambiguity
+- The absurdity and passion should make viewers laugh AND share
+
+GOAL: Create a viral Italian gesture meme in Baroque painting style — dramatically expressive, instantly shareable, captures the full spirit of Italian Brainrot culture with classical art aesthetics!
 
 Gesture: ${gesture}${combo && secondGesture ? ` + ${secondGesture}` : ''}
 Intensity: ${intensity}%

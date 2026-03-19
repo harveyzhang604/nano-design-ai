@@ -238,7 +238,7 @@ Outfit: ${outfit}`;
             ]
           }],
           generationConfig: {
-            temperature: 0.7,
+            temperature: 0.45,
             topK: 40,
             topP: 0.95,
             maxOutputTokens: 8192,

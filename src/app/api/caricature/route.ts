@@ -117,7 +117,14 @@ COMPOSITION:
 - Fun, lighthearted atmosphere
 - Similar to viral ChatGPT caricature challenge style
 
+VIRAL FACTOR (2026 caricature challenge trend):
+- This should look like it belongs in the viral "ChatGPT caricature challenge" trend
+- Bold, expressive, immediately eye-catching
+- Exaggeration should make the person laugh, not cringe
+- Designed to be screenshotted and shared instantly
+
 IMPORTANT: Make it fun and shareable on social media!`,
+
       
       'professional': `Create a PROFESSIONAL caricature portrait based on this photo.
 

@@ -159,7 +159,15 @@ MOOD:
 - Pure cuteness overload
 - Makes you go "awww!"
 
-GOAL: Create an irresistibly cute chibi character that captures the person's essence in the most adorable way possible!`;
+TRENDING 2026 CHIBI AESTHETICS:
+- Soft pastel color palette with gentle gradients
+- Clean linework with subtle cel-shading
+- Sparkling highlight dots in eyes (4-point star sparkles)
+- Tiny blush marks (two soft circles on cheeks)
+- Floating heart or star accessories optional
+- IP-quality illustration standard (LINE Friends / Sanrio level)
+
+GOAL: Create an irresistibly cute chibi character at IP mascot quality — so adorable it could be a sticker pack or LINE Friends character!`;
 
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image-preview:generateContent?key=${apiKey}`,
