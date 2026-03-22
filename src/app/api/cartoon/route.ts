@@ -198,7 +198,57 @@ FORBIDDEN:
 - Do NOT lose the person's core identity
 - Do NOT make it too abstract to recognize
 
-GOAL: Create a clean, modern, geometric portrait in the style of ChatGPT's official avatar design - minimalist, professional, and instantly recognizable.`
+GOAL: Create a clean, modern, geometric portrait in the style of ChatGPT's official avatar design - minimalist, professional, and instantly recognizable.`,
+
+      'webtoon': `Convert this photo to KOREAN WEBTOON illustration style - the dominant digital comic aesthetic of 2026.
+
+WEBTOON STYLE CHARACTERISTICS:
+- Clean, confident linework with variable stroke weight
+- Expressive oversized eyes with detailed iris shine
+- Smooth, cel-shaded coloring (no heavy textures)
+- K-drama inspired lighting: soft rim light, flattering face illumination
+- Contemporary Korean fashion and styling sensibility
+- Mobile-optimized vertical portrait composition
+- Subtle blush marks and sparkle accents (shojo-adjacent)
+- Modern, youthful, emotionally expressive
+- Palette: clean skin tones, saturated accent colors, white highlights
+
+PRESERVE IDENTITY:
+- Recognizable facial structure and features
+- Hair color and general style
+- Overall personality and expression
+
+FORBIDDEN:
+- Do NOT use heavy anime tropes (no sweat drops, no super-deformed)
+- Do NOT use rough sketch lines
+- Do NOT lose face identity
+
+GOAL: Polished Korean webtoon portrait — clean, expressive, contemporary. The aesthetic of Naver/Tapas top-ranked comics.`,
+
+      'retro-y2k': `Convert this photo to Y2K RETRO CARTOON style - the viral nostalgic aesthetic of early 2000s digital art.
+
+Y2K CARTOON CHARACTERISTICS:
+- Bold, thick black outlines
+- Bubblegum and candy color palette: hot pink, electric blue, lime green, silver
+- Shiny, glossy surfaces (liquid chrome effect on accessories)
+- Stars, hearts, butterflies, and sparkle motifs integrated naturally
+- Early 2000s Flash animation aesthetic (Club Penguin, Bratz, Winx Club era)
+- Chunky, rounded shapes with plastic-toy quality
+- Iridescent and holographic color effects
+- Fun, playful, maximalist energy
+- Futuristic-retro hybrid: tech meets pop
+
+PRESERVE IDENTITY:
+- Core facial features and hair
+- Subject's personality
+- Keep them recognizable under the style
+
+FORBIDDEN:
+- Do NOT make it look too modern/minimal
+- Do NOT lose the Y2K maximalist energy
+- Do NOT use muted or earthy tones
+
+GOAL: Peak Y2K nostalgia — bubbly, shiny, maximalist, unapologetically 2000s. The aesthetic Gen Z is obsessed with in 2026.`
     };
     
 

@@ -235,6 +235,62 @@ FORBIDDEN:
 - DO NOT make it unwearable
 
 GOAL: Fashion magazine editorial - artistic, bold, creative, but still recognizably THEM. Wearable art.`,
+
+      'glass-skin': `Apply GLASS SKIN makeup to this face - the ultimate K-beauty luminosity trend of 2026.
+
+PHILOSOPHY: Glass skin is not makeup — it's the illusion of perfect skin from within.
+
+GLASS SKIN TECHNIQUE:
+- Skin prep glow: intense hydration visible through the skin surface
+- Translucent foundation (skin looks like skin, just flawless)
+- No-powder finish: dewy, wet-look luminosity throughout
+- Poreless appearance without looking filtered
+- Strategic highlighter: inner corner eyes, cupid's bow, nose bridge, cheekbones
+- Glossy, hydrated lips (clear gloss or sheer tint)
+- Barely-there brows (groomed, natural, feathery)
+- Minimal eye makeup (lash curl, maybe one coat mascara)
+- The overall effect: skin that looks lit from within, like glass
+
+PRESERVE IDENTITY:
+- Natural skin tone (enhance, never change)
+- Facial features fully visible
+- Natural expressions
+- Their authentic beauty amplified
+
+FORBIDDEN:
+- DO NOT add heavy coverage that masks skin
+- DO NOT use matte finish
+- DO NOT add dramatic eye or lip looks
+- DO NOT change skin tone
+
+GOAL: Hyper-luminous, dewy, poreless glass skin — the K-beauty Holy Grail. Skin so hydrated it looks reflective.`,
+
+      'clean-girl': `Apply CLEAN GIRL aesthetic makeup - the defining minimalist beauty trend.
+
+PHILOSOPHY: Clean girl is effortless, natural, intentional. "I woke up like this" but better.
+
+CLEAN GIRL MAKEUP:
+- Skin: light coverage tinted moisturizer, natural finish, real skin texture visible
+- Brows: full, brushed-up, fluffy and natural (laminated brow effect)
+- Eyes: no eyeshadow — just curled lashes, thin mascara or none
+- Lips: clear or barely-tinted gloss, natural lip color
+- Cheeks: light, natural-placement blush (no contouring)
+- Highlight: subtle, natural-looking glow on cheekbones only
+- Hair (if visible): slicked back bun or effortless ponytail implied by styling
+- Overall: polished but not trying, expensive-looking simplicity
+
+PRESERVE IDENTITY:
+- Natural skin tone and texture
+- Full facial features
+- Their authentic look
+
+FORBIDDEN:
+- DO NOT add heavy or dramatic elements
+- DO NOT contour aggressively
+- DO NOT use bold eye or lip colors
+- DO NOT make it look like "no makeup" — it should look intentionally minimal
+
+GOAL: The clean girl aesthetic — effortless, natural, glowy. Looks expensive, feels effortless.`
     };
     
     const prompt = makeupPrompts[makeupStyle] || makeupPrompts['natural'];

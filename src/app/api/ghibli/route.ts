@@ -135,7 +135,22 @@ VISUAL CHARACTERISTICS:
 - Detailed urban landscapes
 - Optimistic, uplifting mood
 - Clear skies and warm light
-- Charming, storybook quality`
+- Charming, storybook quality`,
+
+      'heron-boy': `DREAMLIKE SURREALIST ANIMATION (君たちはどう生きるか / The Boy and the Heron) - Miyazaki's final masterwork
+VISUAL CHARACTERISTICS:
+- Layered dream worlds and overlapping realities
+- Rich earth tones: deep moss greens, burnt umber, aged ochre
+- Architectural fantasy: crumbling towers, impossible staircases, ancient stone
+- Melancholic beauty with profound emotional depth
+- Feathered creatures with uncanny human intelligence
+- Liminal spaces between life and death, past and present
+- Intricate hand-drawn texture detail
+- Otherworldly light sources: warm candle glow, cold spiritual luminescence
+- Dense foliage and overgrown nature reclaiming structures
+- Nostalgic wartime Japan atmosphere filtered through surrealism
+
+GOAL: Transform into Miyazaki's most mature and mystical visual language — dreamlike, deeply emotional, architecturally fantastical.`
     };
 
     // 氛围描述
