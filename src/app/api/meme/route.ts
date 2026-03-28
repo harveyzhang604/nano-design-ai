@@ -152,6 +152,29 @@ EMOTIONAL TONE:
 - Spreads joy
 
 GOAL: Like a wholesome internet meme - cute, heartwarming, makes people smile and feel good.`,
+
+      'brainrot': `Create a BRAINROT surrealist meme image - chaotic, absurd, TikTok viral energy.
+
+PHILOSOPHY: Brainrot memes embrace absurdism, unexpected mashups, and chaotic humor. The more surreal and unexpected, the better.
+
+MEME TEXT: "${text}"
+
+BRAINROT MEME DESIGN:
+- Photorealistic but absurd subject matter (unexpected animal/object mashups, surreal scenarios)
+- Chaotic, unhinged visual composition that somehow works
+- Bold Impact-style meme text with maximum irony
+- Colors: slightly oversaturated, chaotic energy
+- Deep fried meme aesthetic optional (slightly overexposed, high contrast)
+- The kind of image that makes people stop scrolling and say "what am I looking at"
+
+BRAINROT ENERGY:
+- Unexpected, unhinged, absurdist humor
+- Photorealistic quality making absurdity even funnier
+- Perfect for TikTok/Instagram Reels comment sections
+- Instantly recognizable as peak 2026 internet culture
+- Maximum shareability through pure chaos
+
+GOAL: Viral TikTok brainrot meme energy — absurd, chaotic, photorealistic, impossible NOT to share.`,
     };
     
     let prompt = templatePrompts[template] || templatePrompts['funny'];
