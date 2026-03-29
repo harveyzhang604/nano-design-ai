@@ -119,7 +119,24 @@ export async function POST(req: Request) {
 - Chunky, durable plastic construction
 - Retro packaging aesthetic
 - Nostalgic 80s toy design
-- Collectible vintage appeal`
+- Collectible vintage appeal`,
+
+      'funko-pop': `FUNKO POP! VINYL BLIND BOX FIGURE STYLE
+- Oversized chibi head (70% of body volume), tiny stubby body, 3.5-inch scale
+- Matte vinyl finish, simplified face with small oval eyes, dot pupils
+- Round chibi proportions — large round head, minimal neck, rectangular torso, short stubby legs
+- Characteristic Funko Pop silhouette: head wider than shoulders
+- Flat color areas, no gradients — official Funko color palette
+- Stud or peg base for display stand
+PACKAGING (MANDATORY for Funko Pop style):
+- Sealed cardboard window box, Funko-style die-cut trapezoid window showing figure
+- \"MYSTERY FIGURE\" or character name on box front in bold font
+- \"#[NUMBER] in Series\" collector numbering badge
+- Gold foil \"CHASE VARIANT\" sticker (1-in-6 rarity indicator)
+- Pastel/kawaii color scheme on box art matching character theme
+- Series logo and barcode on box bottom
+- \"Ages 3+\" warning and choking hazard icon
+QUALITY: Product photography on white sweep, soft box lighting, 45° angle showing box and figure window\`
     };
 
     // 姿势描述
@@ -169,12 +186,20 @@ PRESENTATION:
 - Sharp focus on figure details
 - Collector display aesthetic
 
-PACKAGING ENHANCEMENT:
-- Clear plastic blister window with realistic reflections and glare
-- Cardboard backing with character artwork, logo, and series branding
-- \"Limited Edition\" or \"Collector Series\" label if premium packaging
-- Barcode, age rating, and manufacturer details on packaging
-- Authentic retail toy store shelf presentation
+PACKAGING ENHANCEMENT (HYPER-REALISTIC RETAIL DETAIL):
+- Clear plastic blister window with photorealistic Fresnel reflections, glare, and subtle fingerprint smudges
+- Cardboard backing card: full-color character art, fictional character name as custom brand logo (large, prominent)
+- ABILITY STATS PANEL on packaging side: visual bar chart \u2014 Speed \u2588\u2588\u2588\u2588\u2591 Strength \u2588\u2588\u2588\u2591\u2591 Intelligence \u2588\u2588\u2588\u2588\u2591 (5-bar style)
+- Age warning sticker: \"Ages 8+\" icon with child silhouette, \"WARNING: CHOKING HAZARD \u2014 Contains small parts\"
+- Authentic UPC barcode in bottom-right corner, scannable-looking with numeric digits below
+- Collector series badge: \"SERIES 3 \u2014 Figure 12 of 24\" or \"COLLECTOR EDITION #007\"
+- Holographic \"CHASE VARIANT\" foil badge on premium packaging
+- \"Limited Edition\" or \"Collector Series\" embossed label
+RETAIL ENVIRONMENT LIGHTING:
+- Fluorescent toy store aisle overhead lighting \u2014 bright, even, slightly cool white
+- Warm ambient fill simulating toy department ceiling grid lights
+- Background: softly blurred toy store shelf with other packaged figures visible in bokeh
+- 3/4 product angle view showing both figure and full packaging
 
 IDENTITY PRESERVATION:
 - The figure MUST be recognizable as the person in the input image
