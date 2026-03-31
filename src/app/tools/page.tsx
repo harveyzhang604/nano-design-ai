@@ -19,6 +19,7 @@ const tools = [
   { id: 'upscale', name: '照片放大', icon: ZoomIn, color: 'from-purple-500 to-pink-500', desc: '2x/4x/8x无损放大', category: 'P0' },
   { id: 'colorize', name: '照片上色', icon: Palette, color: 'from-yellow-500 to-orange-500', desc: '黑白照片智能上色', category: 'P0' },
   { id: 'restore', name: '老照片修复', icon: RefreshCw, color: 'from-amber-500 to-red-500', desc: '修复划痕模糊破损', category: 'P0' },
+  { id: 'restore-pro', name: '老照片三步修复', icon: RefreshCw, color: 'from-amber-400 to-orange-600', desc: '三步顺序修复·逐步可见', category: 'P0', href: '/tools/old-photo-restore' } as any,
   { id: 'erase', name: 'AI去物体', icon: Eraser, color: 'from-green-500 to-emerald-500', desc: '移除不需要的元素', category: 'P0' },
   { id: 'change-bg', name: 'AI换背景', icon: Layers, color: 'from-indigo-500 to-blue-500', desc: '替换任意场景背景', category: 'P0' },
   { id: 'portrait', name: '人像增强', icon: User, color: 'from-pink-500 to-rose-500', desc: '磨皮美白瘦脸大眼', category: 'P0' },
@@ -314,6 +315,12 @@ export default function ToolsPage() {
   };
 
   const handleToolClick = (toolId: string) => {
+    // 有独立页面的工具直接跳转
+    const tool = tools.find(t => t.id === toolId) as any;
+    if (tool?.href) {
+      window.location.href = tool.href;
+      return;
+    }
     setActiveTool(toolId);
     setResultImage(null);
     setUploadedImage(null);
