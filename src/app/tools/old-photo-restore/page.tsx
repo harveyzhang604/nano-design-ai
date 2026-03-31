@@ -155,59 +155,83 @@ export default function OldPhotoRestorePage() {
           </div>
         ) : (
           <>
-            {/* Original + start button */}
-            <div className="flex flex-col sm:flex-row gap-4 items-start mb-8 max-w-6xl mx-auto">
-              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden w-full sm:w-64 flex-shrink-0">
+            {/* 操作按钮栏 */}
+            <div className="flex items-center gap-4 mb-6 max-w-6xl mx-auto">
+              {!isProcessing && !done && (
+                <button onClick={startProcess} className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl text-lg transition-colors shadow-lg">
+                  开始三步修复
+                </button>
+              )}
+              {isProcessing && (
+                <div className="flex items-center gap-3 text-blue-600 dark:text-blue-400">
+                  <Loader2 className="w-6 h-6 animate-spin" />
+                  <span className="font-medium">AI 修复中，请勿关闭页面...</span>
+                </div>
+              )}
+              {done && (
+                <div className="flex items-center gap-4 flex-wrap">
+                  <p className="text-green-600 dark:text-green-400 font-semibold">✅ 三步修复全部完成！</p>
+                  {steps[3].imageUrl && (
+                    <button onClick={() => download(steps[3].imageUrl!, 'final')} className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-5 rounded-lg transition-colors">
+                      <Download className="w-4 h-4" /> 下载最终结果
+                    </button>
+                  )}
+                  <button onClick={reset} className="text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 underline">修复另一张照片</button>
+                </div>
+              )}
+              {!done && !isProcessing && (
+                <button onClick={reset} className="text-sm text-gray-400 hover:text-gray-600 underline">重新选择照片</button>
+              )}
+            </div>
+
+            {/* 第一行：原始照片 + 第三次修复 */}
+            <div className="grid grid-cols-2 gap-6 max-w-6xl mx-auto mb-6">
+              <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-2 border-gray-200 dark:border-gray-700">
                 <div className="p-3 bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
-                  <p className="text-center font-medium text-gray-700 dark:text-gray-200">原始照片</p>
+                  <p className="text-center font-semibold text-gray-700 dark:text-gray-200">原始照片</p>
                 </div>
                 <div className="p-3">
                   <img src={originalImage} alt="原图" className="w-full h-auto rounded" />
                 </div>
               </div>
-
-              <div className="flex-1 flex flex-col justify-center gap-4 py-4">
-                {!isProcessing && !done && (
-                  <button
-                    onClick={startProcess}
-                    className="w-full max-w-xs bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded-xl text-lg transition-colors shadow-lg"
-                  >
-                    开始三步修复
-                  </button>
-                )}
-                {isProcessing && (
-                  <div className="flex items-center gap-3 text-blue-600 dark:text-blue-400">
-                    <Loader2 className="w-6 h-6 animate-spin" />
-                    <span className="font-medium">AI 修复中，请勿关闭页面...</span>
+              {/* 第三次修复 */}
+              {(() => {
+                const s3 = steps[3];
+                const cfg3 = stepConfig[2];
+                return (
+                  <div className={`bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-2 ${ s3.status === 'completed' ? cfg3.borderCls : 'border-gray-200 dark:border-gray-700' }`}>
+                    <div className={`p-3 border-b ${ s3.status === 'completed' ? cfg3.headerCls : 'bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600' }`}>
+                      <p className={`text-center font-semibold ${ s3.status === 'completed' ? cfg3.titleCls : 'text-gray-500 dark:text-gray-400' }`}>{cfg3.name} · 最终结果</p>
+                      <p className="text-center text-xs text-gray-500 dark:text-gray-400 mt-0.5">{cfg3.desc}</p>
+                    </div>
+                    <div className="p-3">
+                      {s3.status === 'completed' && s3.imageUrl ? (
+                        <>
+                          <img src={s3.imageUrl} alt="第3次修复" className="w-full h-auto rounded" />
+                          <button onClick={() => download(s3.imageUrl!, cfg3.tag)} className={`mt-2 w-full ${cfg3.btnCls} text-white font-medium py-2 px-4 rounded-lg flex items-center justify-center gap-2 transition-colors`}>
+                            <Download className="w-4 h-4" /> 下载
+                          </button>
+                        </>
+                      ) : s3.status === 'running' ? (
+                        <div className="aspect-square flex flex-col items-center justify-center gap-3">
+                          <Loader2 className="w-10 h-10 animate-spin text-green-500" />
+                          <p className="text-sm text-gray-500">AI 处理中...</p>
+                        </div>
+                      ) : (
+                        <div className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center gap-3">
+                          <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-600" />
+                          <p className="text-sm text-gray-400">等待前两步完成</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
-                {done && (
-                  <div className="space-y-3">
-                    <p className="text-green-600 dark:text-green-400 font-semibold text-lg">✅ 三步修复全部完成！</p>
-                    {steps[3].imageUrl && (
-                      <button
-                        onClick={() => download(steps[3].imageUrl!, 'final')}
-                        className="flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-5 rounded-lg transition-colors"
-                      >
-                        <Download className="w-4 h-4" /> 下载最终结果
-                      </button>
-                    )}
-                    <button onClick={reset} className="block text-sm text-gray-500 hover:text-gray-700 dark:text-gray-400 underline">
-                      修复另一张照片
-                    </button>
-                  </div>
-                )}
-                {!done && !isProcessing && (
-                  <button onClick={reset} className="text-sm text-gray-400 hover:text-gray-600 underline w-fit">
-                    重新选择照片
-                  </button>
-                )}
-              </div>
+                );
+              })()}
             </div>
 
-            {/* 3 step result cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {stepConfig.map(({ n, name, desc, tag, headerCls, borderCls, titleCls, btnCls, iconCls }) => {
+            {/* 第二行：第一次 + 第二次修复 */}
+            <div className="grid grid-cols-2 gap-6 max-w-6xl mx-auto">
+              {stepConfig.filter(({ n }) => n !== 3).map(({ n, name, desc, tag, headerCls, borderCls, titleCls, btnCls, iconCls }) => {
                 const s = steps[n];
                 const active = s.status === 'completed';
                 return (
