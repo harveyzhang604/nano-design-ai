@@ -126,8 +126,14 @@ export const promptTemplates = {
     {
       id: 'fashion-4',
       name: '复古时尚',
-      prompt: 'Vintage [年代] fashion photography. Model wearing [描述服装]. Retro color grading, film grain texture, nostalgic atmosphere. Shot on vintage film camera.',
-      tags: ['Vintage', 'Retro', 'Nostalgic']
+      prompt: 'Vintage [年代] fashion photography shot on [Kodak Portra 400/Fuji Velvia 50] film stock, authentic period color science, natural film grain, subtle light leaks, nostalgic atmosphere. Model wearing [描述服装]. Candid moment, shallow depth of field, 8K resolution, ultra-detailed, sharp edges, professional quality, no artifacts. Support --seed parameter for consistent output, reference image style matching available.',
+      tags: ['Vintage', 'Retro', 'Nostalgic', 'Film']
+    },
+    {
+      id: 'fashion-5',
+      name: '可动人偶肖像',
+      prompt: 'Funko Pop style action figure of [人物描述], standing in a clear plastic display box, premium paint details, realistic plastic texture, studio lighting, white background, product photography, 8K resolution, ultra-detailed, no artifacts. Commercial use allowed.',
+      tags: ['Action Figure', 'Viral', 'Funko', 'Social Media']
     }
   ],
   
@@ -189,8 +195,8 @@ export const promptTemplates = {
     {
       id: 'product-1',
       name: '产品摄影',
-      prompt: 'Professional product photography of [产品名称]. Clean white background, studio lighting, multiple angles. Commercial photography style, high resolution, sharp details.',
-      tags: ['Commercial', 'Studio', 'Clean']
+      prompt: 'Professional commercial product photography of [产品名称], shot on Sony A7R IV, softbox studio lighting, crisp focus on product details, subtle reflections, clean white background, no shadows, 8K resolution, photorealistic, ready for e-commerce use. Support generative fill for background replacement, --seed parameter for consistent output. Commercial use allowed, no copyright issues.',
+      tags: ['Commercial', 'Studio', 'Clean', 'E-commerce']
     },
     {
       id: 'product-2',
@@ -412,8 +418,14 @@ export const promptTemplates = {
     {
       id: 'social-2',
       name: '小红书配图',
-      prompt: 'Xiaohongshu lifestyle post about [主题]. [风格] aesthetic, warm tones, trendy design. Vertical format, engaging content, popular Chinese social media style.',
-      tags: ['Xiaohongshu', 'Lifestyle', 'Vertical']
+      prompt: 'Xiaohongshu viral lifestyle post about [主题]. Warm Kodak Gold 200 film aesthetic, soft natural lighting, cozy atmosphere, vertical 9:16 format, subtle film grain, trending composition, ultra-detailed, optimized for mobile viewing. Supports one-click editing in browser, --seed parameter for consistent series content. Commercial use allowed.',
+      tags: ['Xiaohongshu', 'Lifestyle', 'Vertical', 'Viral']
+    },
+    {
+      id: 'social-5',
+      name: '超现实主义迷因',
+      prompt: 'Surreal meme image of [场景/人物], absurd and funny, viral social media style, high contrast, bold colors, 1:1 square format, optimized for Instagram/TikTok sharing, 8K resolution, ultra-detailed. Commercial use allowed.',
+      tags: ['Meme', 'Viral', 'Social Media', 'Funny']
     },
     {
       id: 'social-3',
