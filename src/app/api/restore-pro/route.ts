@@ -5,39 +5,49 @@ import { uploadBase64ImageToR2 } from '@/lib/r2-upload';
 export const runtime = 'edge';
 
 const STEP_PROMPTS: Record<number, string> = {
-  1: `You are restoring a damaged old photograph. This is Step 1: Remove physical damage only.
+  1: `You are restoring a damaged old photograph that was photographed with a phone camera. This is Step 1: Deskew, crop, and remove physical damage.
 
-TASK: Clean up visible physical damage from this old photo.
+MANY OLD PHOTOS ARE PHONE-PHOTOGRAPHED: The input may show a physical photograph lying on a surface, photographed from above. It may have:
+- Extra background (table, hand, surface) around the actual photo
+- Perspective distortion (photo not shot perfectly flat)
+- Bent or curled corners
+- Uneven lighting from the phone flash
 
-FIX ONLY THESE DAMAGE TYPES:
+STEP 1A - DETECT AND CROP (do this first):
+- Identify the actual photograph within the scene (it has a distinct border/edge)
+- Detect the four corners of the physical photograph
+- Apply perspective correction to straighten and flatten the image
+- Crop tightly to the photograph content, removing all surrounding background (table, fingers, surface)
+- If the photo appears to already be a flat scan (no perspective distortion), skip deskewing
+
+STEP 1B - REMOVE PHYSICAL DAMAGE:
 - Scratches, tears, and cracks
-- Water stains, brown spots, mold marks
+- Water stains, brown spots, mold marks  
 - Fold lines and crease marks
 - Dust, dirt, and surface debris
 - Severe fading and color loss in damaged areas
+- Uneven lighting or flash hotspots from phone photography
 
-ABSOLUTE PRESERVATION RULES - DO NOT CHANGE:
+EDGE AND GRADIENT AREAS:
+- Pay special attention to corners and borders where fading/damage often lingers
+- Fully repair edge gradients and vignetting
+- Ensure uniform tone across the entire image including all edges
+
+ABSOLUTE PRESERVATION RULES - AFTER CROPPING:
 - Every facial expression, smile, eye shape, gaze direction
 - All skin texture, wrinkles, age marks, freckles, moles
 - Clothing patterns, colors, and styles
 - Hair appearance and styling
-- Body poses and positions
-- Background composition
 - The overall aged/vintage feeling
-
-EDGE AND GRADIENT AREAS:
-- Pay special attention to sky, corners, and borders where fading/damage often lingers
-- Fully repair edge gradients and vignetting caused by age or handling
-- Ensure uniform tone across the entire image including all edges
 
 STRICTLY FORBIDDEN:
 - DO NOT reconstruct or guess missing content
-- DO NOT sharpen or enhance clarity beyond damage repair
+- DO NOT sharpen beyond damage repair
 - DO NOT change any facial features
 - DO NOT beautify or smooth skin
 - DO NOT alter colors beyond restoring faded areas
 
-OUTPUT: A clean version of the same photo with only physical damage removed, including edges and border areas. Everything else stays exactly as it was.`,
+OUTPUT: A perspective-corrected, cropped, clean version of the photograph with physical damage removed. The output should look like a flat, undamaged scan of the original photo.`,
 
   2: `You are restoring a damaged old photograph. This is Step 2: Clarify existing details only - NO reconstruction.
 
