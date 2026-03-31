@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Upload, Loader2, Download, ChevronLeft, CheckCircle, XCircle, Clock } from 'lucide-react';
+import { Upload, Loader2, Download, ChevronLeft, CheckCircle, XCircle, Clock, ImageIcon } from 'lucide-react';
 import Link from 'next/link';
 
 type StepStatus = 'pending' | 'running' | 'completed' | 'failed';
