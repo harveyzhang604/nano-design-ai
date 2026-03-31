@@ -86,14 +86,18 @@ IMPORTANT: NO white borders, NO padding, NO frames around the output. Fill the e
 This image has gone through two restoration passes. The physical damage is repaired and fine details are recovered.
 Your job now is final quality unification - making the whole image feel coherent and complete.
 
-FINAL POLISH TASKS:
+FINAL POLISH TASKS - SHARPNESS IS THE PRIORITY:
+- SIGNIFICANTLY sharpen and clarify the entire image - this is the most important task
+- Enhance micro-detail: hair strands, fabric weave, facial features, background textures
+- Increase overall acuity and definition - the output should look noticeably sharper than the input
+- Apply detail enhancement to recover fine textures lost to aging or scanning
+- Boost mid-tone contrast to improve perceived sharpness and depth
 - Unify overall tonal balance and contrast across the entire image
-- Smooth any remaining tonal inconsistencies between repaired and original areas
-- Gently correct color cast (yellowing, greenish tint, fading) to neutral
-- Apply SELECTIVE sharpening: highest detail on main subjects, slightly softer on distant background to preserve natural depth of field
-- Final noise reduction where needed without losing texture
-- Calibrate color saturation carefully: avoid over-saturation especially on warm tones (yellows, oranges, reds)
-- Make the image feel like a naturally well-preserved old photograph
+- Correct color cast (yellowing, greenish tint, fading) to neutral
+- Apply SELECTIVE sharpening: maximum detail on main subjects, slightly softer on distant background
+- Noise reduction only where it does not reduce sharpness
+- Calibrate color saturation: avoid over-saturation on warm tones
+- GOAL: The final image should look crisp, clear, and high-resolution - like a professionally scanned and restored photograph
 
 CRITICAL PRESERVATION - SAME AS BEFORE:
 - Facial expression and features remain exactly as they are
@@ -117,7 +121,7 @@ const STEP_MODELS: Record<number, string> = {
 const STEP_PARAMS: Record<number, { temperature: number; topK: number; topP: number }> = {
   1: { temperature: 0.2, topK: 32, topP: 0.85 },
   2: { temperature: 0.25, topK: 32, topP: 0.88 },
-  3: { temperature: 0.3, topK: 40, topP: 0.9 },
+  3: { temperature: 0.2, topK: 48, topP: 0.92 },
 };
 
 async function resolveImageBase64(imageUrl: string): Promise<string> {
