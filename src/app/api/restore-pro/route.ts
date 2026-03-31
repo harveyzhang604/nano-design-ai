@@ -104,6 +104,8 @@ FINAL POLISH TASKS - SHARPNESS IS THE PRIORITY:
 - Noise reduction only where it does not reduce sharpness
 - Calibrate color saturation: avoid over-saturation on warm tones
 - GOAL: The final image should look crisp, clear, and high-resolution - like a professionally scanned and restored photograph
+- TARGET SHARPNESS LEVEL: The result should be dramatically sharper than the input. Every detail that can be sharpened should be sharpened. Hair, skin texture, fabric, background - all should have maximum possible clarity without introducing artifacts.
+- If the input looks soft or slightly blurry, aggressively sharpen it. Do not be conservative with sharpening in this step.
 
 CRITICAL PRESERVATION - SAME AS BEFORE:
 - Facial expression and features remain exactly as they are
@@ -127,7 +129,7 @@ const STEP_MODELS: Record<number, string> = {
 const STEP_PARAMS: Record<number, { temperature: number; topK: number; topP: number }> = {
   1: { temperature: 0.2, topK: 32, topP: 0.85 },
   2: { temperature: 0.25, topK: 32, topP: 0.88 },
-  3: { temperature: 0.2, topK: 48, topP: 0.92 },
+  3: { temperature: 0.1, topK: 64, topP: 0.95 },
 };
 
 async function resolveImageBase64(imageUrl: string): Promise<string> {
