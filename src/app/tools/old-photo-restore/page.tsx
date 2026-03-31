@@ -213,12 +213,12 @@ export default function OldPhotoRestorePage() {
                           </button>
                         </>
                       ) : s3.status === 'running' ? (
-                        <div className="aspect-square flex flex-col items-center justify-center gap-3">
+                        <div className="aspect-[3/4] flex flex-col items-center justify-center gap-3">
                           <Loader2 className="w-10 h-10 animate-spin text-green-500" />
                           <p className="text-sm text-gray-500">AI 处理中...</p>
                         </div>
                       ) : (
-                        <div className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center gap-3">
+                        <div className="aspect-[3/4] bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center gap-3">
                           <ImageIcon className="w-12 h-12 text-gray-300 dark:text-gray-600" />
                           <p className="text-sm text-gray-400">等待前两步完成</p>
                         </div>
@@ -250,12 +250,12 @@ export default function OldPhotoRestorePage() {
                     </div>
                     <div className="p-4">
                       {s.status === 'pending' && (
-                        <div className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
+                        <div className="aspect-[3/4] bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center">
                           <p className="text-gray-400 text-sm">等待中...</p>
                         </div>
                       )}
                       {s.status === 'running' && (
-                        <div className="aspect-square bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center gap-3">
+                        <div className="aspect-[3/4] bg-gray-100 dark:bg-gray-700 rounded-lg flex flex-col items-center justify-center gap-3">
                           <Loader2 className={`w-10 h-10 ${iconCls} animate-spin`} />
                           <p className="text-sm text-gray-500">AI 修复中...</p>
                         </div>
@@ -277,7 +277,7 @@ export default function OldPhotoRestorePage() {
                         </>
                       )}
                       {s.status === 'failed' && (
-                        <div className="aspect-square bg-red-50 dark:bg-red-900/20 rounded-lg flex flex-col items-center justify-center gap-2 p-4">
+                        <div className="aspect-[3/4] bg-red-50 dark:bg-red-900/20 rounded-lg flex flex-col items-center justify-center gap-2 p-4">
                           <XCircle className="w-10 h-10 text-red-400" />
                           <p className="text-sm text-red-600 dark:text-red-400 text-center">{s.error || '修复失败'}</p>
                         </div>
