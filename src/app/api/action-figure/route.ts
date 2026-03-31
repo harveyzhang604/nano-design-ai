@@ -136,7 +136,7 @@ PACKAGING (MANDATORY for Funko Pop style):
 - Pastel/kawaii color scheme on box art matching character theme
 - Series logo and barcode on box bottom
 - \"Ages 3+\" warning and choking hazard icon
-QUALITY: Product photography on white sweep, soft box lighting, 45° angle showing box and figure window\`
+QUALITY: Product photography on white sweep, soft box lighting, 45° angle showing box and figure window`,
     };
 
     // 姿势描述
