@@ -30,11 +30,16 @@ STEP 1B - COLOR CORRECTION:
 STEP 1C - REMOVE PHYSICAL DAMAGE (be thorough and aggressive):
 - Scratches, tears, and cracks
 - Water stains, brown spots, mold marks
-- Fold lines and crease marks - PAY SPECIAL ATTENTION: completely eliminate ALL fold lines and creases, especially along edges and sides
-- Vertical or horizontal crease lines anywhere in the image must be 100% removed
+- Fold lines and crease marks that exist in the original
 - Dust, dirt, and surface debris
 - Use inpainting/content-aware fill for ALL damage areas
-- After repair, there should be ZERO visible fold lines, crease marks, or physical damage remaining
+- After repair, there should be ZERO visible physical damage remaining
+
+CRITICAL - DO NOT INTRODUCE NEW DEFECTS:
+- DO NOT add any fold lines, crease lines, or edge artifacts that were NOT in the original
+- DO NOT introduce vertical or horizontal line artifacts along any edge
+- DO NOT create new banding, streaking, or linear artifacts anywhere
+- The output must be completely clean - no new defects introduced by the AI
 
 STEP 1D - INITIAL CLARITY:
 - Apply moderate denoising to reduce noise while preserving film grain
@@ -80,10 +85,12 @@ ALL ZONES ARE LOCKED - NOTHING NEW MAY BE ADDED:
 - Accessories: only sharpen what is already there
 - Missing objects/parts: leave missing - do NOT fill in holes, gaps, or absent elements
 
-DAMAGE CLEANUP - CARRY OVER FROM STEP 1:
-- If ANY fold lines, crease marks, or scratches are still visible anywhere, remove them completely
-- Pay special attention to left/right edges and corners for residual crease lines
-- Output must have ZERO visible fold lines, creases, or physical damage
+CRITICAL - DO NOT INTRODUCE NEW DEFECTS:
+- DO NOT add any fold lines, crease lines, or edge artifacts that were NOT in the input
+- DO NOT introduce vertical or horizontal line artifacts along any edge (especially left/right sides)
+- DO NOT create new banding, streaking, or linear artifacts anywhere
+- If the input image has no fold lines → the output must also have no fold lines
+- The output must be completely clean with no new defects introduced by the AI
 
 STRICTLY FORBIDDEN:
 - DO NOT add any element not already present in the input image
