@@ -47,7 +47,8 @@ STRICTLY FORBIDDEN:
 - DO NOT beautify or smooth skin
 - DO NOT alter colors beyond restoring faded areas
 
-OUTPUT: A perspective-corrected, cropped, clean version of the photograph with physical damage removed. The output should look like a flat, undamaged scan of the original photo.`,
+OUTPUT: A perspective-corrected, cropped, clean version of the photograph with physical damage removed. The output should look like a flat, undamaged scan of the original photo.
+IMPORTANT: NO white borders, NO padding, NO frames, NO margins around the output image. The photograph content should fill the entire output canvas edge-to-edge.`,
 
   2: `You are restoring a damaged old photograph. This is Step 2: Clarify existing details only - NO reconstruction.
 
@@ -77,7 +78,8 @@ STRICTLY FORBIDDEN:
 - DO NOT apply beautification or smoothing
 - DO NOT change colors, tones, or proportions
 
-OUTPUT: The same image with slightly improved clarity on already-visible details. If unsure whether something exists or is invented, output the input unchanged.`,
+OUTPUT: The same image with slightly improved clarity on already-visible details. If unsure whether something exists or is invented, output the input unchanged.
+IMPORTANT: NO white borders, NO padding, NO frames around the output. Fill the entire canvas with image content.`,
 
   3: `You are finalizing the restoration of an old photograph. This is Step 3: Final polish and tonal unification.
 
@@ -102,7 +104,8 @@ CRITICAL PRESERVATION - SAME AS BEFORE:
 
 AIM FOR: A photograph that looks like it was taken with quality equipment and stored carefully - naturally aged but undamaged, clear but not artificially crisp.
 
-OUTPUT: The final restored photograph with unified tone, color, and quality.`,
+OUTPUT: The final restored photograph with unified tone, color, and quality.
+IMPORTANT: NO white borders, NO padding, NO frames around the output. Fill the entire canvas with image content.`,
 };
 
 const STEP_MODELS: Record<number, string> = {
