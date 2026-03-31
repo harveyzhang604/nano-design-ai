@@ -78,7 +78,13 @@ STRICTLY FORBIDDEN:
 - DO NOT apply beautification or smoothing
 - DO NOT change colors, tones, or proportions
 
-OUTPUT: The same image with slightly improved clarity on already-visible details. If unsure whether something exists or is invented, output the input unchanged.
+MILD SHARPNESS IMPROVEMENT:
+- Apply a gentle sharpness pass to improve overall clarity of the image
+- Slightly increase edge definition and detail crispness
+- This should be subtle - about 20-30% of what Step 3 will do
+- Do NOT over-sharpen or create halo artifacts
+
+OUTPUT: The same image with slightly improved clarity on already-visible details, plus a mild sharpness improvement. If unsure whether something exists or is invented, output the input unchanged.
 IMPORTANT: NO white borders, NO padding, NO frames around the output. Fill the entire canvas with image content.`,
 
   3: `You are finalizing the restoration of an old photograph. This is Step 3: Final polish and tonal unification.
