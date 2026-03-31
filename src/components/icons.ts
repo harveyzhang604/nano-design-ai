@@ -67,5 +67,8 @@ export {
   History,
   AlertCircle,
   Send,
-  Trash2
+  Trash2,
+  X,
+  RotateCcw,
+  CheckCircle
 } from 'lucide-react';
