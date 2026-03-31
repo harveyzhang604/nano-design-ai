@@ -288,8 +288,8 @@ export const promptTemplates = {
     {
       id: 'illust-3',
       name: '角色设计',
-      prompt: 'Character design of [角色描述]. [风格] style, expressive features, dynamic pose. Full body illustration, character sheet format.',
-      tags: ['Character', 'Concept Art', 'Design']
+      prompt: 'Character design of [角色描述]. [风格] style, expressive features, dynamic pose. 保持角色面部/服装/发型特征全局一致, 可在多场景下复用, Full body illustration, character sheet format, turnaround view, 8K resolution.',
+      tags: ['Character', 'Concept Art', 'Design', 'Consistent']
     },
     {
       id: 'illust-4',
@@ -330,8 +330,14 @@ export const promptTemplates = {
     {
       id: 'photo-1',
       name: '人像摄影',
-      prompt: 'Portrait photography of [人物描述]. [光线描述] lighting, [背景描述]. Shot with 85mm lens, f/1.8, shallow depth of field.',
-      tags: ['Portrait', 'People', 'Studio']
+      prompt: 'Portrait photography of [人物描述]. [光线描述] lighting, [背景描述]. Shot with 85mm lens, f/1.8, shallow depth of field, 自然皮肤纹理无过度磨皮, 轻微胶片颗粒可选, 真实表情捕捉, 原生相机质感, 8K resolution, no artifacts.',
+      tags: ['Portrait', 'People', 'Studio', 'Realistic']
+    },
+    {
+      id: 'photo-5',
+      name: 'AI职业头像',
+      prompt: 'Professional corporate headshot of [人物描述], business [服装：西装/衬衫/商务休闲], solid [背景颜色] background, soft studio lighting, professional posture, natural skin texture, no over-editing, LinkedIn/company website ready, 8K resolution, ultra-detailed. Support multiple style variations with --seed parameter.',
+      tags: ['Headshot', 'Professional', 'Business', 'Corporate']
     },
     {
       id: 'photo-2',
