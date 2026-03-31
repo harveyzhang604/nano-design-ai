@@ -25,6 +25,11 @@ ABSOLUTE PRESERVATION RULES - DO NOT CHANGE:
 - Background composition
 - The overall aged/vintage feeling
 
+EDGE AND GRADIENT AREAS:
+- Pay special attention to sky, corners, and borders where fading/damage often lingers
+- Fully repair edge gradients and vignetting caused by age or handling
+- Ensure uniform tone across the entire image including all edges
+
 STRICTLY FORBIDDEN:
 - DO NOT reconstruct or guess missing content
 - DO NOT sharpen or enhance clarity beyond damage repair
@@ -32,35 +37,37 @@ STRICTLY FORBIDDEN:
 - DO NOT beautify or smooth skin
 - DO NOT alter colors beyond restoring faded areas
 
-OUTPUT: A clean version of the same photo with only physical damage removed. Everything else stays exactly as it was.`,
+OUTPUT: A clean version of the same photo with only physical damage removed, including edges and border areas. Everything else stays exactly as it was.`,
 
-  2: `You are restoring a damaged old photograph. This is Step 2: Restore fine details in non-face areas.
+  2: `You are restoring a damaged old photograph. This is Step 2: Clarify existing details only - NO reconstruction.
 
 This image has already had its physical damage (scratches, stains, tears) cleaned in Step 1.
-Now your job is to carefully restore fine details in hair, clothing, hands, and background.
+Your ONLY job is to clarify and sharpen details that ALREADY EXIST but are hard to see due to blur or fading.
 
-FACE IS LOCKED - CRITICAL RULE:
-- Treat all facial features as a LOCKED ZONE
-- You may gently clarify already-visible facial details (reduce blur if blurry)
-- You must NOT reposition, resize, or reshape: eyes, nose, mouth, jawline, skull shape
-- You must NOT invent or "improve" any facial features
-- If a facial area is too blurry to confidently restore, leave it blurry - do NOT guess
-- The person's expression and emotional state must remain IDENTICAL
+THE GOLDEN RULE: If you cannot see it clearly, do NOT add it. Preserve ambiguity.
+- If a part is missing → leave it missing
+- If a part is blurry → you may gently clarify IF the shape is already visible
+- If a part is completely absent → DO NOT reconstruct or fill it in
+- When in doubt → do nothing, leave as-is
 
-RESTORE THESE AREAS:
-- Hair: restore individual strand texture and volume where visible
-- Clothing: recover fabric weave, buttons, collars, seam lines, patterns
-- Hands and fingers: restore natural skin texture and nail details
-- Background: recover depth, texture, and subtle tonal variation
-- Accessories: glasses frames, jewelry, belts - restore material texture
+ALL ZONES ARE LOCKED - NOTHING NEW MAY BE ADDED:
+- Face: LOCKED - only clarify already-visible features, do not reshape or reconstruct
+- Eyes/nose/mouth: LOCKED - do not invent detail where none exists
+- Hair: only clarify strands that are already partially visible
+- Clothing: only sharpen fabric texture that is already present
+- Background: only clarify existing depth and tone
+- Accessories: only sharpen what is already there
+- Missing objects/parts: leave missing - do NOT fill in holes, gaps, or absent elements
 
-DO NOT:
-- Add any detail that wasn't present in the input image
-- Change skin tone or color temperature
-- Alter the composition or cropping
-- Apply any beautification or smoothing
+STRICTLY FORBIDDEN:
+- DO NOT add any element not already present in the input image
+- DO NOT fill empty spaces with plausible content
+- DO NOT reconstruct missing body parts, clothing pieces, or objects
+- DO NOT "complete" any partial or missing element
+- DO NOT apply beautification or smoothing
+- DO NOT change colors, tones, or proportions
 
-OUTPUT: A version with richer texture and detail in hair/clothing/background, with face completely unchanged.`,
+OUTPUT: The same image with slightly improved clarity on already-visible details. If unsure whether something exists or is invented, output the input unchanged.`,
 
   3: `You are finalizing the restoration of an old photograph. This is Step 3: Final polish and tonal unification.
 
@@ -71,8 +78,9 @@ FINAL POLISH TASKS:
 - Unify overall tonal balance and contrast across the entire image
 - Smooth any remaining tonal inconsistencies between repaired and original areas
 - Gently correct color cast (yellowing, greenish tint, fading) to neutral
-- Ensure sharpness is consistent across the image
+- Apply SELECTIVE sharpening: highest detail on main subjects, slightly softer on distant background to preserve natural depth of field
 - Final noise reduction where needed without losing texture
+- Calibrate color saturation carefully: avoid over-saturation especially on warm tones (yellows, oranges, reds)
 - Make the image feel like a naturally well-preserved old photograph
 
 CRITICAL PRESERVATION - SAME AS BEFORE:
