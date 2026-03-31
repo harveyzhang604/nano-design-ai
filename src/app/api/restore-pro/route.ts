@@ -27,12 +27,14 @@ STEP 1B - COLOR CORRECTION:
 - Restore faded colors to their natural state
 - Do not over-saturate - keep colors natural and period-accurate
 
-STEP 1C - REMOVE PHYSICAL DAMAGE:
+STEP 1C - REMOVE PHYSICAL DAMAGE (be thorough and aggressive):
 - Scratches, tears, and cracks
 - Water stains, brown spots, mold marks
-- Fold lines and crease marks
+- Fold lines and crease marks - PAY SPECIAL ATTENTION: completely eliminate ALL fold lines and creases, especially along edges and sides
+- Vertical or horizontal crease lines anywhere in the image must be 100% removed
 - Dust, dirt, and surface debris
-- Use inpainting/content-aware fill for damage areas
+- Use inpainting/content-aware fill for ALL damage areas
+- After repair, there should be ZERO visible fold lines, crease marks, or physical damage remaining
 
 STEP 1D - INITIAL CLARITY:
 - Apply moderate denoising to reduce noise while preserving film grain
@@ -77,6 +79,11 @@ ALL ZONES ARE LOCKED - NOTHING NEW MAY BE ADDED:
 - Background: only clarify existing depth and tone
 - Accessories: only sharpen what is already there
 - Missing objects/parts: leave missing - do NOT fill in holes, gaps, or absent elements
+
+DAMAGE CLEANUP - CARRY OVER FROM STEP 1:
+- If ANY fold lines, crease marks, or scratches are still visible anywhere, remove them completely
+- Pay special attention to left/right edges and corners for residual crease lines
+- Output must have ZERO visible fold lines, creases, or physical damage
 
 STRICTLY FORBIDDEN:
 - DO NOT add any element not already present in the input image
