@@ -47,15 +47,25 @@ export default function OldPhotoRestorePage() {
 
   const runStep = async (stepNum: number, imageUrl: string): Promise<string> => {
     updateStep(stepNum, { status: 'running' });
-    const res = await fetch('/api/restore-pro', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ imageUrl, step: stepNum }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || `步骤${stepNum}失败`);
-    updateStep(stepNum, { status: 'completed', imageUrl: data.imageUrl });
-    return data.imageUrl;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 180000); // 3分钟超时
+    try {
+      const res = await fetch('/api/restore-pro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ imageUrl, step: stepNum }),
+        signal: controller.signal,
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || `步骤${stepNum}失败`);
+      updateStep(stepNum, { status: 'completed', imageUrl: data.imageUrl });
+      return data.imageUrl;
+    } catch (err: any) {
+      if (err.name === 'AbortError') throw new Error(`步骤${stepNum}超时，请重试（图片较大时处理较慢）`);
+      throw err;
+    } finally {
+      clearTimeout(timer);
+    }
   };
 
   const startProcess = async () => {

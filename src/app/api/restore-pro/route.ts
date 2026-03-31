@@ -3,6 +3,7 @@ import { generateGeminiImage } from '@/lib/gemini-image';
 import { uploadBase64ImageToR2 } from '@/lib/r2-upload';
 
 export const runtime = 'edge';
+export const maxDuration = 300; // 5分钟，Cloudflare Workers Pro 支持
 
 const STEP_PROMPTS: Record<number, string> = {
   1: `You are restoring a damaged old photograph that was photographed with a phone camera. This is Step 1: Deskew, crop, and remove physical damage.
