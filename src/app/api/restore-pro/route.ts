@@ -21,34 +21,41 @@ STEP 1A - DETECT AND CROP (do this first):
 - Crop tightly to the photograph content, removing all surrounding background (table, fingers, surface)
 - If the photo appears to already be a flat scan (no perspective distortion), skip deskewing
 
-STEP 1B - REMOVE PHYSICAL DAMAGE:
+STEP 1B - COLOR CORRECTION:
+- Remove yellow/sepia/green aging cast, restore natural color balance
+- Fix uneven lighting or flash hotspots from phone photography
+- Restore faded colors to their natural state
+- Do not over-saturate - keep colors natural and period-accurate
+
+STEP 1C - REMOVE PHYSICAL DAMAGE:
 - Scratches, tears, and cracks
-- Water stains, brown spots, mold marks  
+- Water stains, brown spots, mold marks
 - Fold lines and crease marks
 - Dust, dirt, and surface debris
-- Severe fading and color loss in damaged areas
-- Uneven lighting or flash hotspots from phone photography
+- Use inpainting/content-aware fill for damage areas
+
+STEP 1D - INITIAL CLARITY:
+- Apply moderate denoising to reduce noise while preserving film grain
+- Apply gentle initial sharpening to improve edge definition
+- Preserve natural vintage film grain character
 
 EDGE AND GRADIENT AREAS:
-- Pay special attention to corners and borders where fading/damage often lingers
+- Pay special attention to corners and borders where fading/damage lingers
 - Fully repair edge gradients and vignetting
 - Ensure uniform tone across the entire image including all edges
 
 ABSOLUTE PRESERVATION RULES - AFTER CROPPING:
 - Every facial expression, smile, eye shape, gaze direction
-- All skin texture, wrinkles, age marks, freckles, moles
+- All skin texture, wrinkles, age marks, freckles, moles - do NOT smooth skin
 - Clothing patterns, colors, and styles
 - Hair appearance and styling
-- The overall aged/vintage feeling
 
 STRICTLY FORBIDDEN:
 - DO NOT reconstruct or guess missing content
-- DO NOT sharpen beyond damage repair
 - DO NOT change any facial features
 - DO NOT beautify or smooth skin
-- DO NOT alter colors beyond restoring faded areas
 
-OUTPUT: A perspective-corrected, cropped, clean version of the photograph with physical damage removed. The output should look like a flat, undamaged scan of the original photo.
+OUTPUT: A perspective-corrected, cropped, color-corrected, damage-repaired version of the photograph with initial clarity improvement.
 IMPORTANT: NO white borders, NO padding, NO frames, NO margins around the output image. The photograph content should fill the entire output canvas edge-to-edge.`,
 
   2: `You are restoring a damaged old photograph. This is Step 2: Clarify existing details only - NO reconstruction.
@@ -93,20 +100,34 @@ IMPORTANT: NO white borders, NO padding, NO frames around the output. Fill the e
 This image has gone through two restoration passes. The physical damage is repaired and fine details are recovered.
 Your job now is final quality unification - making the whole image feel coherent and complete.
 
-FINAL POLISH TASKS - SHARPNESS IS THE PRIORITY:
-- SIGNIFICANTLY sharpen and clarify the entire image - this is the most important task
-- Enhance micro-detail: hair strands, fabric weave, facial features, background textures
-- Increase overall acuity and definition - the output should look noticeably sharper than the input
-- Apply detail enhancement to recover fine textures lost to aging or scanning
-- Boost mid-tone contrast to improve perceived sharpness and depth
-- Unify overall tonal balance and contrast across the entire image
-- Correct color cast (yellowing, greenish tint, fading) to neutral
-- Apply SELECTIVE sharpening: maximum detail on main subjects, slightly softer on distant background
-- Noise reduction only where it does not reduce sharpness
-- Calibrate color saturation: avoid over-saturation on warm tones
-- GOAL: The final image should look crisp, clear, and high-resolution - like a professionally scanned and restored photograph
-- TARGET SHARPNESS LEVEL: The result should be dramatically sharper than the input. Every detail that can be sharpened should be sharpened. Hair, skin texture, fabric, background - all should have maximum possible clarity without introducing artifacts.
-- If the input looks soft or slightly blurry, aggressively sharpen it. Do not be conservative with sharpening in this step.
+FINAL RESTORATION TASKS - MAXIMUM CLARITY WITH NATURAL LOOK:
+
+1. DEEP DETAIL RECOVERY (most important):
+- Recover fine micro-textures: individual hair strands, fabric weave, skin pores, button details
+- Sharpen facial features to maximum clarity while keeping them natural-looking
+- Recover fine text, insignia, badges, and small details
+- Enhance eyes: restore catchlights, iris detail, eyelashes with precision
+- Restore clothing texture: stitching, collar shape, medal/button details
+
+2. SELECTIVE SHARPENING (apply differently per zone):
+- Main subject (person/face): MAXIMUM sharpness - crisp, clear, photorealistic
+- Mid-ground objects: HIGH sharpness
+- Distant background (trees, buildings, sky): MODERATE sharpness - keep slight natural softness to preserve depth of field
+- This selective approach makes the subject pop and the image feel three-dimensional
+
+3. SKIN TEXTURE PRESERVATION (critical):
+- Sharpen skin details WITHOUT creating a 'waxy' or 'plastic' look
+- Preserve natural skin imperfections, pores, and texture
+- Do NOT over-smooth or beautify - the person should look like themselves, not AI-generated
+- Blend restored areas with original skin texture using masked restoration technique
+
+4. TONAL REFINEMENT:
+- Boost mid-tone contrast to improve perceived depth and sharpness
+- Fine-tune color saturation: avoid over-saturation especially on warm tones (yellows, khakis)
+- Ensure tonal consistency across the entire image
+- Final noise reduction only where it does not reduce sharpness
+
+- GOAL: The result should look like a professionally scanned, high-resolution archival photograph - dramatically sharper and clearer than the input, with natural skin texture, selective depth of field, and maximum fine detail.
 
 CRITICAL PRESERVATION - SAME AS BEFORE:
 - Facial expression and features remain exactly as they are
