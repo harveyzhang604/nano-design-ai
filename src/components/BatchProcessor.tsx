@@ -165,16 +165,16 @@ export function BatchProcessor({
           className="hidden"
         />
         
-        <Upload className="w-12 h-12 mx-auto mb-4 text-neutral-500" />
+        <Upload className="w-12 h-12 mx-auto mb-4 text-neutral-400" />
         
         <div className="space-y-2">
           <p className="text-lg font-medium text-neutral-300">
             点击上传或拖拽文件到这里
           </p>
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-400">
             支持 JPG、PNG、WebP 格式，最多 {maxFiles} 张图片
           </p>
-          <p className="text-xs text-neutral-600">
+          <p className="text-xs text-neutral-500">
             已添加 {files.length}/{maxFiles} 张
           </p>
         </div>

@@ -62,7 +62,7 @@ export default function HistoryModal({ isOpen, onClose, onSelectPrompt }: Histor
         <div className="flex items-center justify-between p-6 border-b border-neutral-800">
           <div>
             <h2 className="text-2xl font-bold text-neutral-100">生成历史</h2>
-            <p className="text-sm text-neutral-400 mt-1">共 {history.length} 条记录</p>
+            <p className="text-sm text-neutral-300 mt-1">共 {history.length} 条记录</p>
           </div>
           <div className="flex gap-2">
             {history.length > 0 && (
@@ -89,10 +89,10 @@ export default function HistoryModal({ isOpen, onClose, onSelectPrompt }: Histor
           {history.length === 0 ? (
             <div className="text-center py-20">
               <div className="w-20 h-20 bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <RotateCcw className="w-10 h-10 text-neutral-600" />
+                <RotateCcw className="w-10 h-10 text-neutral-500" />
               </div>
-              <p className="text-neutral-400 text-lg">暂无生成历史</p>
-              <p className="text-neutral-600 text-sm mt-2">开始创作后，历史记录会显示在这里</p>
+              <p className="text-neutral-300 text-lg">暂无生成历史</p>
+              <p className="text-neutral-500 text-sm mt-2">开始创作后，历史记录会显示在这里</p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -127,7 +127,7 @@ export default function HistoryModal({ isOpen, onClose, onSelectPrompt }: Histor
                         {item.category}
                       </span>
                     </div>
-                    <p className="text-xs text-neutral-500 mb-3">{item.createdAt}</p>
+                    <p className="text-xs text-neutral-400 mb-3">{item.createdAt}</p>
 
                     {/* Actions */}
                     <div className="flex gap-2">

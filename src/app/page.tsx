@@ -281,7 +281,7 @@ function DesignPageContent() {
             {showTemplates && (
               <div className="space-y-2 max-h-64 overflow-y-auto custom-scrollbar">
                 {loadingTemplates ? (
-                  <div className="text-center py-8 text-neutral-400">
+                  <div className="text-center py-8 text-neutral-300">
                     <Loader2 className="w-5 h-5 animate-spin mx-auto mb-2" />
                     <p className="text-xs">加载模板中...</p>
                   </div>
@@ -308,7 +308,7 @@ function DesignPageContent() {
                     </button>
                   ))
                 ) : (
-                  <div className="text-center py-8 text-neutral-400 text-xs">
+                  <div className="text-center py-8 text-neutral-300 text-xs">
                     暂无模板
                   </div>
                 )}
@@ -342,7 +342,7 @@ function DesignPageContent() {
             <button
               onClick={handleGenerate}
               disabled={isGenerating || !prompt}
-              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-400 text-neutral-950 font-black text-base uppercase tracking-widest py-6 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_40px_rgba(245,158,11,0.5)] disabled:shadow-none relative overflow-hidden group"
+              className="w-full mt-6 bg-gradient-to-br from-amber-400 to-amber-600 hover:from-amber-300 hover:to-amber-500 disabled:from-neutral-800 disabled:to-neutral-900 disabled:text-neutral-300 text-neutral-950 font-black text-base uppercase tracking-widest py-6 rounded-xl flex items-center justify-center gap-3 transition-all active:scale-[0.98] shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_40px_rgba(245,158,11,0.5)] disabled:shadow-none relative overflow-hidden group"
               aria-label={isGenerating ? "正在生成中" : "立即免费生成"}
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
@@ -359,7 +359,7 @@ function DesignPageContent() {
                 </>
               )}
             </button>
-            <p className="text-center text-xs text-neutral-400 mt-3">
+            <p className="text-center text-xs text-neutral-300 mt-3">
               ⚡ 平均生成时间 &lt;30秒 · 无需注册 · 完全免费
             </p>
           </section>
@@ -430,7 +430,7 @@ function DesignPageContent() {
       <section className="max-w-7xl mx-auto mt-20 mb-12 animate-in fade-in slide-in-from-bottom duration-700">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold text-neutral-200 mb-2">用户评价</h2>
-          <p className="text-neutral-400 text-sm">来自真实用户的反馈</p>
+          <p className="text-neutral-300 text-sm">来自真实用户的反馈</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 hover:border-amber-500/30 transition-all">
@@ -448,7 +448,7 @@ function DesignPageContent() {
               </div>
               <div>
                 <div className="text-neutral-200 text-sm font-medium">李明</div>
-                <div className="text-neutral-500 text-xs">UI 设计师</div>
+                <div className="text-neutral-400 text-xs">UI 设计师</div>
               </div>
             </div>
           </div>
@@ -468,7 +468,7 @@ function DesignPageContent() {
               </div>
               <div>
                 <div className="text-neutral-200 text-sm font-medium">王芳</div>
-                <div className="text-neutral-500 text-xs">市场运营</div>
+                <div className="text-neutral-400 text-xs">市场运营</div>
               </div>
             </div>
           </div>
@@ -488,7 +488,7 @@ function DesignPageContent() {
               </div>
               <div>
                 <div className="text-neutral-200 text-sm font-medium">张伟</div>
-                <div className="text-neutral-500 text-xs">创业者</div>
+                <div className="text-neutral-400 text-xs">创业者</div>
               </div>
             </div>
           </div>

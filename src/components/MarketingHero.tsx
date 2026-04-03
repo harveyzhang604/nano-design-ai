@@ -18,24 +18,24 @@ export function PriceComparison() {
       {/* 价格对比表 */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-5xl mx-auto">
         <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center hover:border-neutral-700 transition-colors">
-          <div className="text-sm text-neutral-400 mb-2">PhotoRoom</div>
+          <div className="text-sm text-neutral-300 mb-2">PhotoRoom</div>
           <div className="text-3xl font-bold text-red-400">$9.99</div>
-          <div className="text-xs text-neutral-500 mt-1">/月</div>
-          <div className="text-xs text-neutral-600 mt-2">订阅制</div>
+          <div className="text-xs text-neutral-400 mt-1">/月</div>
+          <div className="text-xs text-neutral-500 mt-2">订阅制</div>
         </div>
         
         <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center hover:border-neutral-700 transition-colors">
-          <div className="text-sm text-neutral-400 mb-2">Remove.bg</div>
+          <div className="text-sm text-neutral-300 mb-2">Remove.bg</div>
           <div className="text-3xl font-bold text-red-400">$0.20</div>
-          <div className="text-xs text-neutral-500 mt-1">/张</div>
-          <div className="text-xs text-neutral-600 mt-2">按次付费</div>
+          <div className="text-xs text-neutral-400 mt-1">/张</div>
+          <div className="text-xs text-neutral-500 mt-2">按次付费</div>
         </div>
         
         <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center hover:border-neutral-700 transition-colors">
-          <div className="text-sm text-neutral-400 mb-2">Adobe</div>
+          <div className="text-sm text-neutral-300 mb-2">Adobe</div>
           <div className="text-3xl font-bold text-red-400">$54.99</div>
-          <div className="text-xs text-neutral-500 mt-1">/月</div>
-          <div className="text-xs text-neutral-600 mt-2">强制订阅</div>
+          <div className="text-xs text-neutral-400 mt-1">/月</div>
+          <div className="text-xs text-neutral-500 mt-2">强制订阅</div>
         </div>
         
         <div className="bg-gradient-to-br from-amber-500 to-orange-500 rounded-xl p-6 text-center relative overflow-hidden shadow-[0_0_30px_rgba(245,158,11,0.3)] hover:shadow-[0_0_40px_rgba(245,158,11,0.4)] transition-shadow">
