@@ -722,19 +722,26 @@
 - [x] Local project verified: Complete (814137c)
 - [x] Status: Domain失效已持续 656 小时 (2026-03-09 08:01 → 2026-04-07 00:01)
 
-## Current Status (2026-04-07, Phase 166)
+## Phase 167: Domain Failure Status - 660 Hours Offline - [x] Done (2026-04-07, Phase 167)
+- [x] DNS test: NXDOMAIN confirmed (04:01 AM) — dig returned empty
+- [x] curl test: Could not resolve host (no output)
+- [x] GitHub repo verified: harveyzhang604/nano-design-ai (accessible, updated 2026-04-06)
+- [x] Local project verified: Complete (93b1216)
+- [x] Status: Domain失效已持续 660 小时 (2026-03-09 08:01 → 2026-04-07 04:01)
 
-**Phase 166 Status**: Domain Failure - 656 Hours Offline (27.3 Days)
+## Current Status (2026-04-07, Phase 167)
 
-**DNS Test Results** (Phase 166 - 2026-04-07 00:01 AM):
+**Phase 167 Status**: Domain Failure - 660 Hours Offline (27.5 Days)
+
+**DNS Test Results** (Phase 167 - 2026-04-07 04:01 AM):
 - Domain: nano-design-ai.pages.dev
 - Status: NXDOMAIN (域名不存在) ❌
 - Tested DNS: 8.8.8.8
-- Duration: 656 hours offline (2026-03-09 08:01 → 2026-04-07 00:01)
+- Duration: 660 hours offline (2026-03-09 08:01 → 2026-04-07 04:01)
 
 **项目状态**:
 - GitHub Repo: harveyzhang604/nano-design-ai (存在)
-- 最新 Commit: 814137c (Phase 165 - 652小时离线状态检查)
+- 最新 Commit: 93b1216 (Phase 166 - 656小时离线状态检查)
 - 本地代码: 完整
 
 **建议**:
@@ -749,5 +756,5 @@
 
 **已收集足够证据**:
 - Phase 8-16: 10次测试，32小时内性能数据
-- Phase 20-166: 147次DNS检查，持续656小时离线 (27.3天)
+- Phase 20-167: 148次DNS检查，持续660小时离线 (27.5天)
 - 结论: Cloudflare Pages 项目已失效/删除，必须重新部署或迁移
